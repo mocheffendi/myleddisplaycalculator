@@ -35,6 +35,8 @@ class GlobalVariables {
   static String dropdownValueWidth = '160';
   static String dropdownValueHeight = '160';
   static String dropdownValuePitch = '1.8';
+  static String dropdownValueColumn = '1';
+  static String dropdownValueRow = '1';
 
   static int msd300 = 2;
   static int msd600 = 4;
