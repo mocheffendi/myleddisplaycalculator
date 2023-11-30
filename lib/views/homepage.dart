@@ -134,12 +134,18 @@ class _HomeScreenState extends State<HomeScreen> {
               foregroundColor: Colors.white,
               label: 'Cabinet',
               onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return const AddCabinetCalculate();
-                  },
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AddCabinetCalculate(),
+                  ),
                 );
+                // showDialog(
+                //   context: context,
+                //   builder: (BuildContext context) {
+                //     return const AddCabinetCalculate();
+                //   },
+                // );
               },
             ),
             // SpeedDialChild(

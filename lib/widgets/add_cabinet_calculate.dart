@@ -634,525 +634,528 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
         color: Colors.grey.shade100);
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
-    return AlertDialog(
-      scrollable: true,
-      title: Text(
-        'New Task of Calculation',
-        textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 16, color: Colors.amber.shade800),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Cabinet Calculator'),
       ),
-      content: SizedBox(
+      body: SizedBox(
         height: height * 0.58,
         width: width,
-        child: Form(
-          child: Column(
-            children: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Container(
-                      height: 60,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.deepOrange),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          // crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              'Total Resolution : ',
-                              // style: labelTextStyleSmall
-                            ),
-                            Text(
-                              '${GlobalVariables.totalwidthpixels} x ${GlobalVariables.totalheightpixels} px | ${GlobalVariables.totalwidthmeter} x ${GlobalVariables.totalheightmeter} mtr',
-                              // style: bodyTextStyleLarge
-                            ),
-                          ],
-                        ),
+        child: Column(
+          children: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Container(
+                    height: 60,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.deepOrange),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        // crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Total Resolution : ',
+                            // style: labelTextStyleSmall
+                          ),
+                          Text(
+                            '${GlobalVariables.totalwidthpixels} x ${GlobalVariables.totalheightpixels} px | ${GlobalVariables.totalwidthmeter} x ${GlobalVariables.totalheightmeter} mtr',
+                            // style: bodyTextStyleLarge
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Container(
-                      height: 60,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.orange),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          // crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              'Aspect Ratio : ',
-                              // style: labelTextStyleSmall
-                            ),
-                            Text(
-                              '${GlobalVariables.stdratiowidth} : ${GlobalVariables.stdratioheight.toStringAsFixed(2).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")}',
-                              // style: bodyTextStyleLarge
-                            ),
-                          ],
-                        ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Container(
+                    height: 60,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.orange),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        // crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Aspect Ratio : ',
+                            // style: labelTextStyleSmall
+                          ),
+                          Text(
+                            '${GlobalVariables.stdratiowidth} : ${GlobalVariables.stdratioheight.toStringAsFixed(2).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")}',
+                            // style: bodyTextStyleLarge
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              TextFormField(
-                controller: taskNameController,
-                style: const TextStyle(fontSize: 14),
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 20,
-                  ),
-                  hintText: 'Title Task of Calculation',
-                  hintStyle: const TextStyle(fontSize: 14),
-                  icon: const Icon(CupertinoIcons.square_list,
-                      color: Colors.brown),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            TextFormField(
+              controller: taskNameController,
+              style: const TextStyle(fontSize: 14),
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 20,
+                ),
+                hintText: 'Title Task of Calculation',
+                hintStyle: const TextStyle(fontSize: 14),
+                icon:
+                    const Icon(CupertinoIcons.square_list, color: Colors.brown),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
                 ),
               ),
-              const SizedBox(height: 15),
-              TextFormField(
-                controller: taskDescController,
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
-                style: const TextStyle(fontSize: 14),
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 20,
-                  ),
-                  hintText: 'Optional Description',
-                  hintStyle: const TextStyle(fontSize: 14),
-                  icon: const Icon(CupertinoIcons.bubble_left_bubble_right,
-                      color: Colors.brown),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
+            ),
+            const SizedBox(height: 15),
+            TextFormField(
+              controller: taskDescController,
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
+              style: const TextStyle(fontSize: 14),
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 20,
+                ),
+                hintText: 'Optional Description',
+                hintStyle: const TextStyle(fontSize: 14),
+                icon: const Icon(CupertinoIcons.bubble_left_bubble_right,
+                    color: Colors.brown),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15),
                 ),
               ),
-              const SizedBox(height: 15),
-              // Row(
-              //   children: <Widget>[
-              //     const Icon(CupertinoIcons.tag, color: Colors.brown),
-              //     const SizedBox(width: 15.0),
-              //     Expanded(
-              //       child: DropdownButtonFormField2(
-              //         decoration: InputDecoration(
-              //           isDense: true,
-              //           contentPadding: EdgeInsets.zero,
-              //           border: OutlineInputBorder(
-              //             borderRadius: BorderRadius.circular(15),
-              //           ),
-              //         ),
-              //         isExpanded: true,
-              //         hint: const Text(
-              //           'Add a task tag',
-              //           style: TextStyle(fontSize: 14),
-              //         ),
-              //         validator: (value) =>
-              //             value == null ? 'Please select the task tag' : null,
-              //         items: taskTags
-              //             .map(
-              //               (item) => DropdownMenuItem<String>(
-              //                 value: item,
-              //                 child: Text(
-              //                   item,
-              //                   style: const TextStyle(
-              //                     fontSize: 14,
-              //                   ),
-              //                 ),
-              //               ),
-              //             )
-              //             .toList(),
-              //         onChanged: (String? value) => setState(
-              //           () {
-              //             if (value != null) selectedValue = value;
-              //           },
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  DropdownMenu<String>(
-                    controller: controllerwidthmodul,
-                    width: 130,
-                    leadingIcon: const Icon(Icons.view_compact_rounded),
-                    label: const Text('Width in mm'),
-                    initialSelection: listcabinetwidth.first,
-                    onSelected: (String? value) {
-                      // This is called when the user selects an item.
-                      setState(() {
-                        GlobalVariables.dropdownValueWidth = value!;
-                        log('dropdownValueWidth : $GlobalVariables.dropdownValueWidth');
-                      });
-                    },
-                    dropdownMenuEntries: listcabinetwidth
-                        .map<DropdownMenuEntry<String>>((String value) {
-                      return DropdownMenuEntry<String>(
-                          value: value, label: value);
-                    }).toList(),
-                  ),
-                  DropdownMenu<String>(
-                    controller: controllerheightmodul,
-                    width: 130,
-                    leadingIcon: const Icon(Icons.view_compact_rounded),
-                    label: const Text('Height in mm'),
-                    initialSelection: listcabinetheight.first,
-                    onSelected: (String? value) {
-                      // This is called when the user selects an item.
-                      setState(() {
-                        GlobalVariables.dropdownValueHeight = value!;
-                      });
-                    },
-                    dropdownMenuEntries: listcabinetheight
-                        .map<DropdownMenuEntry<String>>((String value) {
-                      return DropdownMenuEntry<String>(
-                          value: value, label: value);
-                    }).toList(),
-                  ),
-                ],
-              ),
-
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: DropdownMenu<String>(
-                  controller: controllerpixels,
-                  // width: 200,
+            ),
+            const SizedBox(height: 15),
+            // Row(
+            //   children: <Widget>[
+            //     const Icon(CupertinoIcons.tag, color: Colors.brown),
+            //     const SizedBox(width: 15.0),
+            //     Expanded(
+            //       child: DropdownButtonFormField2(
+            //         decoration: InputDecoration(
+            //           isDense: true,
+            //           contentPadding: EdgeInsets.zero,
+            //           border: OutlineInputBorder(
+            //             borderRadius: BorderRadius.circular(15),
+            //           ),
+            //         ),
+            //         isExpanded: true,
+            //         hint: const Text(
+            //           'Add a task tag',
+            //           style: TextStyle(fontSize: 14),
+            //         ),
+            //         validator: (value) =>
+            //             value == null ? 'Please select the task tag' : null,
+            //         items: taskTags
+            //             .map(
+            //               (item) => DropdownMenuItem<String>(
+            //                 value: item,
+            //                 child: Text(
+            //                   item,
+            //                   style: const TextStyle(
+            //                     fontSize: 14,
+            //                   ),
+            //                 ),
+            //               ),
+            //             )
+            //             .toList(),
+            //         onChanged: (String? value) => setState(
+            //           () {
+            //             if (value != null) selectedValue = value;
+            //           },
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                DropdownMenu<String>(
+                  controller: controllerwidthmodul,
+                  width: 130,
                   leadingIcon: const Icon(Icons.view_compact_rounded),
-                  label: const Text('Pitch of Modul'),
-                  initialSelection: listpitch.first,
+                  label: const Text('Width in mm'),
+                  initialSelection: listcabinetwidth.first,
                   onSelected: (String? value) {
                     // This is called when the user selects an item.
                     setState(() {
-                      GlobalVariables.dropdownValuePitch = value!;
+                      GlobalVariables.dropdownValueWidth = value!;
+                      log('dropdownValueWidth : $GlobalVariables.dropdownValueWidth');
                     });
                   },
-                  dropdownMenuEntries:
-                      listpitch.map<DropdownMenuEntry<String>>((String value) {
+                  dropdownMenuEntries: listcabinetwidth
+                      .map<DropdownMenuEntry<String>>((String value) {
                     return DropdownMenuEntry<String>(
                         value: value, label: value);
                   }).toList(),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  DropdownMenu<String>(
-                    controller: controllercolumns,
-                    width: 130,
-                    leadingIcon: const Icon(Icons.view_compact_rounded),
-                    label: const Text('Column'),
-                    initialSelection: listcolumn.first,
-                    onSelected: (String? value) {
-                      // This is called when the user selects an item.
-                      setState(() {
-                        GlobalVariables.dropdownValueColumn = value!;
-                        log('dropdownValueWidth : $GlobalVariables.dropdownValueWidth');
-                      });
-                    },
-                    dropdownMenuEntries: listcolumn
-                        .map<DropdownMenuEntry<String>>((String value) {
-                      return DropdownMenuEntry<String>(
-                          value: value, label: value);
-                    }).toList(),
-                  ),
-                  DropdownMenu<String>(
-                    controller: controllerrows,
-                    width: 130,
-                    leadingIcon: const Icon(Icons.view_compact_rounded),
-                    label: const Text('Row'),
-                    initialSelection: listrow.first,
-                    onSelected: (String? value) {
-                      // This is called when the user selects an item.
-                      setState(() {
-                        GlobalVariables.dropdownValueRow = value!;
-                      });
-                    },
-                    dropdownMenuEntries:
-                        listrow.map<DropdownMenuEntry<String>>((String value) {
-                      return DropdownMenuEntry<String>(
-                          value: value, label: value);
-                    }).toList(),
-                  ),
-                ],
-              ),
-              // Padding(
-              //   padding: const EdgeInsets.all(4.0),
-              //   child: TextField(
-              //     keyboardType: TextInputType
-              //         .number, // Set the keyboard type to numeric
-              //     inputFormatters: <TextInputFormatter>[
-              //       FilteringTextInputFormatter.digitsOnly,
-              //     ],
-              //     decoration: InputDecoration(
-              //       labelText: 'Enter Width of Modul in mm',
-              //       labelStyle: labelTextStyleSmall,
-              //       hintText: 'Enter Width of Modul in mm',
-              //       hintStyle: hintTextStyleLarge,
-              //       prefixIcon: const Icon(Icons.width_wide_outlined),
-              //       border: OutlineInputBorder(
-              //         borderRadius: BorderRadius.circular(12.0),
-              //       ),
-              //       contentPadding: const EdgeInsets.all(16.0),
-              //     ),
-              //     controller: controllerwidthmodul,
-              //   ),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.all(4.0),
-              //   child: TextField(
-              //     keyboardType: TextInputType
-              //         .number, // Set the keyboard type to numeric
-              //     inputFormatters: <TextInputFormatter>[
-              //       FilteringTextInputFormatter.digitsOnly,
-              //     ],
-              //     decoration: InputDecoration(
-              //       labelText: 'Enter Height of Modul in mm',
-              //       labelStyle: labelTextStyleSmall,
-              //       hintStyle: hintTextStyleLarge,
-              //       hintText: 'Enter Height of Modul in mm',
-              //       prefixIcon: const Icon(Icons.height),
-              //       border: OutlineInputBorder(
-              //         borderRadius: BorderRadius.circular(12.0),
-              //       ),
-              //       contentPadding: const EdgeInsets.all(16.0),
-              //     ),
-              //     controller: controllerheightmodul,
-              //   ),
-              // ),
-              // Padding(
-              //   padding: const EdgeInsets.all(4.0),
-              //   child: TextField(
-              //     keyboardType: TextInputType
-              //         .number, // Set the keyboard type to numeric
+                DropdownMenu<String>(
+                  controller: controllerheightmodul,
+                  width: 130,
+                  leadingIcon: const Icon(Icons.view_compact_rounded),
+                  label: const Text('Height in mm'),
+                  initialSelection: listcabinetheight.first,
+                  onSelected: (String? value) {
+                    // This is called when the user selects an item.
+                    setState(() {
+                      GlobalVariables.dropdownValueHeight = value!;
+                    });
+                  },
+                  dropdownMenuEntries: listcabinetheight
+                      .map<DropdownMenuEntry<String>>((String value) {
+                    return DropdownMenuEntry<String>(
+                        value: value, label: value);
+                  }).toList(),
+                ),
+              ],
+            ),
 
-              //     decoration: InputDecoration(
-              //       labelText: 'Pitch (P)',
-              //       hintText: 'Pitch (P)',
-              //       labelStyle: labelTextStyleSmall,
-              //       hintStyle: hintTextStyleLarge,
-              //       prefixIcon: const Icon(Icons.picture_in_picture),
-              //       border: OutlineInputBorder(
-              //         borderRadius: BorderRadius.circular(12.0),
-              //       ),
-              //       contentPadding: const EdgeInsets.all(16.0),
-              //     ),
-              //     onChanged: (text) {
-              //       final newText = text.replaceAll(',', '.');
-              //       if (newText != text) {
-              //         controllerpixels.value =
-              //             controllerpixels.value.copyWith(
-              //           text: newText,
-              //           selection: TextSelection.fromPosition(
-              //             TextPosition(offset: newText.length),
-              //           ),
-              //         );
-              //       }
-              //     },
-              //     controller: controllerpixels,
-              //   ),
-              // ),
-              // Row(
-              //   children: [
-              //     Expanded(
-              //       child: Padding(
-              //         padding: const EdgeInsets.all(4.0),
-              //         child: TextField(
-              //           keyboardType: TextInputType
-              //               .number, // Set the keyboard type to numeric
-              //           inputFormatters: <TextInputFormatter>[
-              //             FilteringTextInputFormatter.digitsOnly,
-              //           ],
-              //           decoration: InputDecoration(
-              //             labelText: 'Columns',
-              //             hintText: 'Columns',
-              //             labelStyle: labelTextStyleSmall,
-              //             hintStyle: hintTextStyleLarge,
-              //             prefixIcon: const Icon(Icons.view_column),
-              //             border: OutlineInputBorder(
-              //               borderRadius: BorderRadius.circular(12.0),
-              //             ),
-              //             contentPadding: const EdgeInsets.all(16.0),
-              //           ),
-              //           // onChanged: (text) {
-              //           //   column = int.tryParse(controllerheightmodul.text) ?? 0;
-              //           //   log(column.toString());
-              //           // },
-              //           controller: controllercolumns,
-              //         ),
-              //       ),
-              //     ),
-              //     Expanded(
-              //       child: Padding(
-              //         padding: const EdgeInsets.all(4.0),
-              //         child: TextField(
-              //           keyboardType: TextInputType
-              //               .number, // Set the keyboard type to numeric
-              //           inputFormatters: <TextInputFormatter>[
-              //             FilteringTextInputFormatter.digitsOnly,
-              //           ],
-              //           decoration: InputDecoration(
-              //             labelText: 'Rows',
-              //             hintText: 'Rows',
-              //             labelStyle: labelTextStyleSmall,
-              //             hintStyle: hintTextStyleLarge,
-              //             prefixIcon: const Icon(Icons.table_rows),
-              //             border: OutlineInputBorder(
-              //               borderRadius: BorderRadius.circular(12.0),
-              //             ),
-              //             contentPadding: const EdgeInsets.all(16.0),
-              //           ),
-              //           // onChanged: (text) {
-              //           //   row = int.tryParse(controllerwidthmodul.text) ?? 0;
-              //           //   log(row.toString());
-              //           // },
-              //           controller: controllerrows,
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
-            ],
-          ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: DropdownMenu<String>(
+                controller: controllerpixels,
+                // width: 200,
+                leadingIcon: const Icon(Icons.view_compact_rounded),
+                label: const Text('Pitch of Modul'),
+                initialSelection: listpitch.first,
+                onSelected: (String? value) {
+                  // This is called when the user selects an item.
+                  setState(() {
+                    GlobalVariables.dropdownValuePitch = value!;
+                  });
+                },
+                dropdownMenuEntries:
+                    listpitch.map<DropdownMenuEntry<String>>((String value) {
+                  return DropdownMenuEntry<String>(value: value, label: value);
+                }).toList(),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                DropdownMenu<String>(
+                  controller: controllercolumns,
+                  width: 130,
+                  leadingIcon: const Icon(Icons.view_compact_rounded),
+                  label: const Text('Column'),
+                  initialSelection: listcolumn.first,
+                  onSelected: (String? value) {
+                    // This is called when the user selects an item.
+                    setState(() {
+                      GlobalVariables.dropdownValueColumn = value!;
+                      log('dropdownValueWidth : $GlobalVariables.dropdownValueWidth');
+                    });
+                  },
+                  dropdownMenuEntries:
+                      listcolumn.map<DropdownMenuEntry<String>>((String value) {
+                    return DropdownMenuEntry<String>(
+                        value: value, label: value);
+                  }).toList(),
+                ),
+                DropdownMenu<String>(
+                  controller: controllerrows,
+                  width: 130,
+                  leadingIcon: const Icon(Icons.view_compact_rounded),
+                  label: const Text('Row'),
+                  initialSelection: listrow.first,
+                  onSelected: (String? value) {
+                    // This is called when the user selects an item.
+                    setState(() {
+                      GlobalVariables.dropdownValueRow = value!;
+                    });
+                  },
+                  dropdownMenuEntries:
+                      listrow.map<DropdownMenuEntry<String>>((String value) {
+                    return DropdownMenuEntry<String>(
+                        value: value, label: value);
+                  }).toList(),
+                ),
+              ],
+            ),
+
+            Column(
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context, rootNavigator: true).pop();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.grey,
+                  ),
+                  child: const Text('Cancel'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    double n = double.tryParse(controllerpixels.text) ?? 0;
+                    modulcalculator(n);
+                    // final taskName = taskNameController.text;
+                    // final taskDesc = taskDescController.text;
+                    // // final taskTag = selectedValue;
+
+                    // firestoreServiceCabinet.addTaskLedDisplayCalculator(
+                    //   taskName,
+                    //   taskDesc,
+                    //   GlobalVariables.pitch.toString(),
+                    //   GlobalVariables.column.toString(),
+                    //   GlobalVariables.row.toString(),
+                    //   GlobalVariables.widthmodul.toString(),
+                    //   GlobalVariables.heightmodul.toString(),
+                    //   GlobalVariables.widthmodulcount.toString(),
+                    //   GlobalVariables.heightmodulcount.toString(),
+                    //   GlobalVariables.widthpixels.toString(),
+                    //   GlobalVariables.heightpixels.toString(),
+                    //   GlobalVariables.totalwidthpixels.toString(),
+                    //   GlobalVariables.totalheightpixels.toString(),
+                    //   GlobalVariables.totalwidthmeter.toString(),
+                    //   GlobalVariables.totalheightmeter.toString(),
+                    //   GlobalVariables.stdratiowidth.toString(),
+                    //   GlobalVariables.stdratioheight
+                    //       .toStringAsFixed(0)
+                    //       .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                    //           (Match m) => "${m[1]},"),
+                    //   GlobalVariables.modulcount.toString(),
+                    //   GlobalVariables.totalpowers.toStringAsFixed(0).replaceAllMapped(
+                    //       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                    //       (Match m) => "${m[1]}."),
+                    //   GlobalVariables.averagepowers.toStringAsFixed(0).replaceAllMapped(
+                    //       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                    //       (Match m) => "${m[1]}."),
+                    //   GlobalVariables.averagepowers2
+                    //       .toStringAsFixed(0)
+                    //       .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                    //           (Match m) => "${m[1]}."),
+                    //   GlobalVariables.arus.toStringAsFixed(0).replaceAllMapped(
+                    //       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                    //       (Match m) => "${m[1]},"),
+                    //   GlobalVariables.luaspenampangkabellistrik.toString(),
+                    //   GlobalVariables.tarikankabellanbulat.toString(),
+                    //   GlobalVariables.msd600count.toString(),
+                    //   GlobalVariables.msd300count.toString(),
+                    // );
+
+                    // _addCalculate(
+                    //     taskName: taskName, taskDesc: taskDesc, taskTag: taskTag);
+                  },
+                  child: const Text('Calculate'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    double n = double.tryParse(controllerpixels.text) ?? 0;
+                    modulcalculator(n);
+                    final taskName = taskNameController.text;
+                    final taskDesc = taskDescController.text;
+                    // final taskTag = selectedValue;
+
+                    firestoreServiceCabinet.addTaskLedDisplayCalculator(
+                      taskName,
+                      taskDesc,
+                      GlobalVariables.pitch.toString(),
+                      GlobalVariables.column.toString(),
+                      GlobalVariables.row.toString(),
+                      GlobalVariables.widthmodul.toString(),
+                      GlobalVariables.heightmodul.toString(),
+                      GlobalVariables.widthmodulcount.toString(),
+                      GlobalVariables.heightmodulcount.toString(),
+                      GlobalVariables.widthpixels.toString(),
+                      GlobalVariables.heightpixels.toString(),
+                      GlobalVariables.totalwidthpixels.toString(),
+                      GlobalVariables.totalheightpixels.toString(),
+                      GlobalVariables.totalwidthmeter.toString(),
+                      GlobalVariables.totalheightmeter.toString(),
+                      GlobalVariables.stdratiowidth.toString(),
+                      GlobalVariables.stdratioheight
+                          .toStringAsFixed(0)
+                          .replaceAllMapped(
+                              RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                              (Match m) => "${m[1]},"),
+                      GlobalVariables.modulcount.toString(),
+                      GlobalVariables.totalpowers
+                          .toStringAsFixed(0)
+                          .replaceAllMapped(
+                              RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                              (Match m) => "${m[1]}."),
+                      GlobalVariables.averagepowers
+                          .toStringAsFixed(0)
+                          .replaceAllMapped(
+                              RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                              (Match m) => "${m[1]}."),
+                      GlobalVariables.averagepowers2
+                          .toStringAsFixed(0)
+                          .replaceAllMapped(
+                              RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                              (Match m) => "${m[1]}."),
+                      GlobalVariables.arus.toStringAsFixed(0).replaceAllMapped(
+                          RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                          (Match m) => "${m[1]},"),
+                      GlobalVariables.luaspenampangkabellistrik.toString(),
+                      GlobalVariables.tarikankabellanbulat.toString(),
+                      GlobalVariables.msd600count.toString(),
+                      GlobalVariables.msd300count.toString(),
+                    );
+
+                    // _addCalculate(
+                    //     taskName: taskName, taskDesc: taskDesc, taskTag: taskTag);
+                    Navigator.of(context, rootNavigator: true).pop();
+                  },
+                  child: const Text('Calculate & Save'),
+                ),
+              ],
+            ),
+            // Padding(
+            //   padding: const EdgeInsets.all(4.0),
+            //   child: TextField(
+            //     keyboardType: TextInputType
+            //         .number, // Set the keyboard type to numeric
+            //     inputFormatters: <TextInputFormatter>[
+            //       FilteringTextInputFormatter.digitsOnly,
+            //     ],
+            //     decoration: InputDecoration(
+            //       labelText: 'Enter Width of Modul in mm',
+            //       labelStyle: labelTextStyleSmall,
+            //       hintText: 'Enter Width of Modul in mm',
+            //       hintStyle: hintTextStyleLarge,
+            //       prefixIcon: const Icon(Icons.width_wide_outlined),
+            //       border: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(12.0),
+            //       ),
+            //       contentPadding: const EdgeInsets.all(16.0),
+            //     ),
+            //     controller: controllerwidthmodul,
+            //   ),
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.all(4.0),
+            //   child: TextField(
+            //     keyboardType: TextInputType
+            //         .number, // Set the keyboard type to numeric
+            //     inputFormatters: <TextInputFormatter>[
+            //       FilteringTextInputFormatter.digitsOnly,
+            //     ],
+            //     decoration: InputDecoration(
+            //       labelText: 'Enter Height of Modul in mm',
+            //       labelStyle: labelTextStyleSmall,
+            //       hintStyle: hintTextStyleLarge,
+            //       hintText: 'Enter Height of Modul in mm',
+            //       prefixIcon: const Icon(Icons.height),
+            //       border: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(12.0),
+            //       ),
+            //       contentPadding: const EdgeInsets.all(16.0),
+            //     ),
+            //     controller: controllerheightmodul,
+            //   ),
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.all(4.0),
+            //   child: TextField(
+            //     keyboardType: TextInputType
+            //         .number, // Set the keyboard type to numeric
+
+            //     decoration: InputDecoration(
+            //       labelText: 'Pitch (P)',
+            //       hintText: 'Pitch (P)',
+            //       labelStyle: labelTextStyleSmall,
+            //       hintStyle: hintTextStyleLarge,
+            //       prefixIcon: const Icon(Icons.picture_in_picture),
+            //       border: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(12.0),
+            //       ),
+            //       contentPadding: const EdgeInsets.all(16.0),
+            //     ),
+            //     onChanged: (text) {
+            //       final newText = text.replaceAll(',', '.');
+            //       if (newText != text) {
+            //         controllerpixels.value =
+            //             controllerpixels.value.copyWith(
+            //           text: newText,
+            //           selection: TextSelection.fromPosition(
+            //             TextPosition(offset: newText.length),
+            //           ),
+            //         );
+            //       }
+            //     },
+            //     controller: controllerpixels,
+            //   ),
+            // ),
+            // Row(
+            //   children: [
+            //     Expanded(
+            //       child: Padding(
+            //         padding: const EdgeInsets.all(4.0),
+            //         child: TextField(
+            //           keyboardType: TextInputType
+            //               .number, // Set the keyboard type to numeric
+            //           inputFormatters: <TextInputFormatter>[
+            //             FilteringTextInputFormatter.digitsOnly,
+            //           ],
+            //           decoration: InputDecoration(
+            //             labelText: 'Columns',
+            //             hintText: 'Columns',
+            //             labelStyle: labelTextStyleSmall,
+            //             hintStyle: hintTextStyleLarge,
+            //             prefixIcon: const Icon(Icons.view_column),
+            //             border: OutlineInputBorder(
+            //               borderRadius: BorderRadius.circular(12.0),
+            //             ),
+            //             contentPadding: const EdgeInsets.all(16.0),
+            //           ),
+            //           // onChanged: (text) {
+            //           //   column = int.tryParse(controllerheightmodul.text) ?? 0;
+            //           //   log(column.toString());
+            //           // },
+            //           controller: controllercolumns,
+            //         ),
+            //       ),
+            //     ),
+            //     Expanded(
+            //       child: Padding(
+            //         padding: const EdgeInsets.all(4.0),
+            //         child: TextField(
+            //           keyboardType: TextInputType
+            //               .number, // Set the keyboard type to numeric
+            //           inputFormatters: <TextInputFormatter>[
+            //             FilteringTextInputFormatter.digitsOnly,
+            //           ],
+            //           decoration: InputDecoration(
+            //             labelText: 'Rows',
+            //             hintText: 'Rows',
+            //             labelStyle: labelTextStyleSmall,
+            //             hintStyle: hintTextStyleLarge,
+            //             prefixIcon: const Icon(Icons.table_rows),
+            //             border: OutlineInputBorder(
+            //               borderRadius: BorderRadius.circular(12.0),
+            //             ),
+            //             contentPadding: const EdgeInsets.all(16.0),
+            //           ),
+            //           // onChanged: (text) {
+            //           //   row = int.tryParse(controllerwidthmodul.text) ?? 0;
+            //           //   log(row.toString());
+            //           // },
+            //           controller: controllerrows,
+            //         ),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+          ],
         ),
       ),
-      actions: [
-        ElevatedButton(
-          onPressed: () {
-            Navigator.of(context, rootNavigator: true).pop();
-          },
-          style: ElevatedButton.styleFrom(
-            primary: Colors.grey,
-          ),
-          child: const Text('Cancel'),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            double n = double.tryParse(controllerpixels.text) ?? 0;
-            modulcalculator(n);
-            // final taskName = taskNameController.text;
-            // final taskDesc = taskDescController.text;
-            // // final taskTag = selectedValue;
-
-            // firestoreServiceCabinet.addTaskLedDisplayCalculator(
-            //   taskName,
-            //   taskDesc,
-            //   GlobalVariables.pitch.toString(),
-            //   GlobalVariables.column.toString(),
-            //   GlobalVariables.row.toString(),
-            //   GlobalVariables.widthmodul.toString(),
-            //   GlobalVariables.heightmodul.toString(),
-            //   GlobalVariables.widthmodulcount.toString(),
-            //   GlobalVariables.heightmodulcount.toString(),
-            //   GlobalVariables.widthpixels.toString(),
-            //   GlobalVariables.heightpixels.toString(),
-            //   GlobalVariables.totalwidthpixels.toString(),
-            //   GlobalVariables.totalheightpixels.toString(),
-            //   GlobalVariables.totalwidthmeter.toString(),
-            //   GlobalVariables.totalheightmeter.toString(),
-            //   GlobalVariables.stdratiowidth.toString(),
-            //   GlobalVariables.stdratioheight
-            //       .toStringAsFixed(0)
-            //       .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-            //           (Match m) => "${m[1]},"),
-            //   GlobalVariables.modulcount.toString(),
-            //   GlobalVariables.totalpowers.toStringAsFixed(0).replaceAllMapped(
-            //       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-            //       (Match m) => "${m[1]}."),
-            //   GlobalVariables.averagepowers.toStringAsFixed(0).replaceAllMapped(
-            //       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-            //       (Match m) => "${m[1]}."),
-            //   GlobalVariables.averagepowers2
-            //       .toStringAsFixed(0)
-            //       .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-            //           (Match m) => "${m[1]}."),
-            //   GlobalVariables.arus.toStringAsFixed(0).replaceAllMapped(
-            //       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-            //       (Match m) => "${m[1]},"),
-            //   GlobalVariables.luaspenampangkabellistrik.toString(),
-            //   GlobalVariables.tarikankabellanbulat.toString(),
-            //   GlobalVariables.msd600count.toString(),
-            //   GlobalVariables.msd300count.toString(),
-            // );
-
-            // _addCalculate(
-            //     taskName: taskName, taskDesc: taskDesc, taskTag: taskTag);
-          },
-          child: const Text('Calculate'),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            double n = double.tryParse(controllerpixels.text) ?? 0;
-            modulcalculator(n);
-            final taskName = taskNameController.text;
-            final taskDesc = taskDescController.text;
-            // final taskTag = selectedValue;
-
-            firestoreServiceCabinet.addTaskLedDisplayCalculator(
-              taskName,
-              taskDesc,
-              GlobalVariables.pitch.toString(),
-              GlobalVariables.column.toString(),
-              GlobalVariables.row.toString(),
-              GlobalVariables.widthmodul.toString(),
-              GlobalVariables.heightmodul.toString(),
-              GlobalVariables.widthmodulcount.toString(),
-              GlobalVariables.heightmodulcount.toString(),
-              GlobalVariables.widthpixels.toString(),
-              GlobalVariables.heightpixels.toString(),
-              GlobalVariables.totalwidthpixels.toString(),
-              GlobalVariables.totalheightpixels.toString(),
-              GlobalVariables.totalwidthmeter.toString(),
-              GlobalVariables.totalheightmeter.toString(),
-              GlobalVariables.stdratiowidth.toString(),
-              GlobalVariables.stdratioheight
-                  .toStringAsFixed(0)
-                  .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                      (Match m) => "${m[1]},"),
-              GlobalVariables.modulcount.toString(),
-              GlobalVariables.totalpowers.toStringAsFixed(0).replaceAllMapped(
-                  RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                  (Match m) => "${m[1]}."),
-              GlobalVariables.averagepowers.toStringAsFixed(0).replaceAllMapped(
-                  RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                  (Match m) => "${m[1]}."),
-              GlobalVariables.averagepowers2
-                  .toStringAsFixed(0)
-                  .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                      (Match m) => "${m[1]}."),
-              GlobalVariables.arus.toStringAsFixed(0).replaceAllMapped(
-                  RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                  (Match m) => "${m[1]},"),
-              GlobalVariables.luaspenampangkabellistrik.toString(),
-              GlobalVariables.tarikankabellanbulat.toString(),
-              GlobalVariables.msd600count.toString(),
-              GlobalVariables.msd300count.toString(),
-            );
-
-            // _addCalculate(
-            //     taskName: taskName, taskDesc: taskDesc, taskTag: taskTag);
-            Navigator.of(context, rootNavigator: true).pop();
-          },
-          child: const Text('Calculate & Save'),
-        ),
-      ],
     );
   }
 
