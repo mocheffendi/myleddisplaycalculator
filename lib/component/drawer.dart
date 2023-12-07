@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:myleddisplaycalculator/services/routes.dart';
 import 'package:myleddisplaycalculator/theme/theme_provider.dart';

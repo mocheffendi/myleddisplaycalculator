@@ -2,18 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:myleddisplaycalculator/component/switch.dart';
-import 'package:myleddisplaycalculator/views/cabinet.dart';
+import 'package:myleddisplaycalculator/variables/global_variables.dart';
 import 'package:myleddisplaycalculator/views/cabinet_history.dart';
 import 'package:myleddisplaycalculator/views/cabinet_price.dart';
-import 'package:myleddisplaycalculator/views/categories.dart';
-import 'package:myleddisplaycalculator/views/modular.dart';
 import 'package:myleddisplaycalculator/views/modular_history.dart';
 import 'package:myleddisplaycalculator/views/modular_price.dart';
-import 'package:myleddisplaycalculator/views/speeddial.dart';
-import 'package:myleddisplaycalculator/views/tasks.dart';
 import 'package:myleddisplaycalculator/widgets/add_cabinet_calculate.dart';
 import 'package:myleddisplaycalculator/widgets/add_modul_calculate.dart';
-import 'package:myleddisplaycalculator/widgets/add_task_dialog.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -23,8 +18,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final PageController pageController = PageController(initialPage: 0);
   late int _selectedIndex = 0;
+
+  _onPageViewChange(int page) {
+    Future.delayed(const Duration(milliseconds: 500), () {
+      setState(() {
+        _selectedIndex = page;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,12 +121,18 @@ class _HomeScreenState extends State<HomeScreen> {
               foregroundColor: Colors.white,
               label: 'Modular',
               onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return const AddModulCalculate();
-                  },
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AddModulCalculate(),
+                  ),
                 );
+                // showDialog(
+                //   context: context,
+                //   builder: (BuildContext context) {
+                //     return const AddModulCalculate();
+                //   },
+                // );
               },
               onLongPress: () => debugPrint('FIRST CHILD LONG PRESS'),
             ),
@@ -140,6 +148,55 @@ class _HomeScreenState extends State<HomeScreen> {
                     builder: (context) => const AddCabinetCalculate(),
                   ),
                 );
+                // showDialog(
+                //   context: context,
+                //   builder: (BuildContext context) {
+                //     return const AddCabinetCalculate();
+                //   },
+                // );
+              },
+            ),
+            SpeedDialChild(
+              child: const Icon(CupertinoIcons.calendar),
+              backgroundColor: Colors.red,
+              foregroundColor: Colors.white,
+              label: 'Modular Price',
+              onTap: () {
+                setState(() {
+                  GlobalVariables.pageController.jumpTo(2);
+                });
+
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const MyModularPrice(),
+                //   ),
+                // );
+                // showDialog(
+                //   context: context,
+                //   builder: (BuildContext context) {
+                //     return const MyModularPrice();
+                //   },
+                // );
+              },
+              onLongPress: () => debugPrint('FIRST CHILD LONG PRESS'),
+            ),
+            SpeedDialChild(
+              child: const Icon(CupertinoIcons.square_list),
+              backgroundColor: Colors.deepOrange,
+              foregroundColor: Colors.white,
+              label: 'Cabinet Price',
+              onTap: () {
+                setState(() {
+                  GlobalVariables.pageController.jumpTo(3);
+                });
+
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const MyCabinetPrice(),
+                //   ),
+                // );
                 // showDialog(
                 //   context: context,
                 //   builder: (BuildContext context) {
@@ -174,7 +231,7 @@ class _HomeScreenState extends State<HomeScreen> {
         //   child: const Icon(Icons.add),
         // ),
         bottomNavigationBar: BottomAppBar(
-          color: Colors.amber,
+          color: Colors.amber.shade800,
           shape: const CircularNotchedRectangle(),
           notchMargin: 6.0,
           clipBehavior: Clip.none,
@@ -183,6 +240,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
               elevation: 0,
+              selectedItemColor: Theme.of(context).colorScheme.surface,
               backgroundColor: Colors.transparent,
               currentIndex: _selectedIndex,
               // selectedItemColor: Colors.brown,
@@ -190,7 +248,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onTap: (index) {
                 setState(() {
                   _selectedIndex = index;
-                  pageController.jumpToPage(index);
+                  GlobalVariables.pageController.jumpToPage(index);
                 });
               },
               items: const <BottomNavigationBarItem>[
@@ -227,7 +285,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         body: PageView(
-          controller: pageController,
+          controller: GlobalVariables.pageController,
+          onPageChanged: _onPageViewChange,
           children: const <Widget>[
             Center(
               child: MyModularHistory(),

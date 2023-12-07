@@ -1,7 +1,6 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -418,21 +417,13 @@ class _AddTaskAlertDialogState extends State<AddTaskAlertDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final pushButtonTextStyle = GoogleFonts.plusJakartaSans(
-      textStyle: Theme.of(context).textTheme.labelMedium,
-    );
     final labelTextStyleSmall = GoogleFonts.robotoFlex(
         textStyle: Theme.of(context).textTheme.labelSmall,
         color: Colors.grey.shade100);
     final hintTextStyleLarge = GoogleFonts.plusJakartaSans(
       textStyle: Theme.of(context).textTheme.labelLarge,
     );
-    final bodyTextStyleMedium = GoogleFonts.plusJakartaSans(
-      textStyle: Theme.of(context).textTheme.bodyMedium,
-    );
-    final bodyTextStyleLarge = GoogleFonts.plusJakartaSans(
-        textStyle: Theme.of(context).textTheme.bodyLarge,
-        color: Colors.grey.shade100);
+
     final counterTextStyle = GoogleFonts.montserrat(
         fontStyle: FontStyle.italic,
         textStyle: Theme.of(context).textTheme.labelLarge,

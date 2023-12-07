@@ -1,10 +1,10 @@
-import 'dart:developer';
+// import 'dart:developer';
 
 // import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+// import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myleddisplaycalculator/services/firestore_cabinet.dart';
 // import 'package:myleddisplaycalculator/services/firestore_modul.dart';
@@ -24,7 +24,7 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
       FireStoreServiceCabinet();
   final TextEditingController taskNameController = TextEditingController();
   final TextEditingController taskDescController = TextEditingController();
-  final List<String> taskTags = ['Work', 'School', 'Other'];
+  // final List<String> taskTags = ['Work', 'School', 'Other'];
   late String selectedValue = '';
 
   TextEditingController controllerpixels = TextEditingController();
@@ -37,244 +37,280 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
 
   late Future googleFontsPending;
 
-  List<String> listcabinetwidth = <String>[
-    '480',
-    '500',
-    '640',
-    '960',
-    '1024',
-    '1200',
-    '1280',
-  ];
+  List<String> listcolumn = ['Loading...'];
+  List<String> listrow = ['Loading...'];
+  List<String> listcabinetwidth = ['Loading...'];
+  List<String> listcabinetheight = ['Loading...'];
+  List<String> listpitch = ['Loading...'];
 
-  List<String> listcabinetheight = <String>[
-    '480',
-    '500',
-    '640',
-    '960',
-    '1024',
-    '1200',
-    '1280',
-  ];
+  Future<List<String>> listcabinetwidthdata() async {
+    // Simulate a delay (replace this with your actual data fetching logic)
+    await Future.delayed(const Duration(seconds: 2));
 
-  List<String> listcolumn = <String>[
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
-    '11',
-    '12',
-    '13',
-    '14',
-    '15',
-    '16',
-    '17',
-    '18',
-    '19',
-    '20',
-    '21',
-    '22',
-    '23',
-    '24',
-    '25',
-    '26',
-    '27',
-    '28',
-    '29',
-    '30',
-    '31',
-    '32',
-    '33',
-    '34',
-    '35',
-    '36',
-    '37',
-    '38',
-    '39',
-    '40',
-    '41',
-    '42',
-    '43',
-    '44',
-    '45',
-    '46',
-    '47',
-    '48',
-    '49',
-    '50',
-    '51',
-    '52',
-    '53',
-    '54',
-    '55',
-    '56',
-    '57',
-    '58',
-    '59',
-    '60',
-    '61',
-    '62',
-    '63',
-    '64',
-    '65',
-    '66',
-    '67',
-    '68',
-    '69',
-    '70',
-    '71',
-    '72',
-    '73',
-    '74',
-    '75',
-    '76',
-    '77',
-    '78',
-    '79',
-    '80',
-    '81',
-    '82',
-    '83',
-    '84',
-    '85',
-    '86',
-    '87',
-    '88',
-    '89',
-    '90',
-    '91',
-    '92',
-    '93',
-    '94',
-    '95',
-    '96',
-    '97',
-    '98',
-    '99',
-    '100',
-  ];
+    // Fetch data from your API or any other source
+    return [
+      '480',
+      '500',
+      '640',
+      '960',
+      '1024',
+      '1200',
+      '1280',
+    ];
+  }
 
-  List<String> listrow = <String>[
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
-    '11',
-    '12',
-    '13',
-    '14',
-    '15',
-    '16',
-    '17',
-    '18',
-    '19',
-    '20',
-    '21',
-    '22',
-    '23',
-    '24',
-    '25',
-    '26',
-    '27',
-    '28',
-    '29',
-    '30',
-    '31',
-    '32',
-    '33',
-    '34',
-    '35',
-    '36',
-    '37',
-    '38',
-    '39',
-    '40',
-    '41',
-    '42',
-    '43',
-    '44',
-    '45',
-    '46',
-    '47',
-    '48',
-    '49',
-    '50',
-    '51',
-    '52',
-    '53',
-    '54',
-    '55',
-    '56',
-    '57',
-    '58',
-    '59',
-    '60',
-    '61',
-    '62',
-    '63',
-    '64',
-    '65',
-    '66',
-    '67',
-    '68',
-    '69',
-    '70',
-    '71',
-    '72',
-    '73',
-    '74',
-    '75',
-    '76',
-    '77',
-    '78',
-    '79',
-    '80',
-    '81',
-    '82',
-    '83',
-    '84',
-    '85',
-    '86',
-    '87',
-    '88',
-    '89',
-    '90',
-    '91',
-    '92',
-    '93',
-    '94',
-    '95',
-    '96',
-    '97',
-    '98',
-    '99',
-    '100',
-  ];
+  Future<List<String>> listcabinetheightdata() async {
+    // Simulate a delay (replace this with your actual data fetching logic)
+    await Future.delayed(const Duration(seconds: 2));
 
-  List<String> listpitch = <String>[
-    '2.5',
-    '3',
-    '3.9',
-    '4',
-    '4.8',
-    '5',
-    '6',
-    '6.67',
-    '8',
-    '10',
-  ];
+    // Fetch data from your API or any other source
+    return [
+      '480',
+      '500',
+      '640',
+      '960',
+      '1024',
+      '1200',
+      '1280',
+    ];
+  }
+
+  Future<List<String>> listpitchdata() async {
+    // Simulate a delay (replace this with your actual data fetching logic)
+    await Future.delayed(const Duration(seconds: 2));
+
+    // Fetch data from your API or any other source
+    return [
+      '2.5',
+      '3',
+      '3.9',
+      '4',
+      '4.8',
+      '5',
+      '6',
+      '6.67',
+      '8',
+      '10',
+    ];
+  }
+
+  Future<List<String>> listrowdata() async {
+    // Simulate a delay (replace this with your actual data fetching logic)
+    await Future.delayed(const Duration(seconds: 2));
+
+    // Fetch data from your API or any other source
+    return [
+      '1',
+      '2',
+      '3',
+      '4',
+      '5',
+      '6',
+      '7',
+      '8',
+      '9',
+      '10',
+      '11',
+      '12',
+      '13',
+      '14',
+      '15',
+      '16',
+      '17',
+      '18',
+      '19',
+      '20',
+      '21',
+      '22',
+      '23',
+      '24',
+      '25',
+      '26',
+      '27',
+      '28',
+      '29',
+      '30',
+      '31',
+      '32',
+      '33',
+      '34',
+      '35',
+      '36',
+      '37',
+      '38',
+      '39',
+      '40',
+      '41',
+      '42',
+      '43',
+      '44',
+      '45',
+      '46',
+      '47',
+      '48',
+      '49',
+      '50',
+      '51',
+      '52',
+      '53',
+      '54',
+      '55',
+      '56',
+      '57',
+      '58',
+      '59',
+      '60',
+      '61',
+      '62',
+      '63',
+      '64',
+      '65',
+      '66',
+      '67',
+      '68',
+      '69',
+      '70',
+      '71',
+      '72',
+      '73',
+      '74',
+      '75',
+      '76',
+      '77',
+      '78',
+      '79',
+      '80',
+      '81',
+      '82',
+      '83',
+      '84',
+      '85',
+      '86',
+      '87',
+      '88',
+      '89',
+      '90',
+      '91',
+      '92',
+      '93',
+      '94',
+      '95',
+      '96',
+      '97',
+      '98',
+      '99',
+      '100',
+    ];
+  }
+
+  Future<List<String>> listcolumndata() async {
+    // Simulate a delay (replace this with your actual data fetching logic)
+    await Future.delayed(const Duration(seconds: 2));
+
+    // Fetch data from your API or any other source
+    return [
+      '1',
+      '2',
+      '3',
+      '4',
+      '5',
+      '6',
+      '7',
+      '8',
+      '9',
+      '10',
+      '11',
+      '12',
+      '13',
+      '14',
+      '15',
+      '16',
+      '17',
+      '18',
+      '19',
+      '20',
+      '21',
+      '22',
+      '23',
+      '24',
+      '25',
+      '26',
+      '27',
+      '28',
+      '29',
+      '30',
+      '31',
+      '32',
+      '33',
+      '34',
+      '35',
+      '36',
+      '37',
+      '38',
+      '39',
+      '40',
+      '41',
+      '42',
+      '43',
+      '44',
+      '45',
+      '46',
+      '47',
+      '48',
+      '49',
+      '50',
+      '51',
+      '52',
+      '53',
+      '54',
+      '55',
+      '56',
+      '57',
+      '58',
+      '59',
+      '60',
+      '61',
+      '62',
+      '63',
+      '64',
+      '65',
+      '66',
+      '67',
+      '68',
+      '69',
+      '70',
+      '71',
+      '72',
+      '73',
+      '74',
+      '75',
+      '76',
+      '77',
+      '78',
+      '79',
+      '80',
+      '81',
+      '82',
+      '83',
+      '84',
+      '85',
+      '86',
+      '87',
+      '88',
+      '89',
+      '90',
+      '91',
+      '92',
+      '93',
+      '94',
+      '95',
+      '96',
+      '97',
+      '98',
+      '99',
+      '100',
+    ];
+  }
 
   List<String> listkabellistrik = <String>[
     '0,75',
@@ -302,23 +338,62 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
     controllercolumns.text = '1';
     controllerrows.text = '1';
 
+    GlobalVariables.dropdownValueWidth = '160';
+    GlobalVariables.dropdownValueHeight = '160';
+    GlobalVariables.totalwidthpixels = 0;
+    GlobalVariables.totalheightpixels = 0;
+    GlobalVariables.totalwidthmeter = 0;
+    GlobalVariables.totalheightmeter = 0;
+    GlobalVariables.stdratiowidth = 0;
+    GlobalVariables.stdratioheight = 0;
+
     GlobalVariables.dropdownValueWidth = '480';
     GlobalVariables.dropdownValueHeight = '480';
+
+    listcolumndata().then((List<String> data) {
+      setState(() {
+        listcolumn = data;
+      });
+    });
+
+    listrowdata().then((List<String> data) {
+      setState(() {
+        listrow = data;
+      });
+    });
+
+    listpitchdata().then((List<String> data) {
+      setState(() {
+        listpitch = data;
+      });
+    });
+
+    listcabinetwidthdata().then((List<String> data) {
+      setState(() {
+        listcabinetwidth = data;
+      });
+    });
+
+    listcabinetheightdata().then((List<String> data) {
+      setState(() {
+        listcabinetheight = data;
+      });
+    });
 
     // GlobalVariables.pixelheight = 'Total Pixel Height : $totalheightpixels';
     // pixelwidth = 'Total Pixel Width : $totalwidthpixels';
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Call MediaQuery after the first frame is built
-      mediaQueryData = MediaQuery.of(context);
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   // Call MediaQuery after the first frame is built
+    //   mediaQueryData = MediaQuery.of(context);
 
-      // Use the mediaQueryData as needed
-      GlobalVariables.screenWidth = mediaQueryData.size.width;
-      GlobalVariables.screenHeight = mediaQueryData.size.height;
+    //   // Use the mediaQueryData as needed
+    //   GlobalVariables.screenWidth = mediaQueryData.size.width;
+    //   GlobalVariables.screenHeight = mediaQueryData.size.height;
 
-      log('Screen Width: ${GlobalVariables.screenWidth}');
-      log('Screen Height: ${GlobalVariables.screenHeight}');
-    });
+    //   log('Screen Width: ${GlobalVariables.screenWidth}');
+    //   log('Screen Height: ${GlobalVariables.screenHeight}');
+    // });
 
     // Call MediaQuery in the initState method
     // mediaQueryData = MediaQuery.of(context);
@@ -327,8 +402,8 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
     // screenWidth = mediaQueryData.size.width;
     // screenHeight = mediaQueryData.size.height;
 
-    log(GlobalVariables.pixelheight.length.toString());
-    log(GlobalVariables.pixelwidth.length.toString());
+    // log(GlobalVariables.pixelheight.length.toString());
+    // log(GlobalVariables.pixelwidth.length.toString());
 
     // Set up an onChanged callback to update the integer variable.
     // controllercolumns.addListener(() {
@@ -378,41 +453,6 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
     super.dispose();
   }
 
-  // Future saveAndShare(Uint8List bytes) async {
-  //   final directory = await getApplicationDocumentsDirectory();
-  //   final image = File('${directory.path}/flutter.png');
-  //   // await Share.shareFiles([image.path]);
-  //   image.writeAsBytesSync(bytes);
-  // }
-
-  // Future<String> saveImage(Uint8List bytes) async {
-  //   await [Permission.storage].request();
-  //   final time = DateTime.now()
-  //       .toIso8601String()
-  //       .replaceAll('.', '-')
-  //       .replaceAll(':', '-');
-
-  //   final name = 'screenshot_$time';
-  //    final result = await ImageGallerySaver.saveImage(bytes, name: name);
-
-  //   return
-  //    result['filePath'];
-  // }
-
-  // Future<dynamic> showCapturedWidget(
-  //     BuildContext context, Uint8List capturedImage) {
-  //   return showDialog(
-  //     useSafeArea: false,
-  //     context: context,
-  //     builder: (context) => Scaffold(
-  //       appBar: AppBar(
-  //         title: const Text("Captured widget screenshot"),
-  //       ),
-  //       body: Center(child: Image.memory(capturedImage)),
-  //     ),
-  //   );
-  // }
-
   int calculateGCF(int a, int b) {
     while (b != 0) {
       int temp = b;
@@ -428,10 +468,8 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
     GlobalVariables.widthmodul = int.tryParse(controllerwidthmodul.text) ?? 0;
     GlobalVariables.heightmodulcount = int.tryParse(controllerrows.text) ?? 0;
     GlobalVariables.widthmodulcount = int.tryParse(controllercolumns.text) ?? 0;
-
     GlobalVariables.column = int.tryParse(controllercolumns.text) ?? 0;
     GlobalVariables.row = int.tryParse(controllerrows.text) ?? 0;
-
     GlobalVariables.heightmodul =
         int.tryParse(GlobalVariables.dropdownValueHeight) ?? 0;
     GlobalVariables.widthmodul =
@@ -456,11 +494,11 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
     GlobalVariables.totalpowers = GlobalVariables.totalwidthmeter *
         GlobalVariables.totalheightmeter *
         1000;
-    GlobalVariables.averagepowers = GlobalVariables.totalpowers * 0.35;
-    GlobalVariables.averagepowers2 = GlobalVariables.totalpowers * 0.6;
+    GlobalVariables.averagepowers = GlobalVariables.totalpowers * 0.45;
+    GlobalVariables.averagepowers2 = GlobalVariables.totalpowers * 0.8;
 
     GlobalVariables.arus = GlobalVariables.totalpowers / 220 / 3;
-    log('Arus Listrik per Phase: $GlobalVariables.arus');
+    // log('Arus Listrik per Phase: $GlobalVariables.arus');
 
     if ((GlobalVariables.arus <= 185) && (GlobalVariables.arus >= 151)) {
       GlobalVariables.luaspenampangkabellistrik = 50;
@@ -506,15 +544,15 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
       GlobalVariables.luaspenampangkabellistrik = 1;
     }
 
-    log('Luas Penampang Kabel Listrik : ${GlobalVariables.luaspenampangkabellistrik}');
+    // log('Luas Penampang Kabel Listrik : ${GlobalVariables.luaspenampangkabellistrik}');
 
     GlobalVariables.tarikankabellan = (GlobalVariables.totalheightpixels *
         GlobalVariables.totalwidthpixels /
         GlobalVariables.satutarikankabellan);
     GlobalVariables.tarikankabellanbulat =
         GlobalVariables.tarikankabellan.ceil();
-    log('Tarikan Kabel Lan : ${GlobalVariables.tarikankabellan}');
-    log('Tarikan Kabel Lan bulat ke atas: ${GlobalVariables.tarikankabellanbulat}');
+    // log('Tarikan Kabel Lan : ${GlobalVariables.tarikankabellan}');
+    // log('Tarikan Kabel Lan bulat ke atas: ${GlobalVariables.tarikankabellanbulat}');
 
     GlobalVariables.msd300count = 0;
 
@@ -539,8 +577,8 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
       GlobalVariables.msd300count = 0; // Set msd300 to 0 for other cases
     }
 
-    log('msd600 : ${GlobalVariables.msd600count}');
-    log('msd300 : ${GlobalVariables.msd300count}');
+    // log('msd600 : ${GlobalVariables.msd600count}');
+    // log('msd300 : ${GlobalVariables.msd300count}');
 
     if (GlobalVariables.heightpixels < GlobalVariables.widthpixels) {
       GlobalVariables.issquare = false;
@@ -548,22 +586,22 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
       GlobalVariables.issquare = true;
     }
 
-    log('total power : ${GlobalVariables.totalpowers}');
-    log('average power : ${GlobalVariables.averagepowers}');
-    log('average power2 : ${GlobalVariables.averagepowers2}');
+    // log('total power : ${GlobalVariables.totalpowers}');
+    // log('average power : ${GlobalVariables.averagepowers}');
+    // log('average power2 : ${GlobalVariables.averagepowers2}');
     int gcf = calculateGCF(
         GlobalVariables.totalwidthpixels, GlobalVariables.totalheightpixels);
-    log('GCF : $gcf');
+    // log('GCF : $gcf');
     double ratiowidth = GlobalVariables.totalwidthpixels / gcf;
     double ratioheight = GlobalVariables.totalheightpixels / gcf;
-    log('Ratio Width : $ratiowidth');
-    log('Ratio Height : $ratioheight');
+    // log('Ratio Width : $ratiowidth');
+    // log('Ratio Height : $ratioheight');
 
     // NumberFormat numberFormat = NumberFormat("#,##0.00", "en_US");
 
-    log('Height 1 modul : ${GlobalVariables.heightmodul}');
-    log('Width 1 modul : ${GlobalVariables.widthmodul}');
-    log('Pitch : ${GlobalVariables.pitch}');
+    // log('Height 1 modul : ${GlobalVariables.heightmodul}');
+    // log('Width 1 modul : ${GlobalVariables.widthmodul}');
+    // log('Pitch : ${GlobalVariables.pitch}');
 
     double stdw = 16;
 
@@ -580,8 +618,8 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
     GlobalVariables.stdratiowidth = ratiowidth;
     GlobalVariables.stdratioheight = ratioheight;
 
-    log('Ratio Width : ${GlobalVariables.stdratiowidth}');
-    log('Ratio Height : ${GlobalVariables.stdratioheight}');
+    // log('Ratio Width : ${GlobalVariables.stdratiowidth}');
+    // log('Ratio Height : ${GlobalVariables.stdratioheight}');
 
     if ((GlobalVariables.stdratiowidth == 16) &&
         (GlobalVariables.stdratioheight == 8.00)) {
@@ -602,9 +640,9 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
       GlobalVariables.stdratioheight = 1;
     }
 
-    log('After check');
-    log('Ratio Width : ${GlobalVariables.stdratiowidth}');
-    log('Ratio Height : ${GlobalVariables.stdratioheight}');
+    // log('After check');
+    // log('Ratio Width : ${GlobalVariables.stdratiowidth}');
+    // log('Ratio Height : ${GlobalVariables.stdratioheight}');
 
     return setState(() {
       [GlobalVariables.heightpixels, GlobalVariables.widthpixels];
@@ -613,546 +651,647 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
 
   @override
   Widget build(BuildContext context) {
-    final pushButtonTextStyle = GoogleFonts.plusJakartaSans(
-      textStyle: Theme.of(context).textTheme.labelMedium,
-    );
-    final labelTextStyleSmall = GoogleFonts.robotoFlex(
-        textStyle: Theme.of(context).textTheme.labelSmall,
-        color: Colors.grey.shade100);
-    final hintTextStyleLarge = GoogleFonts.plusJakartaSans(
-      textStyle: Theme.of(context).textTheme.labelLarge,
-    );
-    final bodyTextStyleMedium = GoogleFonts.plusJakartaSans(
-      textStyle: Theme.of(context).textTheme.bodyMedium,
-    );
-    final bodyTextStyleLarge = GoogleFonts.plusJakartaSans(
-        textStyle: Theme.of(context).textTheme.bodyLarge,
-        color: Colors.grey.shade100);
-    final counterTextStyle = GoogleFonts.montserrat(
-        fontStyle: FontStyle.italic,
-        textStyle: Theme.of(context).textTheme.labelLarge,
-        color: Colors.grey.shade100);
-    var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
+    // final pushButtonTextStyle = GoogleFonts.plusJakartaSans(
+    //   textStyle: Theme.of(context).textTheme.labelMedium,
+    // );
+    // final labelTextStyleSmall = GoogleFonts.robotoFlex(
+    //     textStyle: Theme.of(context).textTheme.labelSmall,
+    //     color: Colors.grey.shade100);
+    // final hintTextStyleLarge = GoogleFonts.plusJakartaSans(
+    //   textStyle: Theme.of(context).textTheme.labelLarge,
+    // );
+    // final bodyTextStyleMedium = GoogleFonts.plusJakartaSans(
+    //   textStyle: Theme.of(context).textTheme.bodyMedium,
+    // );
+    // final bodyTextStyleLarge = GoogleFonts.plusJakartaSans(
+    //     textStyle: Theme.of(context).textTheme.bodyLarge,
+    //     color: Colors.grey.shade100);
+    // final counterTextStyle = GoogleFonts.montserrat(
+    //     fontStyle: FontStyle.italic,
+    //     textStyle: Theme.of(context).textTheme.labelLarge,
+    //     color: Colors.grey.shade100);
+    // var width = MediaQuery.of(context).size.width;
+    // var height = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cabinet Calculator'),
       ),
-      body: SizedBox(
-        height: height * 0.58,
-        width: width,
+      body: SingleChildScrollView(
         child: Column(
-          children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Container(
-                    height: 60,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.deepOrange),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        // crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'Total Resolution : ',
-                            // style: labelTextStyleSmall
-                          ),
-                          Text(
-                            '${GlobalVariables.totalwidthpixels} x ${GlobalVariables.totalheightpixels} px | ${GlobalVariables.totalwidthmeter} x ${GlobalVariables.totalheightmeter} mtr',
-                            // style: bodyTextStyleLarge
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Container(
-                    height: 60,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.orange),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        // crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            'Aspect Ratio : ',
-                            // style: labelTextStyleSmall
-                          ),
-                          Text(
-                            '${GlobalVariables.stdratiowidth} : ${GlobalVariables.stdratioheight.toStringAsFixed(2).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")}',
-                            // style: bodyTextStyleLarge
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            TextFormField(
-              controller: taskNameController,
-              style: const TextStyle(fontSize: 14),
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 20,
-                ),
-                hintText: 'Title Task of Calculation',
-                hintStyle: const TextStyle(fontSize: 14),
-                icon:
-                    const Icon(CupertinoIcons.square_list, color: Colors.brown),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-              ),
-            ),
-            const SizedBox(height: 15),
-            TextFormField(
-              controller: taskDescController,
-              keyboardType: TextInputType.multiline,
-              maxLines: null,
-              style: const TextStyle(fontSize: 14),
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 20,
-                ),
-                hintText: 'Optional Description',
-                hintStyle: const TextStyle(fontSize: 14),
-                icon: const Icon(CupertinoIcons.bubble_left_bubble_right,
-                    color: Colors.brown),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                ),
-              ),
-            ),
-            const SizedBox(height: 15),
-            // Row(
-            //   children: <Widget>[
-            //     const Icon(CupertinoIcons.tag, color: Colors.brown),
-            //     const SizedBox(width: 15.0),
-            //     Expanded(
-            //       child: DropdownButtonFormField2(
-            //         decoration: InputDecoration(
-            //           isDense: true,
-            //           contentPadding: EdgeInsets.zero,
-            //           border: OutlineInputBorder(
-            //             borderRadius: BorderRadius.circular(15),
-            //           ),
-            //         ),
-            //         isExpanded: true,
-            //         hint: const Text(
-            //           'Add a task tag',
-            //           style: TextStyle(fontSize: 14),
-            //         ),
-            //         validator: (value) =>
-            //             value == null ? 'Please select the task tag' : null,
-            //         items: taskTags
-            //             .map(
-            //               (item) => DropdownMenuItem<String>(
-            //                 value: item,
-            //                 child: Text(
-            //                   item,
-            //                   style: const TextStyle(
-            //                     fontSize: 14,
-            //                   ),
-            //                 ),
-            //               ),
-            //             )
-            //             .toList(),
-            //         onChanged: (String? value) => setState(
-            //           () {
-            //             if (value != null) selectedValue = value;
-            //           },
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                DropdownMenu<String>(
-                  controller: controllerwidthmodul,
-                  width: 130,
-                  leadingIcon: const Icon(Icons.view_compact_rounded),
-                  label: const Text('Width in mm'),
-                  initialSelection: listcabinetwidth.first,
-                  onSelected: (String? value) {
-                    // This is called when the user selects an item.
-                    setState(() {
-                      GlobalVariables.dropdownValueWidth = value!;
-                      log('dropdownValueWidth : $GlobalVariables.dropdownValueWidth');
-                    });
-                  },
-                  dropdownMenuEntries: listcabinetwidth
-                      .map<DropdownMenuEntry<String>>((String value) {
-                    return DropdownMenuEntry<String>(
-                        value: value, label: value);
-                  }).toList(),
-                ),
-                DropdownMenu<String>(
-                  controller: controllerheightmodul,
-                  width: 130,
-                  leadingIcon: const Icon(Icons.view_compact_rounded),
-                  label: const Text('Height in mm'),
-                  initialSelection: listcabinetheight.first,
-                  onSelected: (String? value) {
-                    // This is called when the user selects an item.
-                    setState(() {
-                      GlobalVariables.dropdownValueHeight = value!;
-                    });
-                  },
-                  dropdownMenuEntries: listcabinetheight
-                      .map<DropdownMenuEntry<String>>((String value) {
-                    return DropdownMenuEntry<String>(
-                        value: value, label: value);
-                  }).toList(),
-                ),
-              ],
-            ),
-
+          children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: DropdownMenu<String>(
-                controller: controllerpixels,
-                // width: 200,
-                leadingIcon: const Icon(Icons.view_compact_rounded),
-                label: const Text('Pitch of Modul'),
-                initialSelection: listpitch.first,
-                onSelected: (String? value) {
-                  // This is called when the user selects an item.
-                  setState(() {
-                    GlobalVariables.dropdownValuePitch = value!;
-                  });
-                },
-                dropdownMenuEntries:
-                    listpitch.map<DropdownMenuEntry<String>>((String value) {
-                  return DropdownMenuEntry<String>(value: value, label: value);
-                }).toList(),
+              child: Container(
+                  width: screenWidth,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(width: 1, color: Colors.amber),
+                  ),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          // height: 60,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.deepOrange),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              // crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'Total Resolution : ',
+                                  // style: labelTextStyleSmall
+                                ),
+                                Text(
+                                  '${GlobalVariables.totalwidthpixels} x ${GlobalVariables.totalheightpixels} px | ${GlobalVariables.totalwidthmeter} x ${GlobalVariables.totalheightmeter} mtr',
+                                  // style: bodyTextStyleLarge
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+                        child: Container(
+                          // height: 60,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.orange),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              // crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text(
+                                  'Aspect Ratio : ',
+                                  // style: labelTextStyleSmall
+                                ),
+                                Text(
+                                  '${GlobalVariables.stdratiowidth} : ${GlobalVariables.stdratioheight.toStringAsFixed(2).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")}',
+                                  // style: bodyTextStyleLarge
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(width: 1, color: Colors.amber)),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        controller: taskNameController,
+                        style: const TextStyle(fontSize: 14),
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 20,
+                          ),
+                          hintText: 'Title Task of Calculation',
+                          hintStyle: const TextStyle(fontSize: 14),
+                          icon: const Icon(CupertinoIcons.square_list,
+                              color: Colors.brown),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+                      child: TextFormField(
+                        controller: taskDescController,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        style: const TextStyle(fontSize: 14),
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 20,
+                            vertical: 20,
+                          ),
+                          hintText: 'Optional Description',
+                          hintStyle: const TextStyle(fontSize: 14),
+                          icon: const Icon(
+                              CupertinoIcons.bubble_left_bubble_right,
+                              color: Colors.brown),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                DropdownMenu<String>(
-                  controller: controllercolumns,
-                  width: 130,
-                  leadingIcon: const Icon(Icons.view_compact_rounded),
-                  label: const Text('Column'),
-                  initialSelection: listcolumn.first,
-                  onSelected: (String? value) {
-                    // This is called when the user selects an item.
-                    setState(() {
-                      GlobalVariables.dropdownValueColumn = value!;
-                      log('dropdownValueWidth : $GlobalVariables.dropdownValueWidth');
-                    });
-                  },
-                  dropdownMenuEntries:
-                      listcolumn.map<DropdownMenuEntry<String>>((String value) {
-                    return DropdownMenuEntry<String>(
-                        value: value, label: value);
-                  }).toList(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      width: 1,
+                      color: Colors.amber,
+                    )),
+                child: Column(
+                  children: <Widget>[
+                    // Row(
+                    //   children: <Widget>[
+                    //     const Icon(CupertinoIcons.tag, color: Colors.brown),
+                    //
+                    //     Expanded(
+                    //       child: DropdownButtonFormField2(
+                    //         decoration: InputDecoration(
+                    //           isDense: true,
+                    //           contentPadding: EdgeInsets.zero,
+                    //           border: OutlineInputBorder(
+                    //             borderRadius: BorderRadius.circular(15),
+                    //           ),
+                    //         ),
+                    //         isExpanded: true,
+                    //         hint: const Text(
+                    //           'Add a task tag',
+                    //           style: TextStyle(fontSize: 14),
+                    //         ),
+                    //         validator: (value) =>
+                    //             value == null ? 'Please select the task tag' : null,
+                    //         items: taskTags
+                    //             .map(
+                    //               (item) => DropdownMenuItem<String>(
+                    //                 value: item,
+                    //                 child: Text(
+                    //                   item,
+                    //                   style: const TextStyle(
+                    //                     fontSize: 14,
+                    //                   ),
+                    //                 ),
+                    //               ),
+                    //             )
+                    //             .toList(),
+                    //         onChanged: (String? value) => setState(
+                    //           () {
+                    //             if (value != null) selectedValue = value;
+                    //           },
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 8, 8, 0),
+                          child: DropdownMenu<String>(
+                            controller: controllerwidthmodul,
+                            // width: 130,
+                            leadingIcon: const Icon(Icons.view_compact_rounded),
+                            label: const Text('Width in mm'),
+                            initialSelection: listcabinetwidth.first,
+                            onSelected: (String? value) {
+                              // This is called when the user selects an item.
+                              setState(() {
+                                GlobalVariables.dropdownValueWidth = value!;
+                                // log('dropdownValueWidth : $GlobalVariables.dropdownValueWidth');
+                              });
+                            },
+                            dropdownMenuEntries: listcabinetwidth
+                                .map<DropdownMenuEntry<String>>((String value) {
+                              return DropdownMenuEntry<String>(
+                                  value: value, label: value);
+                            }).toList(),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 8, 0, 0),
+                          child: DropdownMenu<String>(
+                            controller: controllerheightmodul,
+                            // width: 130,
+                            leadingIcon: const Icon(Icons.view_compact_rounded),
+                            label: const Text('Height in mm'),
+                            initialSelection: listcabinetheight.first,
+                            onSelected: (String? value) {
+                              // This is called when the user selects an item.
+                              setState(() {
+                                GlobalVariables.dropdownValueHeight = value!;
+                              });
+                            },
+                            dropdownMenuEntries: listcabinetheight
+                                .map<DropdownMenuEntry<String>>((String value) {
+                              return DropdownMenuEntry<String>(
+                                  value: value, label: value);
+                            }).toList(),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: DropdownMenu<String>(
+                            controller: controllerpixels,
+                            // expandedInsets: EdgeInsets.zero,
+                            width: 200,
+                            leadingIcon: const Icon(Icons.view_compact_rounded),
+                            label: const Text('Pitch of Modul'),
+                            initialSelection: listpitch.first,
+                            onSelected: (String? value) {
+                              // This is called when the user selects an item.
+                              setState(() {
+                                GlobalVariables.dropdownValuePitch = value!;
+                              });
+                            },
+                            dropdownMenuEntries: listpitch
+                                .map<DropdownMenuEntry<String>>((String value) {
+                              return DropdownMenuEntry<String>(
+                                  value: value, label: value);
+                            }).toList(),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 8, 8),
+                          child: DropdownMenu<String>(
+                            controller: controllercolumns,
+                            // width: 130,
+                            leadingIcon: const Icon(Icons.view_compact_rounded),
+                            label: const Text('Column'),
+                            initialSelection: listcolumn.first,
+                            onSelected: (String? value) {
+                              // This is called when the user selects an item.
+                              setState(() {
+                                GlobalVariables.dropdownValueColumn = value!;
+                                // log('dropdownValueWidth : $GlobalVariables.dropdownValueWidth');
+                              });
+                            },
+                            dropdownMenuEntries: listcolumn
+                                .map<DropdownMenuEntry<String>>((String value) {
+                              return DropdownMenuEntry<String>(
+                                  value: value, label: value);
+                            }).toList(),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
+                          child: DropdownMenu<String>(
+                            controller: controllerrows,
+                            // width: 130,
+                            leadingIcon: const Icon(Icons.view_compact_rounded),
+                            label: const Text('Row'),
+                            initialSelection: listrow.first,
+                            onSelected: (String? value) {
+                              // This is called when the user selects an item.
+                              setState(() {
+                                GlobalVariables.dropdownValueRow = value!;
+                              });
+                            },
+                            dropdownMenuEntries: listrow
+                                .map<DropdownMenuEntry<String>>((String value) {
+                              return DropdownMenuEntry<String>(
+                                  value: value, label: value);
+                            }).toList(),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop();
+                                  GlobalVariables.pageController.jumpToPage(1);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.grey,
+                                ),
+                                child: const Text('Cancel'),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(4, 0, 4, 4),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  double n =
+                                      double.tryParse(controllerpixels.text) ??
+                                          0;
+                                  modulcalculator(n);
+                                  GlobalVariables.pageController.jumpToPage(1);
+                                  // final taskName = taskNameController.text;
+                                  // final taskDesc = taskDescController.text;
+                                  // // final taskTag = selectedValue;
+
+                                  // firestoreServiceCabinet.addTaskLedDisplayCalculator(
+                                  //   taskName,
+                                  //   taskDesc,
+                                  //   GlobalVariables.pitch.toString(),
+                                  //   GlobalVariables.column.toString(),
+                                  //   GlobalVariables.row.toString(),
+                                  //   GlobalVariables.widthmodul.toString(),
+                                  //   GlobalVariables.heightmodul.toString(),
+                                  //   GlobalVariables.widthmodulcount.toString(),
+                                  //   GlobalVariables.heightmodulcount.toString(),
+                                  //   GlobalVariables.widthpixels.toString(),
+                                  //   GlobalVariables.heightpixels.toString(),
+                                  //   GlobalVariables.totalwidthpixels.toString(),
+                                  //   GlobalVariables.totalheightpixels.toString(),
+                                  //   GlobalVariables.totalwidthmeter.toString(),
+                                  //   GlobalVariables.totalheightmeter.toString(),
+                                  //   GlobalVariables.stdratiowidth.toString(),
+                                  //   GlobalVariables.stdratioheight
+                                  //       .toStringAsFixed(0)
+                                  //       .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                  //           (Match m) => "${m[1]},"),
+                                  //   GlobalVariables.modulcount.toString(),
+                                  //   GlobalVariables.totalpowers.toStringAsFixed(0).replaceAllMapped(
+                                  //       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                  //       (Match m) => "${m[1]}."),
+                                  //   GlobalVariables.averagepowers.toStringAsFixed(0).replaceAllMapped(
+                                  //       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                  //       (Match m) => "${m[1]}."),
+                                  //   GlobalVariables.averagepowers2
+                                  //       .toStringAsFixed(0)
+                                  //       .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                  //           (Match m) => "${m[1]}."),
+                                  //   GlobalVariables.arus.toStringAsFixed(0).replaceAllMapped(
+                                  //       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                  //       (Match m) => "${m[1]},"),
+                                  //   GlobalVariables.luaspenampangkabellistrik.toString(),
+                                  //   GlobalVariables.tarikankabellanbulat.toString(),
+                                  //   GlobalVariables.msd600count.toString(),
+                                  //   GlobalVariables.msd300count.toString(),
+                                  // );
+
+                                  // _addCalculate(
+                                  //     taskName: taskName, taskDesc: taskDesc, taskTag: taskTag);
+                                },
+                                child: const Text('Calculate'),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(4, 0, 4, 4),
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  double n =
+                                      double.tryParse(controllerpixels.text) ??
+                                          0;
+                                  modulcalculator(n);
+                                  final taskName = taskNameController.text;
+                                  final taskDesc = taskDescController.text;
+                                  // final taskTag = selectedValue;
+
+                                  firestoreServiceCabinet
+                                      .addTaskLedDisplayCalculator(
+                                    taskName,
+                                    taskDesc,
+                                    GlobalVariables.pitch.toString(),
+                                    GlobalVariables.column.toString(),
+                                    GlobalVariables.row.toString(),
+                                    GlobalVariables.widthmodul.toString(),
+                                    GlobalVariables.heightmodul.toString(),
+                                    GlobalVariables.widthmodulcount.toString(),
+                                    GlobalVariables.heightmodulcount.toString(),
+                                    GlobalVariables.widthpixels.toString(),
+                                    GlobalVariables.heightpixels.toString(),
+                                    GlobalVariables.totalwidthpixels.toString(),
+                                    GlobalVariables.totalheightpixels
+                                        .toString(),
+                                    GlobalVariables.resolutioncapacity
+                                        .toStringAsFixed(0)
+                                        .replaceAllMapped(
+                                            RegExp(
+                                                r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                            (Match m) => "${m[1]}."),
+                                    GlobalVariables.totalwidthmeter.toString(),
+                                    GlobalVariables.totalheightmeter.toString(),
+                                    GlobalVariables.totalheightmm.toString(),
+                                    GlobalVariables.totalwidthmm.toString(),
+                                    GlobalVariables.stdratiowidth.toStringAsFixed(0)
+                                        .replaceAllMapped(
+                                            RegExp(
+                                                r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                            (Match m) => "${m[1]}."),
+                                    GlobalVariables.stdratioheight
+                                        .toStringAsFixed(0)
+                                        .replaceAllMapped(
+                                            RegExp(
+                                                r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                            (Match m) => "${m[1]},"),
+                                    GlobalVariables.modulcount.toString(),
+                                    GlobalVariables.totalpowers
+                                        .toStringAsFixed(0)
+                                        .replaceAllMapped(
+                                            RegExp(
+                                                r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                            (Match m) => "${m[1]}."),
+                                    GlobalVariables.averagepowers
+                                        .toStringAsFixed(0)
+                                        .replaceAllMapped(
+                                            RegExp(
+                                                r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                            (Match m) => "${m[1]}."),
+                                    GlobalVariables.averagepowers2
+                                        .toStringAsFixed(0)
+                                        .replaceAllMapped(
+                                            RegExp(
+                                                r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                            (Match m) => "${m[1]}."),
+                                    GlobalVariables.arus
+                                        .toStringAsFixed(0)
+                                        .replaceAllMapped(
+                                            RegExp(
+                                                r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                            (Match m) => "${m[1]},"),
+                                    GlobalVariables.luaspenampangkabellistrik
+                                        .toString(),
+                                    GlobalVariables.tarikankabellanbulat
+                                        .toString(),
+                                    GlobalVariables.msd600count.toString(),
+                                    GlobalVariables.msd300count.toString(),
+                                  );
+
+                                  // _addCalculate(
+                                  //     taskName: taskName, taskDesc: taskDesc, taskTag: taskTag);
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop();
+                                  GlobalVariables.pageController.jumpToPage(1);
+                                },
+                                child: const Text('Calculate & Save'),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.all(4.0),
+                    //   child: TextField(
+                    //     keyboardType: TextInputType
+                    //         .number, // Set the keyboard type to numeric
+                    //     inputFormatters: <TextInputFormatter>[
+                    //       FilteringTextInputFormatter.digitsOnly,
+                    //     ],
+                    //     decoration: InputDecoration(
+                    //       labelText: 'Enter Width of Modul in mm',
+                    //       labelStyle: labelTextStyleSmall,
+                    //       hintText: 'Enter Width of Modul in mm',
+                    //       hintStyle: hintTextStyleLarge,
+                    //       prefixIcon: const Icon(Icons.width_wide_outlined),
+                    //       border: OutlineInputBorder(
+                    //         borderRadius: BorderRadius.circular(12.0),
+                    //       ),
+                    //       contentPadding: const EdgeInsets.all(16.0),
+                    //     ),
+                    //     controller: controllerwidthmodul,
+                    //   ),
+                    // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.all(4.0),
+                    //   child: TextField(
+                    //     keyboardType: TextInputType
+                    //         .number, // Set the keyboard type to numeric
+                    //     inputFormatters: <TextInputFormatter>[
+                    //       FilteringTextInputFormatter.digitsOnly,
+                    //     ],
+                    //     decoration: InputDecoration(
+                    //       labelText: 'Enter Height of Modul in mm',
+                    //       labelStyle: labelTextStyleSmall,
+                    //       hintStyle: hintTextStyleLarge,
+                    //       hintText: 'Enter Height of Modul in mm',
+                    //       prefixIcon: const Icon(Icons.height),
+                    //       border: OutlineInputBorder(
+                    //         borderRadius: BorderRadius.circular(12.0),
+                    //       ),
+                    //       contentPadding: const EdgeInsets.all(16.0),
+                    //     ),
+                    //     controller: controllerheightmodul,
+                    //   ),
+                    // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.all(4.0),
+                    //   child: TextField(
+                    //     keyboardType: TextInputType
+                    //         .number, // Set the keyboard type to numeric
+
+                    //     decoration: InputDecoration(
+                    //       labelText: 'Pitch (P)',
+                    //       hintText: 'Pitch (P)',
+                    //       labelStyle: labelTextStyleSmall,
+                    //       hintStyle: hintTextStyleLarge,
+                    //       prefixIcon: const Icon(Icons.picture_in_picture),
+                    //       border: OutlineInputBorder(
+                    //         borderRadius: BorderRadius.circular(12.0),
+                    //       ),
+                    //       contentPadding: const EdgeInsets.all(16.0),
+                    //     ),
+                    //     onChanged: (text) {
+                    //       final newText = text.replaceAll(',', '.');
+                    //       if (newText != text) {
+                    //         controllerpixels.value =
+                    //             controllerpixels.value.copyWith(
+                    //           text: newText,
+                    //           selection: TextSelection.fromPosition(
+                    //             TextPosition(offset: newText.length),
+                    //           ),
+                    //         );
+                    //       }
+                    //     },
+                    //     controller: controllerpixels,
+                    //   ),
+                    // ),
+                    // Row(
+                    //   children: [
+                    //     Expanded(
+                    //       child: Padding(
+                    //         padding: const EdgeInsets.all(4.0),
+                    //         child: TextField(
+                    //           keyboardType: TextInputType
+                    //               .number, // Set the keyboard type to numeric
+                    //           inputFormatters: <TextInputFormatter>[
+                    //             FilteringTextInputFormatter.digitsOnly,
+                    //           ],
+                    //           decoration: InputDecoration(
+                    //             labelText: 'Columns',
+                    //             hintText: 'Columns',
+                    //             labelStyle: labelTextStyleSmall,
+                    //             hintStyle: hintTextStyleLarge,
+                    //             prefixIcon: const Icon(Icons.view_column),
+                    //             border: OutlineInputBorder(
+                    //               borderRadius: BorderRadius.circular(12.0),
+                    //             ),
+                    //             contentPadding: const EdgeInsets.all(16.0),
+                    //           ),
+                    //           // onChanged: (text) {
+                    //           //   column = int.tryParse(controllerheightmodul.text) ?? 0;
+                    //           //   log(column.toString());
+                    //           // },
+                    //           controller: controllercolumns,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     Expanded(
+                    //       child: Padding(
+                    //         padding: const EdgeInsets.all(4.0),
+                    //         child: TextField(
+                    //           keyboardType: TextInputType
+                    //               .number, // Set the keyboard type to numeric
+                    //           inputFormatters: <TextInputFormatter>[
+                    //             FilteringTextInputFormatter.digitsOnly,
+                    //           ],
+                    //           decoration: InputDecoration(
+                    //             labelText: 'Rows',
+                    //             hintText: 'Rows',
+                    //             labelStyle: labelTextStyleSmall,
+                    //             hintStyle: hintTextStyleLarge,
+                    //             prefixIcon: const Icon(Icons.table_rows),
+                    //             border: OutlineInputBorder(
+                    //               borderRadius: BorderRadius.circular(12.0),
+                    //             ),
+                    //             contentPadding: const EdgeInsets.all(16.0),
+                    //           ),
+                    //           // onChanged: (text) {
+                    //           //   row = int.tryParse(controllerwidthmodul.text) ?? 0;
+                    //           //   log(row.toString());
+                    //           // },
+                    //           controller: controllerrows,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                  ],
                 ),
-                DropdownMenu<String>(
-                  controller: controllerrows,
-                  width: 130,
-                  leadingIcon: const Icon(Icons.view_compact_rounded),
-                  label: const Text('Row'),
-                  initialSelection: listrow.first,
-                  onSelected: (String? value) {
-                    // This is called when the user selects an item.
-                    setState(() {
-                      GlobalVariables.dropdownValueRow = value!;
-                    });
-                  },
-                  dropdownMenuEntries:
-                      listrow.map<DropdownMenuEntry<String>>((String value) {
-                    return DropdownMenuEntry<String>(
-                        value: value, label: value);
-                  }).toList(),
-                ),
-              ],
+              ),
             ),
-
-            Column(
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context, rootNavigator: true).pop();
-                  },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.grey,
-                  ),
-                  child: const Text('Cancel'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    double n = double.tryParse(controllerpixels.text) ?? 0;
-                    modulcalculator(n);
-                    // final taskName = taskNameController.text;
-                    // final taskDesc = taskDescController.text;
-                    // // final taskTag = selectedValue;
-
-                    // firestoreServiceCabinet.addTaskLedDisplayCalculator(
-                    //   taskName,
-                    //   taskDesc,
-                    //   GlobalVariables.pitch.toString(),
-                    //   GlobalVariables.column.toString(),
-                    //   GlobalVariables.row.toString(),
-                    //   GlobalVariables.widthmodul.toString(),
-                    //   GlobalVariables.heightmodul.toString(),
-                    //   GlobalVariables.widthmodulcount.toString(),
-                    //   GlobalVariables.heightmodulcount.toString(),
-                    //   GlobalVariables.widthpixels.toString(),
-                    //   GlobalVariables.heightpixels.toString(),
-                    //   GlobalVariables.totalwidthpixels.toString(),
-                    //   GlobalVariables.totalheightpixels.toString(),
-                    //   GlobalVariables.totalwidthmeter.toString(),
-                    //   GlobalVariables.totalheightmeter.toString(),
-                    //   GlobalVariables.stdratiowidth.toString(),
-                    //   GlobalVariables.stdratioheight
-                    //       .toStringAsFixed(0)
-                    //       .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                    //           (Match m) => "${m[1]},"),
-                    //   GlobalVariables.modulcount.toString(),
-                    //   GlobalVariables.totalpowers.toStringAsFixed(0).replaceAllMapped(
-                    //       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                    //       (Match m) => "${m[1]}."),
-                    //   GlobalVariables.averagepowers.toStringAsFixed(0).replaceAllMapped(
-                    //       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                    //       (Match m) => "${m[1]}."),
-                    //   GlobalVariables.averagepowers2
-                    //       .toStringAsFixed(0)
-                    //       .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                    //           (Match m) => "${m[1]}."),
-                    //   GlobalVariables.arus.toStringAsFixed(0).replaceAllMapped(
-                    //       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                    //       (Match m) => "${m[1]},"),
-                    //   GlobalVariables.luaspenampangkabellistrik.toString(),
-                    //   GlobalVariables.tarikankabellanbulat.toString(),
-                    //   GlobalVariables.msd600count.toString(),
-                    //   GlobalVariables.msd300count.toString(),
-                    // );
-
-                    // _addCalculate(
-                    //     taskName: taskName, taskDesc: taskDesc, taskTag: taskTag);
-                  },
-                  child: const Text('Calculate'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    double n = double.tryParse(controllerpixels.text) ?? 0;
-                    modulcalculator(n);
-                    final taskName = taskNameController.text;
-                    final taskDesc = taskDescController.text;
-                    // final taskTag = selectedValue;
-
-                    firestoreServiceCabinet.addTaskLedDisplayCalculator(
-                      taskName,
-                      taskDesc,
-                      GlobalVariables.pitch.toString(),
-                      GlobalVariables.column.toString(),
-                      GlobalVariables.row.toString(),
-                      GlobalVariables.widthmodul.toString(),
-                      GlobalVariables.heightmodul.toString(),
-                      GlobalVariables.widthmodulcount.toString(),
-                      GlobalVariables.heightmodulcount.toString(),
-                      GlobalVariables.widthpixels.toString(),
-                      GlobalVariables.heightpixels.toString(),
-                      GlobalVariables.totalwidthpixels.toString(),
-                      GlobalVariables.totalheightpixels.toString(),
-                      GlobalVariables.totalwidthmeter.toString(),
-                      GlobalVariables.totalheightmeter.toString(),
-                      GlobalVariables.stdratiowidth.toString(),
-                      GlobalVariables.stdratioheight
-                          .toStringAsFixed(0)
-                          .replaceAllMapped(
-                              RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                              (Match m) => "${m[1]},"),
-                      GlobalVariables.modulcount.toString(),
-                      GlobalVariables.totalpowers
-                          .toStringAsFixed(0)
-                          .replaceAllMapped(
-                              RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                              (Match m) => "${m[1]}."),
-                      GlobalVariables.averagepowers
-                          .toStringAsFixed(0)
-                          .replaceAllMapped(
-                              RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                              (Match m) => "${m[1]}."),
-                      GlobalVariables.averagepowers2
-                          .toStringAsFixed(0)
-                          .replaceAllMapped(
-                              RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                              (Match m) => "${m[1]}."),
-                      GlobalVariables.arus.toStringAsFixed(0).replaceAllMapped(
-                          RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                          (Match m) => "${m[1]},"),
-                      GlobalVariables.luaspenampangkabellistrik.toString(),
-                      GlobalVariables.tarikankabellanbulat.toString(),
-                      GlobalVariables.msd600count.toString(),
-                      GlobalVariables.msd300count.toString(),
-                    );
-
-                    // _addCalculate(
-                    //     taskName: taskName, taskDesc: taskDesc, taskTag: taskTag);
-                    Navigator.of(context, rootNavigator: true).pop();
-                  },
-                  child: const Text('Calculate & Save'),
-                ),
-              ],
-            ),
-            // Padding(
-            //   padding: const EdgeInsets.all(4.0),
-            //   child: TextField(
-            //     keyboardType: TextInputType
-            //         .number, // Set the keyboard type to numeric
-            //     inputFormatters: <TextInputFormatter>[
-            //       FilteringTextInputFormatter.digitsOnly,
-            //     ],
-            //     decoration: InputDecoration(
-            //       labelText: 'Enter Width of Modul in mm',
-            //       labelStyle: labelTextStyleSmall,
-            //       hintText: 'Enter Width of Modul in mm',
-            //       hintStyle: hintTextStyleLarge,
-            //       prefixIcon: const Icon(Icons.width_wide_outlined),
-            //       border: OutlineInputBorder(
-            //         borderRadius: BorderRadius.circular(12.0),
-            //       ),
-            //       contentPadding: const EdgeInsets.all(16.0),
-            //     ),
-            //     controller: controllerwidthmodul,
-            //   ),
-            // ),
-            // Padding(
-            //   padding: const EdgeInsets.all(4.0),
-            //   child: TextField(
-            //     keyboardType: TextInputType
-            //         .number, // Set the keyboard type to numeric
-            //     inputFormatters: <TextInputFormatter>[
-            //       FilteringTextInputFormatter.digitsOnly,
-            //     ],
-            //     decoration: InputDecoration(
-            //       labelText: 'Enter Height of Modul in mm',
-            //       labelStyle: labelTextStyleSmall,
-            //       hintStyle: hintTextStyleLarge,
-            //       hintText: 'Enter Height of Modul in mm',
-            //       prefixIcon: const Icon(Icons.height),
-            //       border: OutlineInputBorder(
-            //         borderRadius: BorderRadius.circular(12.0),
-            //       ),
-            //       contentPadding: const EdgeInsets.all(16.0),
-            //     ),
-            //     controller: controllerheightmodul,
-            //   ),
-            // ),
-            // Padding(
-            //   padding: const EdgeInsets.all(4.0),
-            //   child: TextField(
-            //     keyboardType: TextInputType
-            //         .number, // Set the keyboard type to numeric
-
-            //     decoration: InputDecoration(
-            //       labelText: 'Pitch (P)',
-            //       hintText: 'Pitch (P)',
-            //       labelStyle: labelTextStyleSmall,
-            //       hintStyle: hintTextStyleLarge,
-            //       prefixIcon: const Icon(Icons.picture_in_picture),
-            //       border: OutlineInputBorder(
-            //         borderRadius: BorderRadius.circular(12.0),
-            //       ),
-            //       contentPadding: const EdgeInsets.all(16.0),
-            //     ),
-            //     onChanged: (text) {
-            //       final newText = text.replaceAll(',', '.');
-            //       if (newText != text) {
-            //         controllerpixels.value =
-            //             controllerpixels.value.copyWith(
-            //           text: newText,
-            //           selection: TextSelection.fromPosition(
-            //             TextPosition(offset: newText.length),
-            //           ),
-            //         );
-            //       }
-            //     },
-            //     controller: controllerpixels,
-            //   ),
-            // ),
-            // Row(
-            //   children: [
-            //     Expanded(
-            //       child: Padding(
-            //         padding: const EdgeInsets.all(4.0),
-            //         child: TextField(
-            //           keyboardType: TextInputType
-            //               .number, // Set the keyboard type to numeric
-            //           inputFormatters: <TextInputFormatter>[
-            //             FilteringTextInputFormatter.digitsOnly,
-            //           ],
-            //           decoration: InputDecoration(
-            //             labelText: 'Columns',
-            //             hintText: 'Columns',
-            //             labelStyle: labelTextStyleSmall,
-            //             hintStyle: hintTextStyleLarge,
-            //             prefixIcon: const Icon(Icons.view_column),
-            //             border: OutlineInputBorder(
-            //               borderRadius: BorderRadius.circular(12.0),
-            //             ),
-            //             contentPadding: const EdgeInsets.all(16.0),
-            //           ),
-            //           // onChanged: (text) {
-            //           //   column = int.tryParse(controllerheightmodul.text) ?? 0;
-            //           //   log(column.toString());
-            //           // },
-            //           controller: controllercolumns,
-            //         ),
-            //       ),
-            //     ),
-            //     Expanded(
-            //       child: Padding(
-            //         padding: const EdgeInsets.all(4.0),
-            //         child: TextField(
-            //           keyboardType: TextInputType
-            //               .number, // Set the keyboard type to numeric
-            //           inputFormatters: <TextInputFormatter>[
-            //             FilteringTextInputFormatter.digitsOnly,
-            //           ],
-            //           decoration: InputDecoration(
-            //             labelText: 'Rows',
-            //             hintText: 'Rows',
-            //             labelStyle: labelTextStyleSmall,
-            //             hintStyle: hintTextStyleLarge,
-            //             prefixIcon: const Icon(Icons.table_rows),
-            //             border: OutlineInputBorder(
-            //               borderRadius: BorderRadius.circular(12.0),
-            //             ),
-            //             contentPadding: const EdgeInsets.all(16.0),
-            //           ),
-            //           // onChanged: (text) {
-            //           //   row = int.tryParse(controllerwidthmodul.text) ?? 0;
-            //           //   log(row.toString());
-            //           // },
-            //           controller: controllerrows,
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
           ],
         ),
       ),

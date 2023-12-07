@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class GlobalVariables {
   // Singleton pattern: private constructor, instance, and a factory constructor
   GlobalVariables._privateConstructor();
@@ -6,6 +8,7 @@ class GlobalVariables {
   factory GlobalVariables() => _instance;
 
   // Declare your global variables here
+  static PageController pageController = PageController(initialPage: 0);
   String appName = "LED Display Calculator";
   static double pitch = 0;
   static int heightmodul = 0;
@@ -16,6 +19,7 @@ class GlobalVariables {
   static int widthmodulcount = 0;
   static int totalheightpixels = 0;
   static int totalwidthpixels = 0;
+  static int resolutioncapacity = 0;
   static int totalheightmm = 0;
   static int totalwidthmm = 0;
   static double totalheightmeter = 0;

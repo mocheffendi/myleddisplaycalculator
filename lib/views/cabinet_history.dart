@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -548,10 +550,15 @@ class _MyCabinetHistoryState extends State<MyCabinetHistory> {
     final headLineLargeTextStyle = GoogleFonts.plusJakartaSans(
       textStyle: Theme.of(context).textTheme.headlineLarge,
     );
+    final headLineSmallTextStyle = GoogleFonts.plusJakartaSans(
+      textStyle: Theme.of(context).textTheme.headlineSmall,
+    );
     final labelMediumTextStyle = GoogleFonts.plusJakartaSans(
       textStyle: Theme.of(context).textTheme.labelMedium,
     );
-    final Orientation orientation = MediaQuery.of(context).orientation;
+    final currentCount = (MediaQuery.of(context).size.width ~/ 200).toInt();
+    const minCount = 2;
+
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -568,7 +575,7 @@ class _MyCabinetHistoryState extends State<MyCabinetHistory> {
                 ),
                 Text(
                   'Cabinet [Outdoor]',
-                  style: headLineLargeTextStyle,
+                  style: headLineSmallTextStyle,
                 ),
                 Text('The LED Display Screen Size and Resolution :',
                     style: labelMediumTextStyle),
@@ -587,10 +594,12 @@ class _MyCabinetHistoryState extends State<MyCabinetHistory> {
                       physics: const ScrollPhysics(),
                       shrinkWrap: true,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount:
-                            (orientation == Orientation.portrait) ? 2 : 3,
-                        childAspectRatio:
-                            (MediaQuery.of(context).size.height * 0.001),
+                        crossAxisCount: max(currentCount, minCount),
+                        // crossAxisCount:
+                        //     (orientation == Orientation.portrait) ? 2 : 3,
+                        childAspectRatio: 2 / 2.5,
+                        mainAxisSpacing: 8,
+                        crossAxisSpacing: 8,
                       ),
                       // gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       //   crossAxisCount: 2,
@@ -614,8 +623,11 @@ class _MyCabinetHistoryState extends State<MyCabinetHistory> {
                         String heightpixels = data['heightpixels'];
                         String totalwidthpixels = data['totalwidthpixels'];
                         String totalheightpixels = data['totalheightpixels'];
+                        String resolutioncapacity = data['resolutioncapacity'];
                         String totalwidthmeter = data['totalwidthmeter'];
                         String totalheightmeter = data['totalheightmeter'];
+                        String totalwidthmm = data['totalwidthmm'];
+                        String totalheightmm = data['totalheightmm'];
                         String stdratiowidth = data['stdratiowidth'];
                         String stdratioheight = data['stdratioheight'];
                         String modulcount = data['modulcount'];
@@ -650,8 +662,11 @@ class _MyCabinetHistoryState extends State<MyCabinetHistory> {
                                   heightpixels: heightpixels,
                                   totalwidthpixels: totalwidthpixels,
                                   totalheightpixels: totalheightpixels,
+                                  resolutioncapacity: resolutioncapacity,
                                   totalwidthmeter: totalwidthmeter,
                                   totalheightmeter: totalheightmeter,
+                                  totalwidthmm: totalwidthmm,
+                                  totalheightmm: totalheightmm,
                                   stdratiowidth: stdratiowidth,
                                   stdratioheight: stdratioheight,
                                   modulcount: modulcount,
@@ -669,147 +684,139 @@ class _MyCabinetHistoryState extends State<MyCabinetHistory> {
                             );
                           },
                           child: GridTile(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: 200,
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.amber),
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: Stack(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Center(
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(taskName),
-                                            Text(taskDesc),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Container(
-                                                width: (MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    1),
-                                                // height: 120,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                    color:
-                                                        Colors.amber.shade800),
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Column(
-                                                    // crossAxisAlignment: CrossAxisAlignment.center,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        'Pitch : $pitch',
-                                                        // style: labelTextStyleSmall
-                                                      ),
-                                                      const Text(
-                                                        'Total Resolution : ',
-                                                        // style: labelTextStyleSmall
-                                                      ),
-                                                      Text(
-                                                        '  $totalwidthpixels x $totalheightpixels px',
-                                                        // style: bodyTextStyleLarge
-                                                      ),
-                                                      const Text(
-                                                        'Total Dimension : ',
-                                                        // style: labelTextStyleSmall
-                                                      ),
-                                                      Text(
-                                                          '$totalwidthmeter x $totalheightmeter meter')
-                                                    ],
-                                                  ),
+                            child: Container(
+                              height: 200,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.amber),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Stack(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Center(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(taskName),
+                                          Text(taskDesc),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Container(
+                                              width: (MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  1),
+                                              // height: 120,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  color: Colors.amber.shade800),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Column(
+                                                  // crossAxisAlignment: CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      'Pitch : $pitch',
+                                                      // style: labelTextStyleSmall
+                                                    ),
+                                                    const Text(
+                                                      'Total Resolution : ',
+                                                      // style: labelTextStyleSmall
+                                                    ),
+                                                    Text(
+                                                      '  $totalwidthpixels x $totalheightpixels px',
+                                                      // style: bodyTextStyleLarge
+                                                    ),
+                                                    const Text(
+                                                      'Total Dimension : ',
+                                                      // style: labelTextStyleSmall
+                                                    ),
+                                                    Text(
+                                                        '$totalwidthmeter x $totalheightmeter meter')
+                                                  ],
                                                 ),
                                               ),
                                             ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Positioned(
-                                      right: 0,
-                                      bottom: 0,
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            noteTimeStamp.toString(),
-                                            style: const TextStyle(
-                                                fontSize: 10,
-                                                color: Colors.blueGrey),
-                                          ),
-                                          // IconButton(
-                                          //   onPressed: () {
-                                          //     openNoteBox(docID);
-                                          //     fillTextFieldForUpdate(docID, taskName);
-                                          //   },
-                                          //   icon: const Icon(Icons.edit),
-                                          // ),
-                                          IconButton(
-                                            onPressed: () {
-                                              showDialog<String>(
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) =>
-                                                        AlertDialog(
-                                                  title: const Text(
-                                                      'Remove the Project'),
-                                                  content: const Text(
-                                                      'Are you sure you want to remove?'),
-                                                  actions: <Widget>[
-                                                    TextButton(
-                                                      onPressed: () =>
-                                                          Navigator.pop(context,
-                                                              'Cancel'),
-                                                      child: Text(
-                                                        'Cancel',
-                                                        style: TextStyle(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .colorScheme
-                                                                .tertiary),
-                                                      ),
-                                                    ),
-                                                    TextButton(
-                                                      onPressed: () {
-                                                        firestoreServiceCabinet
-                                                            .deleteNote(docID);
-                                                        Navigator.pop(
-                                                            context, 'OK');
-                                                      },
-                                                      child: Text(
-                                                        'OK',
-                                                        style: TextStyle(
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .colorScheme
-                                                                .tertiary),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              );
-                                            },
-                                            // onPressed: () => firestoreServiceCabinet
-                                            //     .deleteNote(docID),
-                                            icon: const Icon(Icons.delete),
                                           ),
                                         ],
                                       ),
-                                    )
-                                  ],
-                                ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    right: 0,
+                                    bottom: 0,
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          noteTimeStamp.toString(),
+                                          style: const TextStyle(
+                                              fontSize: 10,
+                                              color: Colors.blueGrey),
+                                        ),
+                                        // IconButton(
+                                        //   onPressed: () {
+                                        //     openNoteBox(docID);
+                                        //     fillTextFieldForUpdate(docID, taskName);
+                                        //   },
+                                        //   icon: const Icon(Icons.edit),
+                                        // ),
+                                        IconButton(
+                                          onPressed: () {
+                                            showDialog<String>(
+                                              context: context,
+                                              builder: (BuildContext context) =>
+                                                  AlertDialog(
+                                                title: const Text(
+                                                    'Remove the Project'),
+                                                content: const Text(
+                                                    'Are you sure you want to remove?'),
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            context, 'Cancel'),
+                                                    child: Text(
+                                                      'Cancel',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .tertiary),
+                                                    ),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () {
+                                                      firestoreServiceCabinet
+                                                          .deleteNote(docID);
+                                                      Navigator.pop(
+                                                          context, 'OK');
+                                                    },
+                                                    child: Text(
+                                                      'OK',
+                                                      style: TextStyle(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .tertiary),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                          // onPressed: () => firestoreServiceCabinet
+                                          //     .deleteNote(docID),
+                                          icon: const Icon(Icons.delete),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
                           ),

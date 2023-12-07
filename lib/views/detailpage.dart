@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:myleddisplaycalculator/theme/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class DetailPage extends StatelessWidget {
   final String taskName;
@@ -14,8 +16,11 @@ class DetailPage extends StatelessWidget {
   final String heightpixels;
   final String totalwidthpixels;
   final String totalheightpixels;
+  final String resolutioncapacity;
   final String totalwidthmeter;
   final String totalheightmeter;
+  final String totalwidthmm;
+  final String totalheightmm;
   final String stdratiowidth;
   final String stdratioheight;
   final String modulcount;
@@ -43,8 +48,11 @@ class DetailPage extends StatelessWidget {
     required this.heightpixels,
     required this.totalwidthpixels,
     required this.totalheightpixels,
+    required this.resolutioncapacity,
     required this.totalwidthmeter,
     required this.totalheightmeter,
+    required this.totalwidthmm,
+    required this.totalheightmm,
     required this.stdratiowidth,
     required this.stdratioheight,
     required this.modulcount,
@@ -60,6 +68,7 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final thememode = Provider.of<ThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detail Page'),
@@ -116,7 +125,9 @@ class DetailPage extends StatelessWidget {
                             height: 60,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: Colors.deepOrange),
+                                color: thememode.isDark
+                                    ? Colors.amber
+                                    : Colors.blue),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
@@ -189,17 +200,48 @@ class DetailPage extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   const Text(
-                                    'Total Resolution : ',
+                                    'Total Resolution | Resolution Capacity',
                                     // style: labelTextStyleSmall
                                   ),
                                   Row(
                                     children: [
-                                      const Icon(
-                                        Icons.view_comfy_alt,
-                                        color: Colors.white,
-                                      ),
                                       Text(
-                                        '  $totalwidthpixels x $totalheightpixels px | $totalwidthmeter x $totalheightmeter mtr',
+                                        '  $totalwidthpixels x $totalheightpixels pixels | $resolutioncapacity pixels',
+                                        // style: bodyTextStyleLarge
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Container(
+                            height: 60,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.deepOrange),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                // crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Text(
+                                    'Total Dimension : ',
+                                    // style: labelTextStyleSmall
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        '  $totalwidthmeter x $totalheightmeter meter',
                                         // style: bodyTextStyleLarge
                                       ),
                                     ],
@@ -286,7 +328,7 @@ class DetailPage extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   const Text(
-                                    'Modul Count : ',
+                                    'Modul : ',
                                     // style: labelTextStyleSmall
                                   ),
                                   Text(
@@ -491,7 +533,7 @@ class DetailPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(4.0),
                           child: Container(
-                            height: 60,
+                            // height: 60,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: const Color.fromARGB(255, 195, 207, 20)),
@@ -528,7 +570,7 @@ class DetailPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(4.0),
                           child: Container(
-                            height: 75,
+                            // height: 75,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 color: Colors.green),
@@ -563,36 +605,38 @@ class DetailPage extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(4.0),
-                          child: Container(
-                            height: 75,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.green),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                // crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Text(
-                                    'Electric Cable Babok: ',
-                                    // style: labelTextStyleSmall
-                                  ),
-                                  const Text(
-                                    'Main Cable /w Ground: ',
-                                    // style: labelTextStyleSmall
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Icon(Icons.bolt,
-                                          color: Colors.white),
-                                      Text(
-                                        '5 x $luaspenampangkabellistrik mm',
-                                        // style: bodyTextStyleLarge
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                          child: Expanded(
+                            child: Container(
+                              // height: 75,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.green),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  // crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      'Electric Cable Babok: ',
+                                      // style: labelTextStyleSmall
+                                    ),
+                                    const Text(
+                                      'Main Cable /w Ground: ',
+                                      // style: labelTextStyleSmall
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Icon(Icons.bolt,
+                                            color: Colors.white),
+                                        Text(
+                                          '5 x $luaspenampangkabellistrik mm',
+                                          // style: bodyTextStyleLarge
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
