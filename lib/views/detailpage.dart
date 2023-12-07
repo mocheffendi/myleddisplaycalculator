@@ -608,38 +608,36 @@ class DetailPage extends StatelessWidget {
                           ),
                           Padding(
                             padding: const EdgeInsets.all(4.0),
-                            child: Expanded(
-                              child: Container(
-                                // height: 75,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: Colors.green),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    // crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const Text(
-                                        'Electric Cable Babok: ',
-                                        // style: labelTextStyleSmall
-                                      ),
-                                      const Text(
-                                        'Main Cable /w Ground: ',
-                                        // style: labelTextStyleSmall
-                                      ),
-                                      Row(
-                                        children: [
-                                          const Icon(Icons.bolt,
-                                              color: Colors.white),
-                                          Text(
-                                            '5 x $luaspenampangkabellistrik mm',
-                                            // style: bodyTextStyleLarge
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                            child: Container(
+                              // height: 75,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.green),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  // crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      'Electric Cable Babok: ',
+                                      // style: labelTextStyleSmall
+                                    ),
+                                    const Text(
+                                      'Main Cable /w Ground: ',
+                                      // style: labelTextStyleSmall
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Icon(Icons.bolt,
+                                            color: Colors.white),
+                                        Text(
+                                          '5 x $luaspenampangkabellistrik mm',
+                                          // style: bodyTextStyleLarge
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
