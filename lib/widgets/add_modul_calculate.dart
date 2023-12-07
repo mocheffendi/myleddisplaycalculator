@@ -1123,13 +1123,18 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
                                     GlobalVariables.totalheightmeter.toString(),
                                     GlobalVariables.totalheightmm.toString(),
                                     GlobalVariables.totalwidthmm.toString(),
-                                    GlobalVariables.stdratiowidth.toString(),
+                                    GlobalVariables.stdratiowidth
+                                        .toStringAsFixed(0)
+                                        .replaceAllMapped(
+                                            RegExp(
+                                                r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                            (Match m) => "${m[1]}."),
                                     GlobalVariables.stdratioheight
                                         .toStringAsFixed(0)
                                         .replaceAllMapped(
                                             RegExp(
                                                 r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                            (Match m) => "${m[1]},"),
+                                            (Match m) => "${m[1]}."),
                                     GlobalVariables.modulcount.toString(),
                                     GlobalVariables.totalpowers
                                         .toStringAsFixed(0)

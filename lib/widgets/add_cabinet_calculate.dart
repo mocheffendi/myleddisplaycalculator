@@ -483,6 +483,8 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
         GlobalVariables.heightpixels * GlobalVariables.heightmodulcount;
     GlobalVariables.totalwidthpixels =
         GlobalVariables.widthpixels * GlobalVariables.widthmodulcount;
+    GlobalVariables.resolutioncapacity =
+        GlobalVariables.totalwidthpixels * GlobalVariables.totalheightpixels;
     GlobalVariables.totalheightmm =
         GlobalVariables.heightmodul * GlobalVariables.heightmodulcount;
     GlobalVariables.totalwidthmm =
@@ -1095,7 +1097,8 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
                                     GlobalVariables.totalheightmeter.toString(),
                                     GlobalVariables.totalheightmm.toString(),
                                     GlobalVariables.totalwidthmm.toString(),
-                                    GlobalVariables.stdratiowidth.toStringAsFixed(0)
+                                    GlobalVariables.stdratiowidth
+                                        .toStringAsFixed(0)
                                         .replaceAllMapped(
                                             RegExp(
                                                 r'(\d{1,3})(?=(\d{3})+(?!\d))'),
@@ -1105,7 +1108,7 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
                                         .replaceAllMapped(
                                             RegExp(
                                                 r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                            (Match m) => "${m[1]},"),
+                                            (Match m) => "${m[1]}."),
                                     GlobalVariables.modulcount.toString(),
                                     GlobalVariables.totalpowers
                                         .toStringAsFixed(0)

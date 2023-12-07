@@ -753,7 +753,9 @@ class _MyCabinetHistoryState extends State<MyCabinetHistory> {
                                     child: Row(
                                       children: [
                                         Text(
-                                          noteTimeStamp.toString(),
+                                          noteTimeStamp
+                                              .toString()
+                                              .substring(0, 19),
                                           style: const TextStyle(
                                               fontSize: 10,
                                               color: Colors.blueGrey),
