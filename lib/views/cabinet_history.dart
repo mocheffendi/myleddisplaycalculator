@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myleddisplaycalculator/services/firestore_cabinet.dart';
-import 'package:myleddisplaycalculator/views/detailpage.dart';
+import 'package:myleddisplaycalculator/views/detailpage_cabinet.dart';
 
 class MyCabinetHistory extends StatefulWidget {
   const MyCabinetHistory({super.key});
@@ -648,7 +648,7 @@ class _MyCabinetHistoryState extends State<MyCabinetHistory> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => DetailPage(
+                                builder: (context) => DetailPageCabinet(
                                   taskName: taskName,
                                   taskDesc: taskDesc,
                                   pitch: pitch,

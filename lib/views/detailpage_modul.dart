@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myleddisplaycalculator/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
 
-class DetailPage extends StatelessWidget {
+class DetailPageModul extends StatelessWidget {
   final String taskName;
   final String taskDesc;
   final String pitch;
@@ -33,7 +33,7 @@ class DetailPage extends StatelessWidget {
   final String msd600count;
   final String msd300count;
 
-  const DetailPage({
+  const DetailPageModul({
     super.key,
     required this.taskName,
     required this.taskDesc,
@@ -584,7 +584,7 @@ class DetailPage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     const Text(
-                                      'Electric Cable Babok: ',
+                                      'Electric Main Cable: ',
                                       // style: labelTextStyleSmall
                                     ),
                                     const Text(
@@ -620,7 +620,7 @@ class DetailPage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     const Text(
-                                      'Electric Cable Babok: ',
+                                      'Electric Main Cable: ',
                                       // style: labelTextStyleSmall
                                     ),
                                     const Text(

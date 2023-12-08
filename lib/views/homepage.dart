@@ -98,8 +98,8 @@ class _HomeScreenState extends State<HomeScreen> {
           // renderOverlay: renderOverlay,
           // overlayColor: Colors.black,
           // overlayOpacity: 0.5,
-          onOpen: () => debugPrint('OPENING DIAL'),
-          onClose: () => debugPrint('DIAL CLOSED'),
+          // onOpen: () => debugPrint('OPENING DIAL'),
+          // onClose: () => debugPrint('DIAL CLOSED'),
           // useRotationAnimation: useRAnimation,
           tooltip: 'Open Speed Dial',
           heroTag: 'speed-dial-hero-tag',
@@ -134,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 //   },
                 // );
               },
-              onLongPress: () => debugPrint('FIRST CHILD LONG PRESS'),
+              // onLongPress: () => debugPrint('FIRST CHILD LONG PRESS'),
             ),
             SpeedDialChild(
               child: const Icon(CupertinoIcons.square_list),
@@ -163,6 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
               label: 'Modular Price',
               onTap: () {
                 setState(() {
+                  _selectedIndex = 3;
                   GlobalVariables.pageController.jumpTo(2);
                 });
 
@@ -179,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 //   },
                 // );
               },
-              onLongPress: () => debugPrint('FIRST CHILD LONG PRESS'),
+              // onLongPress: () => debugPrint('FIRST CHILD LONG PRESS'),
             ),
             SpeedDialChild(
               child: const Icon(CupertinoIcons.square_list),
@@ -188,6 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
               label: 'Cabinet Price',
               onTap: () {
                 setState(() {
+                  _selectedIndex = 3;
                   GlobalVariables.pageController.jumpTo(3);
                 });
 

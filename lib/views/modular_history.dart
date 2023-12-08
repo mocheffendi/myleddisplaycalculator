@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myleddisplaycalculator/services/firestore_modul.dart';
-import 'package:myleddisplaycalculator/views/detailpage.dart';
+import 'package:myleddisplaycalculator/views/detailpage_modul.dart';
 
 class MyModularHistory extends StatefulWidget {
   const MyModularHistory({super.key});
@@ -647,7 +647,7 @@ class _MyModularHistoryState extends State<MyModularHistory> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => DetailPage(
+                                builder: (context) => DetailPageModul(
                                   taskName: taskName,
                                   taskDesc: taskDesc,
                                   pitch: pitch,
@@ -752,7 +752,9 @@ class _MyModularHistoryState extends State<MyModularHistory> {
                                     child: Row(
                                       children: [
                                         Text(
-                                          noteTimeStamp.toString(),
+                                          noteTimeStamp
+                                              .toString()
+                                              .substring(0, 19),
                                           style: const TextStyle(
                                               fontSize: 10,
                                               color: Colors.blueGrey),
