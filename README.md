@@ -1,6 +1,6 @@
-# myleddisplaycalculator
+# LEDDisplayCalculator
 
-A new Flutter project.
+A Project for Support Sales and Marketing to Calculate LED Display
 
 ## Getting Started
 
