@@ -495,7 +495,7 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
         GlobalVariables.widthmodulcount * GlobalVariables.heightmodulcount;
     GlobalVariables.totalpowers = GlobalVariables.totalwidthmeter *
         GlobalVariables.totalheightmeter *
-        1000;
+        1200;
     GlobalVariables.averagepowers = GlobalVariables.totalpowers * 0.45;
     GlobalVariables.averagepowers2 = GlobalVariables.totalpowers * 0.8;
 
