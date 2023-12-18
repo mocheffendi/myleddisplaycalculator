@@ -22,6 +22,7 @@ class AddCabinetCalculate extends StatefulWidget {
 class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
   final FireStoreServiceCabinet firestoreServiceCabinet =
       FireStoreServiceCabinet();
+  final GlobalVariables globalVariables = GlobalVariables();
   final TextEditingController taskNameController = TextEditingController();
   final TextEditingController taskDescController = TextEditingController();
   // final List<String> taskTags = ['Work', 'School', 'Other'];
@@ -338,8 +339,8 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
     controllercolumns.text = '1';
     controllerrows.text = '1';
 
-    GlobalVariables.dropdownValueWidth = '160';
-    GlobalVariables.dropdownValueHeight = '160';
+    globalVariables.dropdownValueWidth = '160';
+    globalVariables.dropdownValueHeight = '160';
     GlobalVariables.totalwidthpixels = 0;
     GlobalVariables.totalheightpixels = 0;
     GlobalVariables.totalwidthmeter = 0;
@@ -347,8 +348,8 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
     GlobalVariables.stdratiowidth = 0;
     GlobalVariables.stdratioheight = 0;
 
-    GlobalVariables.dropdownValueWidth = '480';
-    GlobalVariables.dropdownValueHeight = '480';
+    globalVariables.dropdownValueWidth = '480';
+    globalVariables.dropdownValueHeight = '480';
 
     listcolumndata().then((List<String> data) {
       setState(() {
@@ -471,9 +472,9 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
     GlobalVariables.column = int.tryParse(controllercolumns.text) ?? 0;
     GlobalVariables.row = int.tryParse(controllerrows.text) ?? 0;
     GlobalVariables.heightmodul =
-        int.tryParse(GlobalVariables.dropdownValueHeight) ?? 0;
+        int.tryParse(globalVariables.dropdownValueHeight) ?? 0;
     GlobalVariables.widthmodul =
-        int.tryParse(GlobalVariables.dropdownValueWidth) ?? 0;
+        int.tryParse(globalVariables.dropdownValueWidth) ?? 0;
 
     GlobalVariables.heightpixels =
         (GlobalVariables.heightmodul / GlobalVariables.pitch).round();
@@ -642,6 +643,12 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
       GlobalVariables.stdratioheight = 1;
     }
 
+    if ((GlobalVariables.stdratiowidth == 16) &&
+        (GlobalVariables.stdratioheight > 16)) {
+      GlobalVariables.stdratiowidth = GlobalVariables.stdratiowidth / 16;
+      GlobalVariables.stdratioheight = GlobalVariables.stdratioheight / 16;
+    }
+
     // log('After check');
     // log('Ratio Width : ${GlobalVariables.stdratiowidth}');
     // log('Ratio Height : ${GlobalVariables.stdratioheight}');
@@ -765,7 +772,7 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
                             horizontal: 20,
                             vertical: 20,
                           ),
-                          hintText: 'Title Task of Calculation',
+                          hintText: 'Screen Name',
                           hintStyle: const TextStyle(fontSize: 14),
                           icon: const Icon(CupertinoIcons.square_list,
                               color: Colors.brown),
@@ -869,7 +876,7 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
                             onSelected: (String? value) {
                               // This is called when the user selects an item.
                               setState(() {
-                                GlobalVariables.dropdownValueWidth = value!;
+                                globalVariables.dropdownValueWidth = value!;
                                 // log('dropdownValueWidth : $GlobalVariables.dropdownValueWidth');
                               });
                             },
@@ -891,7 +898,7 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
                             onSelected: (String? value) {
                               // This is called when the user selects an item.
                               setState(() {
-                                GlobalVariables.dropdownValueHeight = value!;
+                                globalVariables.dropdownValueHeight = value!;
                               });
                             },
                             dropdownMenuEntries: listcabinetheight
@@ -918,7 +925,7 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
                             onSelected: (String? value) {
                               // This is called when the user selects an item.
                               setState(() {
-                                GlobalVariables.dropdownValuePitch = value!;
+                                globalVariables.dropdownValuePitch = value!;
                               });
                             },
                             dropdownMenuEntries: listpitch
@@ -944,7 +951,7 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
                             onSelected: (String? value) {
                               // This is called when the user selects an item.
                               setState(() {
-                                GlobalVariables.dropdownValueColumn = value!;
+                                globalVariables.dropdownValueColumn = value!;
                                 // log('dropdownValueWidth : $GlobalVariables.dropdownValueWidth');
                               });
                             },
@@ -966,7 +973,7 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
                             onSelected: (String? value) {
                               // This is called when the user selects an item.
                               setState(() {
-                                GlobalVariables.dropdownValueRow = value!;
+                                globalVariables.dropdownValueRow = value!;
                               });
                             },
                             dropdownMenuEntries: listrow

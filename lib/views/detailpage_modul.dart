@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:myleddisplaycalculator/component/box.dart';
 import 'package:myleddisplaycalculator/theme/theme_provider.dart';
+import 'package:myleddisplaycalculator/views/detailpagetable_modul.dart';
 import 'package:provider/provider.dart';
 
 class DetailPageModul extends StatelessWidget {
@@ -24,6 +27,8 @@ class DetailPageModul extends StatelessWidget {
   final String stdratiowidth;
   final String stdratioheight;
   final String modulcount;
+  final String psu;
+  final String rc;
   final String totalpowers;
   final String averagepowers;
   final String averagepowers2;
@@ -32,6 +37,8 @@ class DetailPageModul extends StatelessWidget {
   final String tarikankabellanbulat;
   final String msd600count;
   final String msd300count;
+  final String processor;
+  final String processoralt;
 
   const DetailPageModul({
     super.key,
@@ -64,6 +71,10 @@ class DetailPageModul extends StatelessWidget {
     required this.tarikankabellanbulat,
     required this.msd600count,
     required this.msd300count,
+    required this.processor,
+    required this.processoralt,
+    required this.psu,
+    required this.rc,
   });
 
   @override
@@ -72,583 +83,225 @@ class DetailPageModul extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detail Page'),
+        actions: [
+          // MySwitch(),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailPageTableModul(
+                    taskName: taskName,
+                    taskDesc: taskDesc,
+                    pitch: pitch,
+                    column: column,
+                    row: row,
+                    widthmodul: widthmodul,
+                    heightmodul: heightmodul,
+                    widthmodulcount: widthmodulcount,
+                    heightmodulcount: heightmodulcount,
+                    widthpixels: widthpixels,
+                    heightpixels: heightpixels,
+                    totalwidthpixels: totalwidthpixels,
+                    totalheightpixels: totalheightpixels,
+                    resolutioncapacity: resolutioncapacity,
+                    totalwidthmeter: totalwidthmeter,
+                    totalheightmeter: totalheightmeter,
+                    totalwidthmm: totalwidthmm,
+                    totalheightmm: totalheightmm,
+                    stdratiowidth: stdratiowidth,
+                    stdratioheight: stdratioheight,
+                    modulcount: modulcount,
+                    totalpowers: totalpowers,
+                    averagepowers: averagepowers,
+                    averagepowers2: averagepowers2,
+                    arus: arus,
+                    luaspenampangkabellistrik: luaspenampangkabellistrik,
+                    tarikankabellanbulat: tarikankabellanbulat,
+                    msd600count: msd600count,
+                    msd300count: msd300count,
+                    processor: processor,
+                    processoralt: processoralt,
+                  ),
+                ),
+              );
+            },
+            icon: const Icon(CupertinoIcons.table),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  '$taskName :',
-                  style: const TextStyle(
-                      fontSize: 30, fontWeight: FontWeight.bold),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
                   decoration: BoxDecoration(
-                      border: Border.all(color: Colors.orange),
-                      borderRadius: BorderRadius.circular(20)),
-                  child: Column(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(width: 1, color: Colors.amber),
+                  ),
+                  child: Wrap(
+                    alignment: WrapAlignment.center,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Container(
-                              height: 60,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.orange),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text('P$pitch',
-                                        style: const TextStyle(
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.w900)),
-                                  ],
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Container(
+                          // height: 60,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.orange),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              // crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'P$pitch',
+                                  style: const TextStyle(
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.w900,
+                                  ),
                                 ),
-                              ),
+                              ],
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Container(
-                              height: 60,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: thememode.isDark
-                                      ? Colors.amber
-                                      : Colors.blue),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      'Column x Row: ',
-                                      // style: labelTextStyleSmall
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          '$column x $row',
-                                          // style: bodyTextStyleLarge
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Container(
-                              height: 60,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.green),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      'Modul Dimensions : ',
-                                      // style: labelTextStyleSmall
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          '$widthmodul x $heightmodul mm',
-                                          // style: bodyTextStyleLarge
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Container(
-                              height: 60,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.deepOrange),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      'Total Resolution | Resolution Capacity',
-                                      // style: labelTextStyleSmall
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          '  $totalwidthpixels x $totalheightpixels pixels | $resolutioncapacity pixels',
-                                          // style: bodyTextStyleLarge
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                      MyBox(
+                          color: thememode.isDark
+                              ? const Color.fromARGB(255, 87, 102, 4)
+                              : const Color.fromARGB(255, 229, 255, 0),
+                          textlabel: 'Column x Row:',
+                          text: '$column x $row'),
+                      MyBox(
+                          color: thememode.isDark
+                              ? const Color.fromARGB(255, 87, 102, 4)
+                              : const Color.fromARGB(255, 229, 255, 0),
+                          textlabel: 'Modul Dimensions:',
+                          text: '$widthmodul x $heightmodul mm'),
+                      MyBox(
+                          color: thememode.isDark
+                              ? const Color.fromARGB(255, 87, 102, 4)
+                              : const Color.fromARGB(255, 229, 255, 0),
+                          textlabel: 'Total Resolution | Resolution Capacity',
+                          text:
+                              '$totalwidthpixels x $totalheightpixels pixels | $resolutioncapacity pixels'),
+                      MyBox(
+                          color: thememode.isDark
+                              ? const Color.fromARGB(255, 189, 123, 0)
+                              : const Color.fromARGB(255, 255, 174, 0),
+                          textlabel: 'Total Dimension:',
+                          text: '$totalwidthmeter x $totalheightmeter meter'),
+                      MyBox(
+                          color: thememode.isDark
+                              ? const Color.fromARGB(255, 189, 123, 0)
+                              : const Color.fromARGB(255, 255, 174, 0),
+                          textlabel: 'Aspect Ratio:',
+                          text: '$stdratiowidth : $stdratioheight'),
+                      MyBox(
+                          color: thememode.isDark
+                              ? const Color.fromARGB(255, 10, 114, 139)
+                              : const Color.fromARGB(255, 0, 255, 255),
+                          textlabel: 'Modul Resolution:',
+                          text: '$widthpixels x $heightpixels px'),
+                      MyBox(
+                          color: thememode.isDark
+                              ? const Color.fromARGB(255, 10, 114, 139)
+                              : const Color.fromARGB(255, 0, 255, 255),
+                          textlabel: 'Modul Quantity:',
+                          text: '$modulcount unit'),
+                      MyBox(
+                          color: thememode.isDark
+                              ? const Color.fromARGB(255, 10, 114, 139)
+                              : const Color.fromARGB(255, 0, 255, 255),
+                          textlabel: 'Modul Weight:',
+                          text: '$modulcount Kg'),
+                      MyBox(
+                          color: thememode.isDark
+                              ? const Color.fromARGB(255, 134, 114, 0)
+                              : const Color.fromARGB(255, 255, 217, 0),
+                          textlabel: 'PSU Quantity:',
+                          text: psu),
+                      MyBox(
+                          color: thememode.isDark
+                              ? const Color.fromARGB(255, 134, 114, 0)
+                              : const Color.fromARGB(255, 255, 217, 0),
+                          textlabel: 'Receiving Card Quantity:',
+                          text: rc),
+                      MyBox(
+                          color: thememode.isDark
+                              ? const Color.fromARGB(255, 83, 134, 0)
+                              : const Color.fromARGB(255, 115, 255, 0),
+                          textlabel: 'LAN Cable Quantity:',
+                          text: tarikankabellanbulat.toString()),
+                      MyBox(
+                          color: thememode.isDark
+                              ? const Color.fromARGB(255, 83, 134, 0)
+                              : const Color.fromARGB(255, 115, 255, 0),
+                          textlabel: 'MCTRL600:',
+                          text: msd600count.toString()),
+                      MyBox(
+                          color: thememode.isDark
+                              ? const Color.fromARGB(255, 83, 134, 0)
+                              : const Color.fromARGB(255, 115, 255, 0),
+                          textlabel: 'MCTRL300:',
+                          text: msd300count.toString()),
+                      MyBox(
+                          color: thememode.isDark
+                              ? const Color.fromARGB(255, 109, 0, 0)
+                              : const Color.fromARGB(255, 255, 84, 84),
+                          textlabel: 'Total Maximum Power:',
+                          text: '$totalpowers Watts'),
+                      MyBox(
+                          color: thememode.isDark
+                              ? const Color.fromARGB(255, 109, 0, 0)
+                              : const Color.fromARGB(255, 255, 84, 84),
+                          textlabel: 'Average Power:',
+                          text: '$averagepowers - $averagepowers2 Watts'),
+                      MyBox(
+                        color: thememode.isDark
+                            ? const Color.fromARGB(255, 109, 0, 0)
+                            : const Color.fromARGB(255, 255, 84, 84),
+                        textlabel: 'Electric Current per Phase /220/3:',
+                        text:
+                            'R: $arus Ampere | S: $arus Ampere | T: $arus Ampere',
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Container(
-                              height: 60,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.deepOrange),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      'Total Dimension : ',
-                                      // style: labelTextStyleSmall
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          '  $totalwidthmeter x $totalheightmeter meter',
-                                          // style: bodyTextStyleLarge
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Container(
-                              height: 60,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.orange),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      'Aspect Ratio : ',
-                                      // style: labelTextStyleSmall
-                                    ),
-                                    Text(
-                                      '$stdratiowidth : $stdratioheight',
-                                      // style: bodyTextStyleLarge
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                      MyBox(
+                        color: thememode.isDark
+                            ? const Color.fromARGB(255, 114, 51, 0)
+                            : Colors.amber.shade900,
+                        textlabel: 'Main Cable /wo Ground:',
+                        text: '4 x $luaspenampangkabellistrik mm',
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Container(
-                              height: 60,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.cyan),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      'Modul Resolution : ',
-                                      // style: labelTextStyleSmall
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Icon(Icons.view_comfy_alt,
-                                            color: Colors.white),
-                                        Text(
-                                          '  $widthpixels x $heightpixels px',
-                                          // style: bodyTextStyleLarge
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Container(
-                              height: 60,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.amber),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      'Modul : ',
-                                      // style: labelTextStyleSmall
-                                    ),
-                                    Text(
-                                      '$modulcount unit',
-                                      // style: bodyTextStyleLarge
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Container(
-                              height: 60,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.amber),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      'Modul Weight : ',
-                                      // style: labelTextStyleSmall
-                                    ),
-                                    Text(
-                                      '$modulcount Kg',
-                                      // style: bodyTextStyleLarge
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                      MyBox(
+                        color: thememode.isDark
+                            ? const Color.fromARGB(255, 114, 51, 0)
+                            : Colors.amber.shade900,
+                        textlabel: 'Main Cable /w Ground:',
+                        text: '5 x $luaspenampangkabellistrik mm',
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Container(
-                              height: 60,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.blue),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      'LAN Cable Count : ',
-                                      // style: labelTextStyleSmall
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        const Icon(Icons.lan_rounded,
-                                            color: Colors.white),
-                                        Text(
-                                          '  $tarikankabellanbulat',
-                                          // style: bodyTextStyleLarge
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Container(
-                              height: 60,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.lightGreen),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      'MSD600 : ',
-                                      // style: labelTextStyleSmall
-                                    ),
-                                    Text(
-                                      msd600count,
-                                      // style: bodyTextStyleLarge
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Container(
-                              height: 60,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.lightGreen),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      'MSD300 : ',
-                                      // style: labelTextStyleSmall
-                                    ),
-                                    Text(
-                                      msd300count,
-                                      // style: bodyTextStyleLarge
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                      MyBox(
+                        color: thememode.isDark
+                            ? const Color.fromARGB(255, 0, 114, 108)
+                            : const Color.fromARGB(255, 0, 255, 179),
+                        textlabel: 'Processor:',
+                        text: processor,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Container(
-                              height: 60,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.red),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      'Total Maximum Power : ',
-                                      // style: labelTextStyleSmall
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Icon(Icons.bolt,
-                                            color: Colors.white),
-                                        Text(
-                                          '$totalpowers Watts ',
-                                          // style: bodyTextStyleLarge
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Container(
-                              height: 60,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.green),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      'Average Power : ',
-                                      // style: labelTextStyleSmall
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Icon(Icons.bolt,
-                                            color: Colors.white),
-                                        Text(
-                                          '$averagepowers - $averagepowers2 Watts',
-                                          // style: bodyTextStyleLarge
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Container(
-                              // height: 60,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color:
-                                      const Color.fromARGB(255, 195, 207, 20)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      'Electric Current per Phase /220/3 : ',
-                                      // style: labelTextStyleSmall
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Icon(Icons.bolt,
-                                            color: Colors.white),
-                                        Text(
-                                          'R: $arus Ampere | S: $arus Ampere | T: $arus Ampere',
-                                          // style: bodyTextStyleLarge
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Container(
-                              // height: 75,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.green),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      'Electric Main Cable: ',
-                                      // style: labelTextStyleSmall
-                                    ),
-                                    const Text(
-                                      'Main Cable /wo Ground: ',
-                                      // style: labelTextStyleSmall
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Icon(Icons.bolt,
-                                            color: Colors.white),
-                                        Text(
-                                          '4 x $luaspenampangkabellistrik mm',
-                                          // style: bodyTextStyleLarge
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Container(
-                              // height: 75,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.green),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const Text(
-                                      'Electric Main Cable: ',
-                                      // style: labelTextStyleSmall
-                                    ),
-                                    const Text(
-                                      'Main Cable /w Ground: ',
-                                      // style: labelTextStyleSmall
-                                    ),
-                                    Row(
-                                      children: [
-                                        const Icon(Icons.bolt,
-                                            color: Colors.white),
-                                        Text(
-                                          '5 x $luaspenampangkabellistrik mm',
-                                          // style: bodyTextStyleLarge
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                      MyBox(
+                          color: thememode.isDark
+                              ? const Color.fromARGB(255, 0, 114, 108)
+                              : const Color.fromARGB(255, 0, 255, 179),
+                          textlabel: 'Processor Alt',
+                          text: processoralt),
                     ],
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

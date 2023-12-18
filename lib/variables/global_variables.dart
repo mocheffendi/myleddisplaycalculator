@@ -33,14 +33,39 @@ class GlobalVariables {
   static double tarikankabellistrikbabok = 0;
   static double arus = 0;
   static double luaspenampangkabellistrik = 0;
-  static double satutarikankabellan = 600000;
+  static double satutarikankabellan = 625000;
   static int tarikankabellanbulat = 0;
+  static int lan = 0;
+  static int psu = 0;
+  static int rc = 0;
+  static String processor = '';
+  static String processoralt = '';
+  static String processor1 = 'Magnimage 515';
+  static String processor2 = 'Magnimage 550';
+  static String processor3 = 'Magnimage 750H';
+  static String processor4 = 'Magnimage 780H';
+  static String processor5 = 'Nova VX400';
+  static String processor6 = 'Nova VX600';
+  static String processor7 = 'Nova VX1000';
+  static String processor8 = 'Magnimage Cyclone 9600';
+  static String processor9 = 'Digibird DB-VWC2-B-4H4H';
+  static String processor10 = 'Digibird DB-VWC2-B-4H8H';
+  static String processor11 = 'Digibird DB-VWC2-B-4H12H';
 
-  static String dropdownValueWidth = '160';
-  static String dropdownValueHeight = '160';
-  static String dropdownValuePitch = '1.8';
-  static String dropdownValueColumn = '1';
-  static String dropdownValueRow = '1';
+  static String processorcabinet = '';
+  static String processorcabinetalt = '';
+  static String processorcabinet1 = 'MiniPC + MCTRL300';
+  static String processorcabinet2 = 'MiniPC + MCTRL600';
+  static String processorcabinet3 = 'Taurus TB30';
+  static String processorcabinet4 = 'Taurus TB50';
+  static String processorcabinet5 = 'Taurus TB60';
+  static String processorcabinet6 = '';
+
+  String dropdownValueWidth = '160';
+  String dropdownValueHeight = '160';
+  String dropdownValuePitch = '1.8';
+  String dropdownValueColumn = '1';
+  String dropdownValueRow = '1';
 
   static int msd300 = 2;
   static int msd600 = 4;
@@ -56,4 +81,18 @@ class GlobalVariables {
 
   static double screenWidth = 300;
   static double screenHeight = 400;
+
+  // List<String> listkabellistrik = <String>[
+  //   '0,75',
+  //   '1',
+  //   '1.5',
+  //   '2',
+  //   '2.5',
+  //   '4',
+  //   '6',
+  //   '10',
+  //   '16',
+  //   '25',
+  //   '35',
+  // ];
 }

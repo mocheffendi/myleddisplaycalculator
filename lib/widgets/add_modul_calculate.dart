@@ -1,4 +1,4 @@
-import 'dart:developer';
+// import 'dart:developer';
 
 // import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:dropdown_button2/dropdown_button2.dart';
@@ -6,8 +6,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:myleddisplaycalculator/component/box.dart';
+import 'package:myleddisplaycalculator/component/switch.dart';
 import 'package:myleddisplaycalculator/services/firestore_modul.dart';
+import 'package:myleddisplaycalculator/theme/theme_provider.dart';
 import 'package:myleddisplaycalculator/variables/global_variables.dart';
+import 'package:provider/provider.dart';
 
 class AddModulCalculate extends StatefulWidget {
   const AddModulCalculate({
@@ -20,9 +24,9 @@ class AddModulCalculate extends StatefulWidget {
 
 class _AddModulCalculateState extends State<AddModulCalculate> {
   final FireStoreService firestoreService = FireStoreService();
+  final GlobalVariables globalVariables = GlobalVariables();
   final TextEditingController taskNameController = TextEditingController();
   final TextEditingController taskDescController = TextEditingController();
-  final List<String> taskTags = ['Work', 'School', 'Other'];
   late String selectedValue = '';
 
   TextEditingController controllerpixels = TextEditingController();
@@ -37,11 +41,11 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
 
   List<String> listcolumn = ['Loading...'];
   List<String> listrow = ['Loading...'];
-  List<String> listwidth = ['Loading...'];
-  List<String> listheight = ['Loading...'];
-  List<String> listpitch = ['Loading...'];
+  List<String> listwidthmodul = ['Loading...'];
+  List<String> listheightmodul = ['Loading...'];
+  List<String> listpitchmodul = ['Loading...'];
 
-  Future<List<String>> listwidthdata() async {
+  Future<List<String>> listwidthmoduldata() async {
     // Simulate a delay (replace this with your actual data fetching logic)
     await Future.delayed(const Duration(seconds: 2));
 
@@ -53,7 +57,7 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
     ];
   }
 
-  Future<List<String>> listheightdata() async {
+  Future<List<String>> listheightmoduldata() async {
     // Simulate a delay (replace this with your actual data fetching logic)
     await Future.delayed(const Duration(seconds: 2));
 
@@ -65,12 +69,16 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
     ];
   }
 
-  Future<List<String>> listpitchdata() async {
+  Future<List<String>> listpitchmoduldata() async {
     // Simulate a delay (replace this with your actual data fetching logic)
     await Future.delayed(const Duration(seconds: 2));
 
     // Fetch data from your API or any other source
     return [
+      '0.9',
+      '1.26',
+      '1.58',
+      '1.9',
       '2.5',
       '3',
       '3.9',
@@ -302,20 +310,6 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
     ];
   }
 
-  List<String> listkabellistrik = <String>[
-    '0,75',
-    '1',
-    '1.5',
-    '2',
-    '2.5',
-    '4',
-    '6',
-    '10',
-    '16',
-    '25',
-    '35',
-  ];
-
   @override
   void initState() {
     super.initState();
@@ -328,8 +322,8 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
     controllercolumns.text = '1';
     controllerrows.text = '1';
 
-    GlobalVariables.dropdownValueWidth = '160';
-    GlobalVariables.dropdownValueHeight = '160';
+    globalVariables.dropdownValueWidth = '160';
+    globalVariables.dropdownValueHeight = '160';
     GlobalVariables.totalwidthpixels = 0;
     GlobalVariables.totalheightpixels = 0;
     GlobalVariables.totalwidthmeter = 0;
@@ -348,8 +342,8 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
       GlobalVariables.screenWidth = mediaQueryData.size.width;
       GlobalVariables.screenHeight = mediaQueryData.size.height;
 
-      log('Screen Width: ${GlobalVariables.screenWidth}');
-      log('Screen Height: ${GlobalVariables.screenHeight}');
+      // log('Screen Width: ${GlobalVariables.screenWidth}');
+      // log('Screen Height: ${GlobalVariables.screenHeight}');
     });
 
     // Call MediaQuery in the initState method
@@ -359,8 +353,26 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
     // screenWidth = mediaQueryData.size.width;
     // screenHeight = mediaQueryData.size.height;
 
-    log(GlobalVariables.pixelheight.length.toString());
-    log(GlobalVariables.pixelwidth.length.toString());
+    // log(GlobalVariables.pixelheight.length.toString());
+    // log(GlobalVariables.pixelwidth.length.toString());
+
+    listpitchmoduldata().then((List<String> data) {
+      setState(() {
+        listpitchmodul = data;
+      });
+    });
+
+    listwidthmoduldata().then((List<String> data) {
+      setState(() {
+        listwidthmodul = data;
+      });
+    });
+
+    listheightmoduldata().then((List<String> data) {
+      setState(() {
+        listheightmodul = data;
+      });
+    });
 
     listcolumndata().then((List<String> data) {
       setState(() {
@@ -371,24 +383,6 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
     listrowdata().then((List<String> data) {
       setState(() {
         listrow = data;
-      });
-    });
-
-    listpitchdata().then((List<String> data) {
-      setState(() {
-        listpitch = data;
-      });
-    });
-
-    listwidthdata().then((List<String> data) {
-      setState(() {
-        listwidth = data;
-      });
-    });
-
-    listheightdata().then((List<String> data) {
-      setState(() {
-        listheight = data;
       });
     });
 
@@ -437,6 +431,39 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
     controllerwidthmodul.dispose();
     controllercolumns.dispose();
     controllerrows.dispose();
+
+    GlobalVariables.pitch = 0;
+    GlobalVariables.heightmodul = 0;
+    GlobalVariables.widthmodul = 0;
+    GlobalVariables.widthpixels = 0;
+    GlobalVariables.heightpixels = 0;
+    GlobalVariables.heightmodulcount = 0;
+    GlobalVariables.widthmodulcount = 0;
+    GlobalVariables.totalheightpixels = 0;
+    GlobalVariables.totalwidthpixels = 0;
+    GlobalVariables.resolutioncapacity = 0;
+    GlobalVariables.totalheightmm = 0;
+    GlobalVariables.totalwidthmm = 0;
+    GlobalVariables.totalheightmeter = 0;
+    GlobalVariables.totalwidthmeter = 0;
+    GlobalVariables.totalpowers = 0;
+    GlobalVariables.averagepowers = 0;
+    GlobalVariables.averagepowers2 = 0;
+    GlobalVariables.stdratiowidth = 0;
+    GlobalVariables.stdratioheight = 0;
+    GlobalVariables.tarikankabellan = 0;
+    GlobalVariables.tarikankabellistrikbabok = 0;
+    GlobalVariables.arus = 0;
+    GlobalVariables.luaspenampangkabellistrik = 0;
+    // GlobalVariables.satutarikankabellan = 625000;
+    GlobalVariables.tarikankabellanbulat = 0;
+    GlobalVariables.lan = 0;
+    GlobalVariables.modulcount = 0;
+    GlobalVariables.psu = 0;
+    GlobalVariables.rc = 0;
+    GlobalVariables.processor = '';
+    GlobalVariables.processoralt = '';
+    GlobalVariables.pageController.jumpToPage(0);
     super.dispose();
   }
 
@@ -495,9 +522,9 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
     GlobalVariables.row = int.tryParse(controllerrows.text) ?? 0;
 
     GlobalVariables.heightmodul =
-        int.tryParse(GlobalVariables.dropdownValueHeight) ?? 0;
+        int.tryParse(globalVariables.dropdownValueHeight) ?? 0;
     GlobalVariables.widthmodul =
-        int.tryParse(GlobalVariables.dropdownValueWidth) ?? 0;
+        int.tryParse(globalVariables.dropdownValueWidth) ?? 0;
 
     GlobalVariables.heightpixels =
         (GlobalVariables.heightmodul / GlobalVariables.pitch).round();
@@ -524,7 +551,10 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
     GlobalVariables.averagepowers2 = GlobalVariables.totalpowers * 0.6;
 
     GlobalVariables.arus = GlobalVariables.totalpowers / 220 / 3;
-    log('Arus Listrik per Phase: $GlobalVariables.arus');
+    // log('Arus Listrik per Phase: $GlobalVariables.arus');
+
+    GlobalVariables.psu = (GlobalVariables.modulcount / 6).ceil();
+    GlobalVariables.rc = (GlobalVariables.modulcount / 5).ceil();
 
     if ((GlobalVariables.arus <= 185) && (GlobalVariables.arus >= 151)) {
       GlobalVariables.luaspenampangkabellistrik = 50;
@@ -554,7 +584,7 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
       GlobalVariables.luaspenampangkabellistrik = 4;
     }
 
-    if ((GlobalVariables.arus <= 32) && (GlobalVariables.arus >= 11)) {
+    if ((GlobalVariables.arus <= 32) && (GlobalVariables.arus >= 1)) {
       GlobalVariables.luaspenampangkabellistrik = 2.5;
     }
 
@@ -566,19 +596,19 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
     //   luaspenampangkabellistrik = 1;
     // }
 
-    if ((GlobalVariables.arus <= 10) && (GlobalVariables.arus >= 1)) {
-      GlobalVariables.luaspenampangkabellistrik = 1;
-    }
+    // if ((GlobalVariables.arus <= 10) && (GlobalVariables.arus >= 1)) {
+    //   GlobalVariables.luaspenampangkabellistrik = 1;
+    // }
 
-    log('Luas Penampang Kabel Listrik : ${GlobalVariables.luaspenampangkabellistrik}');
+    // log('Luas Penampang Kabel Listrik : ${GlobalVariables.luaspenampangkabellistrik}');
 
     GlobalVariables.tarikankabellan = (GlobalVariables.totalheightpixels *
         GlobalVariables.totalwidthpixels /
         GlobalVariables.satutarikankabellan);
     GlobalVariables.tarikankabellanbulat =
         GlobalVariables.tarikankabellan.ceil();
-    log('Tarikan Kabel Lan : ${GlobalVariables.tarikankabellan}');
-    log('Tarikan Kabel Lan bulat ke atas: ${GlobalVariables.tarikankabellanbulat}');
+    // log('Tarikan Kabel Lan : ${GlobalVariables.tarikankabellan}');
+    // log('Tarikan Kabel Lan bulat ke atas: ${GlobalVariables.tarikankabellanbulat}');
 
     GlobalVariables.msd300count = 0;
 
@@ -603,8 +633,111 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
       GlobalVariables.msd300count = 0; // Set msd300 to 0 for other cases
     }
 
-    log('msd600 : ${GlobalVariables.msd600count}');
-    log('msd300 : ${GlobalVariables.msd300count}');
+    // log('msd600 : ${GlobalVariables.msd600count}');
+    // log('msd300 : ${GlobalVariables.msd300count}');
+
+    GlobalVariables.lan = (GlobalVariables.resolutioncapacity / 625000).ceil();
+    if (GlobalVariables.lan <= 2) {
+      GlobalVariables.processor =
+          '${GlobalVariables.processor1} & MCTRL300 1unit';
+    }
+
+    if ((GlobalVariables.lan > 2) && (GlobalVariables.lan <= 4)) {
+      GlobalVariables.processor =
+          '${GlobalVariables.processor3} + MCTRL600 1unit';
+      GlobalVariables.processoralt = GlobalVariables.processor5;
+    }
+
+    if ((GlobalVariables.lan > 4) && (GlobalVariables.lan <= 6)) {
+      GlobalVariables.processor =
+          '${GlobalVariables.processor4} + MCTRL600 2 unit';
+      GlobalVariables.processoralt = GlobalVariables.processor6;
+    }
+
+    if ((GlobalVariables.lan > 6) && (GlobalVariables.lan <= 8)) {
+      GlobalVariables.processor =
+          '${GlobalVariables.processor4} + MCTRL600 2 unit';
+      GlobalVariables.processoralt = GlobalVariables.processor6;
+    }
+
+    if ((GlobalVariables.lan > 8) && (GlobalVariables.lan <= 10)) {
+      GlobalVariables.processor =
+          '${GlobalVariables.processor4} + MCTRL600 3 unit';
+      GlobalVariables.processoralt = GlobalVariables.processor7;
+    }
+
+    if ((GlobalVariables.lan > 10) && (GlobalVariables.lan <= 12)) {
+      GlobalVariables.processor =
+          '${GlobalVariables.processor4} + MCTRL600 3 unit';
+      GlobalVariables.processoralt =
+          '${GlobalVariables.processor9} + MCTRL600 3 unit';
+    }
+
+    if ((GlobalVariables.lan > 12) && (GlobalVariables.lan <= 16)) {
+      GlobalVariables.processor =
+          '${GlobalVariables.processor4} + MCTRL600 4 unit';
+      GlobalVariables.processoralt =
+          '${GlobalVariables.processor9} + MCTRL600 4 unit';
+    }
+
+    if ((GlobalVariables.lan > 16) && (GlobalVariables.lan <= 20)) {
+      GlobalVariables.processor =
+          '${GlobalVariables.processor8} + MCTRL600 5 unit';
+      GlobalVariables.processoralt =
+          '${GlobalVariables.processor10} + MCTRL600 5 unit';
+    }
+
+    if ((GlobalVariables.lan > 20) && (GlobalVariables.lan <= 24)) {
+      GlobalVariables.processor =
+          '${GlobalVariables.processor8} + MCTRL600 6 unit';
+      GlobalVariables.processoralt =
+          '${GlobalVariables.processor10} + MCTRL600 6 unit';
+    }
+
+    if ((GlobalVariables.lan > 24) && (GlobalVariables.lan <= 28)) {
+      GlobalVariables.processor =
+          '${GlobalVariables.processor8} + MCTRL600 7 unit';
+      GlobalVariables.processoralt =
+          '${GlobalVariables.processor10} + MCTRL600 7 unit';
+    }
+
+    if ((GlobalVariables.lan > 28) && (GlobalVariables.lan <= 32)) {
+      GlobalVariables.processor =
+          '${GlobalVariables.processor8} + MCTRL600 8 unit';
+      GlobalVariables.processoralt =
+          '${GlobalVariables.processor10} + MCTRL600 8 unit';
+    }
+
+    if ((GlobalVariables.lan > 32) && (GlobalVariables.lan <= 36)) {
+      GlobalVariables.processor =
+          '${GlobalVariables.processor8} + MCTRL600 5 unit';
+      GlobalVariables.processoralt =
+          '${GlobalVariables.processor11} + MCTRL600 9 unit';
+    }
+
+    if ((GlobalVariables.lan > 36) && (GlobalVariables.lan <= 40)) {
+      GlobalVariables.processor =
+          '${GlobalVariables.processor8} + MCTRL600 10 unit';
+      GlobalVariables.processoralt =
+          '${GlobalVariables.processor11} + MCTRL600 10 unit';
+    }
+
+    if ((GlobalVariables.lan > 40) && (GlobalVariables.lan <= 44)) {
+      GlobalVariables.processor =
+          '${GlobalVariables.processor8} + MCTRL600 11 unit';
+      GlobalVariables.processoralt =
+          '${GlobalVariables.processor11} + MCTRL600 11 unit';
+    }
+
+    if ((GlobalVariables.lan > 44) && (GlobalVariables.lan <= 48)) {
+      GlobalVariables.processor =
+          '${GlobalVariables.processor8} + MCTRL600 12 unit';
+      GlobalVariables.processor =
+          '${GlobalVariables.processor11} + MCTRL600 12 unit';
+    }
+
+    // debugPrint(GlobalVariables.lan.toString());
+    // debugPrint(GlobalVariables.processor);
 
     if (GlobalVariables.heightpixels < GlobalVariables.widthpixels) {
       GlobalVariables.issquare = false;
@@ -612,22 +745,22 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
       GlobalVariables.issquare = true;
     }
 
-    log('total power : ${GlobalVariables.totalpowers}');
-    log('average power : ${GlobalVariables.averagepowers}');
-    log('average power2 : ${GlobalVariables.averagepowers2}');
+    // log('total power : ${GlobalVariables.totalpowers}');
+    // log('average power : ${GlobalVariables.averagepowers}');
+    // log('average power2 : ${GlobalVariables.averagepowers2}');
     int gcf = calculateGCF(
         GlobalVariables.totalwidthpixels, GlobalVariables.totalheightpixels);
-    log('GCF : $gcf');
+    // log('GCF : $gcf');
     double ratiowidth = GlobalVariables.totalwidthpixels / gcf;
     double ratioheight = GlobalVariables.totalheightpixels / gcf;
-    log('Ratio Width : $ratiowidth');
-    log('Ratio Height : $ratioheight');
+    // log('Ratio Width : $ratiowidth');
+    // log('Ratio Height : $ratioheight');
 
     // NumberFormat numberFormat = NumberFormat("#,##0.00", "en_US");
 
-    log('Height 1 modul : ${GlobalVariables.heightmodul}');
-    log('Width 1 modul : ${GlobalVariables.widthmodul}');
-    log('Pitch : ${GlobalVariables.pitch}');
+    // log('Height 1 modul : ${GlobalVariables.heightmodul}');
+    // log('Width 1 modul : ${GlobalVariables.widthmodul}');
+    // log('Pitch : ${GlobalVariables.pitch}');
 
     double stdw = 16;
 
@@ -644,8 +777,8 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
     GlobalVariables.stdratiowidth = ratiowidth;
     GlobalVariables.stdratioheight = ratioheight;
 
-    log('Ratio Width : ${GlobalVariables.stdratiowidth}');
-    log('Ratio Height : ${GlobalVariables.stdratioheight}');
+    // log('Ratio Width : ${GlobalVariables.stdratiowidth}');
+    // log('Ratio Height : ${GlobalVariables.stdratioheight}');
 
     if ((GlobalVariables.stdratiowidth == 16) &&
         (GlobalVariables.stdratioheight == 8.00)) {
@@ -666,9 +799,15 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
       GlobalVariables.stdratioheight = 1;
     }
 
-    log('After check');
-    log('Ratio Width : ${GlobalVariables.stdratiowidth}');
-    log('Ratio Height : ${GlobalVariables.stdratioheight}');
+    if ((GlobalVariables.stdratiowidth == 16) &&
+        (GlobalVariables.stdratioheight > 16)) {
+      GlobalVariables.stdratiowidth = GlobalVariables.stdratiowidth / 16;
+      GlobalVariables.stdratioheight = GlobalVariables.stdratioheight / 16;
+    }
+
+    // log('After check');
+    // log('Ratio Width : ${GlobalVariables.stdratiowidth}');
+    // log('Ratio Height : ${GlobalVariables.stdratioheight}');
 
     return setState(() {
       [GlobalVariables.heightpixels, GlobalVariables.widthpixels];
@@ -677,6 +816,7 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
 
   @override
   Widget build(BuildContext context) {
+    final thememode = Provider.of<ThemeProvider>(context);
     // final pushButtonTextStyle = GoogleFonts.plusJakartaSans(
     //   textStyle: Theme.of(context).textTheme.labelMedium,
     // );
@@ -700,80 +840,212 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Modular Calculator'),
+        actions: const [
+          MySwitch(),
+          // IconButton(
+          //   onPressed: () {},
+          //   icon: const Icon(CupertinoIcons.calendar),
+          // ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(4.0),
               child: Container(
-                  width: screenWidth,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(width: 1, color: Colors.amber),
-                  ),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          // height: 60,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.deepOrange),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              // crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text(
-                                  'Total Resolution : ',
-                                  // style: labelTextStyleSmall
-                                ),
-                                Text(
-                                  '${GlobalVariables.totalwidthpixels} x ${GlobalVariables.totalheightpixels} px | ${GlobalVariables.totalwidthmeter} x ${GlobalVariables.totalheightmeter} mtr',
-                                  // style: bodyTextStyleLarge
-                                ),
-                              ],
+                width: screenWidth,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(width: 1, color: Colors.amber),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Container(
+                            // height: 60,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.orange),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                // crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'P${GlobalVariables.pitch}',
+                                    style: const TextStyle(
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                        child: Container(
-                          // height: 60,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.orange),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              // crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text(
-                                  'Aspect Ratio : ',
-                                  // style: labelTextStyleSmall
-                                ),
-                                Text(
-                                  '${GlobalVariables.stdratiowidth} : ${GlobalVariables.stdratioheight.toStringAsFixed(2).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")}',
-                                  // style: bodyTextStyleLarge
-                                ),
-                              ],
-                            ),
-                          ),
+                        MyBox(
+                            color: thememode.isDark
+                                ? const Color.fromARGB(255, 87, 102, 4)
+                                : const Color.fromARGB(255, 229, 255, 0),
+                            textlabel: 'Column x Row:',
+                            text:
+                                '${GlobalVariables.column} x ${GlobalVariables.row}'),
+                        MyBox(
+                            color: thememode.isDark
+                                ? const Color.fromARGB(255, 87, 102, 4)
+                                : const Color.fromARGB(255, 229, 255, 0),
+                            textlabel: 'Modul Dimensions:',
+                            text:
+                                '${GlobalVariables.widthmodul} x ${GlobalVariables.heightmodul} mm'),
+                        MyBox(
+                            color: thememode.isDark
+                                ? const Color.fromARGB(255, 87, 102, 4)
+                                : const Color.fromARGB(255, 229, 255, 0),
+                            textlabel: 'Total Resolution | Resolution Capacity',
+                            text:
+                                '${GlobalVariables.totalwidthpixels} x ${GlobalVariables.totalheightpixels} pixels | ${GlobalVariables.resolutioncapacity.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")} pixels'),
+                        MyBox(
+                            color: thememode.isDark
+                                ? const Color.fromARGB(255, 189, 123, 0)
+                                : const Color.fromARGB(255, 255, 174, 0),
+                            textlabel: 'Total Dimension:',
+                            text:
+                                '${GlobalVariables.totalwidthmeter} x ${GlobalVariables.totalheightmeter} meter'),
+                        MyBox(
+                            color: thememode.isDark
+                                ? const Color.fromARGB(255, 189, 123, 0)
+                                : const Color.fromARGB(255, 255, 174, 0),
+                            textlabel: 'Aspect Ratio:',
+                            text:
+                                '${GlobalVariables.stdratiowidth.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")} : ${GlobalVariables.stdratioheight.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")}'),
+                        MyBox(
+                            color: thememode.isDark
+                                ? const Color.fromARGB(255, 10, 114, 139)
+                                : const Color.fromARGB(255, 0, 255, 255),
+                            textlabel: 'Modul Resolution:',
+                            text:
+                                '${GlobalVariables.widthpixels} x ${GlobalVariables.heightpixels} px'),
+                        MyBox(
+                            color: thememode.isDark
+                                ? const Color.fromARGB(255, 10, 114, 139)
+                                : const Color.fromARGB(255, 0, 255, 255),
+                            textlabel: 'Modul Quantity:',
+                            text: '${GlobalVariables.modulcount} unit'),
+                        MyBox(
+                            color: thememode.isDark
+                                ? const Color.fromARGB(255, 10, 114, 139)
+                                : const Color.fromARGB(255, 0, 255, 255),
+                            textlabel: 'Modul Weight:',
+                            text: '${GlobalVariables.modulcount} Kg'),
+                        MyBox(
+                            color: thememode.isDark
+                                ? const Color.fromARGB(255, 134, 114, 0)
+                                : const Color.fromARGB(255, 255, 217, 0),
+                            textlabel: 'PSU Quantity:',
+                            text: GlobalVariables.psu
+                                .toStringAsFixed(0)
+                                .replaceAllMapped(
+                                    RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                    (Match m) => "${m[1]}.")),
+                        MyBox(
+                            color: thememode.isDark
+                                ? const Color.fromARGB(255, 134, 114, 0)
+                                : const Color.fromARGB(255, 255, 217, 0),
+                            textlabel: 'Receiving Card Quantity:',
+                            text: GlobalVariables.rc
+                                .toStringAsFixed(0)
+                                .replaceAllMapped(
+                                    RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                    (Match m) => "${m[1]}.")),
+                        MyBox(
+                            color: thememode.isDark
+                                ? const Color.fromARGB(255, 83, 134, 0)
+                                : const Color.fromARGB(255, 115, 255, 0),
+                            textlabel: 'LAN Cable Quantity:',
+                            text: GlobalVariables.tarikankabellanbulat
+                                .toString()),
+                        MyBox(
+                            color: thememode.isDark
+                                ? const Color.fromARGB(255, 83, 134, 0)
+                                : const Color.fromARGB(255, 115, 255, 0),
+                            textlabel: 'MCTRL600:',
+                            text: GlobalVariables.msd600count.toString()),
+                        MyBox(
+                            color: thememode.isDark
+                                ? const Color.fromARGB(255, 83, 134, 0)
+                                : const Color.fromARGB(255, 115, 255, 0),
+                            textlabel: 'MCTRL300:',
+                            text: GlobalVariables.msd300count.toString()),
+                        MyBox(
+                            color: thememode.isDark
+                                ? const Color.fromARGB(255, 109, 0, 0)
+                                : const Color.fromARGB(255, 255, 84, 84),
+                            textlabel: 'Total Maximum Power:',
+                            text:
+                                '${GlobalVariables.totalpowers.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")} Watts'),
+                        MyBox(
+                            color: thememode.isDark
+                                ? const Color.fromARGB(255, 109, 0, 0)
+                                : const Color.fromARGB(255, 255, 84, 84),
+                            textlabel: 'Average Power:',
+                            text:
+                                '${GlobalVariables.averagepowers.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")} - ${GlobalVariables.averagepowers2.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")} Watts'),
+                        MyBox(
+                          color: thememode.isDark
+                              ? const Color.fromARGB(255, 109, 0, 0)
+                              : const Color.fromARGB(255, 255, 84, 84),
+                          textlabel: 'Electric Current per Phase /220/3:',
+                          text:
+                              'R: ${GlobalVariables.arus.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")} Ampere | S: ${GlobalVariables.arus.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")} Ampere | T: ${GlobalVariables.arus.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")} Ampere',
                         ),
-                      ),
-                    ],
-                  )),
+                        MyBox(
+                          color: thememode.isDark
+                              ? const Color.fromARGB(255, 114, 51, 0)
+                              : Colors.amber.shade900,
+                          textlabel: 'Main Cable /wo Ground:',
+                          text:
+                              '4 x ${GlobalVariables.luaspenampangkabellistrik} mm',
+                        ),
+                        MyBox(
+                          color: thememode.isDark
+                              ? const Color.fromARGB(255, 114, 51, 0)
+                              : Colors.amber.shade900,
+                          textlabel: 'Main Cable /w Ground:',
+                          text:
+                              '5 x ${GlobalVariables.luaspenampangkabellistrik} mm',
+                        ),
+                        MyBox(
+                          color: thememode.isDark
+                              ? const Color.fromARGB(255, 0, 114, 108)
+                              : const Color.fromARGB(255, 0, 255, 179),
+                          textlabel: 'Processor:',
+                          text: GlobalVariables.processor,
+                        ),
+                        MyBox(
+                            color: thememode.isDark
+                                ? const Color.fromARGB(255, 0, 114, 108)
+                                : const Color.fromARGB(255, 0, 255, 179),
+                            textlabel: 'Processor Alt',
+                            text: GlobalVariables.processoralt),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+              padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
               child: Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(10),
                     border: Border.all(width: 1, color: Colors.amber)),
                 child: Column(
                   children: [
@@ -787,7 +1059,7 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
                             horizontal: 20,
                             vertical: 20,
                           ),
-                          hintText: 'Title Task of Calculation',
+                          hintText: 'Screen Name',
                           hintStyle: const TextStyle(fontSize: 14),
                           icon: const Icon(CupertinoIcons.square_list,
                               color: Colors.brown),
@@ -825,10 +1097,10 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(4.0),
               child: Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(10),
                     border: Border.all(
                       width: 1,
                       color: Colors.amber,
@@ -887,15 +1159,15 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
                             // width: 130,
                             leadingIcon: const Icon(Icons.view_compact_rounded),
                             label: const Text('Width in mm'),
-                            initialSelection: listwidth.first,
+                            initialSelection: listwidthmodul.first,
                             onSelected: (String? value) {
                               // This is called when the user selects an item.
                               setState(() {
-                                GlobalVariables.dropdownValueWidth = value!;
+                                globalVariables.dropdownValueWidth = value!;
                                 // log('dropdownValueWidth : $GlobalVariables.dropdownValueWidth');
                               });
                             },
-                            dropdownMenuEntries: listwidth
+                            dropdownMenuEntries: listwidthmodul
                                 .map<DropdownMenuEntry<String>>((String value) {
                               return DropdownMenuEntry<String>(
                                   value: value, label: value);
@@ -909,14 +1181,14 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
                             // width: 130,
                             leadingIcon: const Icon(Icons.view_compact_rounded),
                             label: const Text('Height in mm'),
-                            initialSelection: listheight.first,
+                            initialSelection: listheightmodul.first,
                             onSelected: (String? value) {
                               // This is called when the user selects an item.
                               setState(() {
-                                GlobalVariables.dropdownValueHeight = value!;
+                                globalVariables.dropdownValueHeight = value!;
                               });
                             },
-                            dropdownMenuEntries: listheight
+                            dropdownMenuEntries: listheightmodul
                                 .map<DropdownMenuEntry<String>>((String value) {
                               return DropdownMenuEntry<String>(
                                   value: value, label: value);
@@ -933,17 +1205,17 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
                           child: DropdownMenu<String>(
                             controller: controllerpixels,
                             // expandedInsets: EdgeInsets.zero,
-                            width: 200,
+                            // width: 200,
                             leadingIcon: const Icon(Icons.view_compact_rounded),
                             label: const Text('Pitch of Modul'),
-                            initialSelection: listpitch.first,
+                            initialSelection: listpitchmodul.first,
                             onSelected: (String? value) {
                               // This is called when the user selects an item.
                               setState(() {
-                                GlobalVariables.dropdownValuePitch = value!;
+                                globalVariables.dropdownValuePitch = value!;
                               });
                             },
-                            dropdownMenuEntries: listpitch
+                            dropdownMenuEntries: listpitchmodul
                                 .map<DropdownMenuEntry<String>>((String value) {
                               return DropdownMenuEntry<String>(
                                   value: value, label: value);
@@ -966,7 +1238,7 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
                             onSelected: (String? value) {
                               // This is called when the user selects an item.
                               setState(() {
-                                GlobalVariables.dropdownValueColumn = value!;
+                                globalVariables.dropdownValueColumn = value!;
                                 // log('dropdownValueWidth : $GlobalVariables.dropdownValueWidth');
                               });
                             },
@@ -988,7 +1260,7 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
                             onSelected: (String? value) {
                               // This is called when the user selects an item.
                               setState(() {
-                                GlobalVariables.dropdownValueRow = value!;
+                                globalVariables.dropdownValueRow = value!;
                               });
                             },
                             dropdownMenuEntries: listrow
@@ -1001,183 +1273,176 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
                       ],
                     ),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                    Wrap(
+                      // mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.of(context, rootNavigator: true)
-                                      .pop();
-                                  GlobalVariables.pageController.jumpToPage(0);
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  primary: Colors.grey,
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(4, 0, 4, 4),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context, rootNavigator: true).pop();
+                              GlobalVariables.pageController.jumpToPage(0);
+                            },
+                            style: ElevatedButton.styleFrom(
+                                // primary: Colors.grey,
                                 ),
-                                child: const Text('Cancel'),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(4, 0, 4, 4),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  double n =
-                                      double.tryParse(controllerpixels.text) ??
-                                          0;
-                                  modulcalculator(n);
-                                  GlobalVariables.pageController.jumpToPage(0);
-                                  // final taskName = taskNameController.text;
-                                  // final taskDesc = taskDescController.text;
-                                  // // final taskTag = selectedValue;
+                            child: const Text('Cancel'),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(4, 0, 4, 4),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              double n =
+                                  double.tryParse(controllerpixels.text) ?? 0;
+                              modulcalculator(n);
+                              GlobalVariables.pageController.jumpToPage(0);
+                              // final taskName = taskNameController.text;
+                              // final taskDesc = taskDescController.text;
+                              // // final taskTag = selectedValue;
 
-                                  // firestoreServiceCabinet.addTaskLedDisplayCalculator(
-                                  //   taskName,
-                                  //   taskDesc,
-                                  //   GlobalVariables.pitch.toString(),
-                                  //   GlobalVariables.column.toString(),
-                                  //   GlobalVariables.row.toString(),
-                                  //   GlobalVariables.widthmodul.toString(),
-                                  //   GlobalVariables.heightmodul.toString(),
-                                  //   GlobalVariables.widthmodulcount.toString(),
-                                  //   GlobalVariables.heightmodulcount.toString(),
-                                  //   GlobalVariables.widthpixels.toString(),
-                                  //   GlobalVariables.heightpixels.toString(),
-                                  //   GlobalVariables.totalwidthpixels.toString(),
-                                  //   GlobalVariables.totalheightpixels.toString(),
-                                  //   GlobalVariables.totalwidthmeter.toString(),
-                                  //   GlobalVariables.totalheightmeter.toString(),
-                                  //   GlobalVariables.stdratiowidth.toString(),
-                                  //   GlobalVariables.stdratioheight
-                                  //       .toStringAsFixed(0)
-                                  //       .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                  //           (Match m) => "${m[1]},"),
-                                  //   GlobalVariables.modulcount.toString(),
-                                  //   GlobalVariables.totalpowers.toStringAsFixed(0).replaceAllMapped(
-                                  //       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                  //       (Match m) => "${m[1]}."),
-                                  //   GlobalVariables.averagepowers.toStringAsFixed(0).replaceAllMapped(
-                                  //       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                  //       (Match m) => "${m[1]}."),
-                                  //   GlobalVariables.averagepowers2
-                                  //       .toStringAsFixed(0)
-                                  //       .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                  //           (Match m) => "${m[1]}."),
-                                  //   GlobalVariables.arus.toStringAsFixed(0).replaceAllMapped(
-                                  //       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                  //       (Match m) => "${m[1]},"),
-                                  //   GlobalVariables.luaspenampangkabellistrik.toString(),
-                                  //   GlobalVariables.tarikankabellanbulat.toString(),
-                                  //   GlobalVariables.msd600count.toString(),
-                                  //   GlobalVariables.msd300count.toString(),
-                                  // );
+                              // firestoreServiceCabinet.addTaskLedDisplayCalculator(
+                              //   taskName,
+                              //   taskDesc,
+                              //   GlobalVariables.pitch.toString(),
+                              //   GlobalVariables.column.toString(),
+                              //   GlobalVariables.row.toString(),
+                              //   GlobalVariables.widthmodul.toString(),
+                              //   GlobalVariables.heightmodul.toString(),
+                              //   GlobalVariables.widthmodulcount.toString(),
+                              //   GlobalVariables.heightmodulcount.toString(),
+                              //   GlobalVariables.widthpixels.toString(),
+                              //   GlobalVariables.heightpixels.toString(),
+                              //   GlobalVariables.totalwidthpixels.toString(),
+                              //   GlobalVariables.totalheightpixels.toString(),
+                              //   GlobalVariables.totalwidthmeter.toString(),
+                              //   GlobalVariables.totalheightmeter.toString(),
+                              //   GlobalVariables.stdratiowidth.toString(),
+                              //   GlobalVariables.stdratioheight
+                              //       .toStringAsFixed(0)
+                              //       .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                              //           (Match m) => "${m[1]},"),
+                              //   GlobalVariables.modulcount.toString(),
+                              //   GlobalVariables.totalpowers.toStringAsFixed(0).replaceAllMapped(
+                              //       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                              //       (Match m) => "${m[1]}."),
+                              //   GlobalVariables.averagepowers.toStringAsFixed(0).replaceAllMapped(
+                              //       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                              //       (Match m) => "${m[1]}."),
+                              //   GlobalVariables.averagepowers2
+                              //       .toStringAsFixed(0)
+                              //       .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                              //           (Match m) => "${m[1]}."),
+                              //   GlobalVariables.arus.toStringAsFixed(0).replaceAllMapped(
+                              //       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                              //       (Match m) => "${m[1]},"),
+                              //   GlobalVariables.luaspenampangkabellistrik.toString(),
+                              //   GlobalVariables.tarikankabellanbulat.toString(),
+                              //   GlobalVariables.msd600count.toString(),
+                              //   GlobalVariables.msd300count.toString(),
+                              // );
 
-                                  // _addCalculate(
-                                  //     taskName: taskName, taskDesc: taskDesc, taskTag: taskTag);
-                                },
-                                child: const Text('Calculate'),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(4, 0, 4, 4),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  double n =
-                                      double.tryParse(controllerpixels.text) ??
-                                          0;
-                                  modulcalculator(n);
-                                  final taskName = taskNameController.text;
-                                  final taskDesc = taskDescController.text;
-                                  // final taskTag = selectedValue;
+                              // _addCalculate(
+                              //     taskName: taskName, taskDesc: taskDesc, taskTag: taskTag);
+                            },
+                            child: const Text('Calculate'),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(4, 0, 4, 4),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              double n =
+                                  double.tryParse(controllerpixels.text) ?? 0;
+                              modulcalculator(n);
+                              final taskName = taskNameController.text;
+                              final taskDesc = taskDescController.text;
+                              // final taskTag = selectedValue;
 
-                                  firestoreService.addTaskLedDisplayCalculator(
-                                    taskName,
-                                    taskDesc,
-                                    GlobalVariables.pitch.toString(),
-                                    GlobalVariables.column.toString(),
-                                    GlobalVariables.row.toString(),
-                                    GlobalVariables.widthmodul.toString(),
-                                    GlobalVariables.heightmodul.toString(),
-                                    GlobalVariables.widthmodulcount.toString(),
-                                    GlobalVariables.heightmodulcount.toString(),
-                                    GlobalVariables.widthpixels.toString(),
-                                    GlobalVariables.heightpixels.toString(),
-                                    GlobalVariables.totalwidthpixels
-                                        .toStringAsFixed(0)
-                                        .replaceAllMapped(
-                                            RegExp(
-                                                r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                            (Match m) => "${m[1]}."),
-                                    GlobalVariables.totalheightpixels
-                                        .toString(),
-                                    GlobalVariables.resolutioncapacity
-                                        .toStringAsFixed(0)
-                                        .replaceAllMapped(
-                                            RegExp(
-                                                r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                            (Match m) => "${m[1]}."),
-                                    GlobalVariables.totalwidthmeter.toString(),
-                                    GlobalVariables.totalheightmeter.toString(),
-                                    GlobalVariables.totalheightmm.toString(),
-                                    GlobalVariables.totalwidthmm.toString(),
-                                    GlobalVariables.stdratiowidth
-                                        .toStringAsFixed(0)
-                                        .replaceAllMapped(
-                                            RegExp(
-                                                r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                            (Match m) => "${m[1]}."),
-                                    GlobalVariables.stdratioheight
-                                        .toStringAsFixed(0)
-                                        .replaceAllMapped(
-                                            RegExp(
-                                                r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                            (Match m) => "${m[1]}."),
-                                    GlobalVariables.modulcount.toString(),
-                                    GlobalVariables.totalpowers
-                                        .toStringAsFixed(0)
-                                        .replaceAllMapped(
-                                            RegExp(
-                                                r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                            (Match m) => "${m[1]}."),
-                                    GlobalVariables.averagepowers
-                                        .toStringAsFixed(0)
-                                        .replaceAllMapped(
-                                            RegExp(
-                                                r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                            (Match m) => "${m[1]}."),
-                                    GlobalVariables.averagepowers2
-                                        .toStringAsFixed(0)
-                                        .replaceAllMapped(
-                                            RegExp(
-                                                r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                            (Match m) => "${m[1]}."),
-                                    GlobalVariables.arus
-                                        .toStringAsFixed(0)
-                                        .replaceAllMapped(
-                                            RegExp(
-                                                r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                            (Match m) => "${m[1]},"),
-                                    GlobalVariables.luaspenampangkabellistrik
-                                        .toString(),
-                                    GlobalVariables.tarikankabellanbulat
-                                        .toString(),
-                                    GlobalVariables.msd600count.toString(),
-                                    GlobalVariables.msd300count.toString(),
-                                  );
+                              firestoreService.addTaskLedDisplayCalculator(
+                                taskName,
+                                taskDesc,
+                                GlobalVariables.pitch.toString(),
+                                GlobalVariables.column.toString(),
+                                GlobalVariables.row.toString(),
+                                GlobalVariables.widthmodul.toString(),
+                                GlobalVariables.heightmodul.toString(),
+                                GlobalVariables.widthmodulcount.toString(),
+                                GlobalVariables.heightmodulcount.toString(),
+                                GlobalVariables.widthpixels.toString(),
+                                GlobalVariables.heightpixels.toString(),
+                                GlobalVariables.totalwidthpixels
+                                    .toStringAsFixed(0)
+                                    .replaceAllMapped(
+                                        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                        (Match m) => "${m[1]}."),
+                                GlobalVariables.totalheightpixels.toString(),
+                                GlobalVariables.resolutioncapacity
+                                    .toStringAsFixed(0)
+                                    .replaceAllMapped(
+                                        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                        (Match m) => "${m[1]}."),
+                                GlobalVariables.totalwidthmeter.toString(),
+                                GlobalVariables.totalheightmeter.toString(),
+                                GlobalVariables.totalheightmm.toString(),
+                                GlobalVariables.totalwidthmm.toString(),
+                                GlobalVariables.stdratiowidth
+                                    .toStringAsFixed(0)
+                                    .replaceAllMapped(
+                                        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                        (Match m) => "${m[1]}."),
+                                GlobalVariables.stdratioheight
+                                    .toStringAsFixed(0)
+                                    .replaceAllMapped(
+                                        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                        (Match m) => "${m[1]}."),
+                                GlobalVariables.modulcount.toString(),
+                                GlobalVariables.psu
+                                    .toStringAsFixed(0)
+                                    .replaceAllMapped(
+                                        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                        (Match m) => "${m[1]}."),
+                                GlobalVariables.rc
+                                    .toStringAsFixed(0)
+                                    .replaceAllMapped(
+                                        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                        (Match m) => "${m[1]}."),
+                                GlobalVariables.totalpowers
+                                    .toStringAsFixed(0)
+                                    .replaceAllMapped(
+                                        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                        (Match m) => "${m[1]}."),
+                                GlobalVariables.averagepowers
+                                    .toStringAsFixed(0)
+                                    .replaceAllMapped(
+                                        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                        (Match m) => "${m[1]}."),
+                                GlobalVariables.averagepowers2
+                                    .toStringAsFixed(0)
+                                    .replaceAllMapped(
+                                        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                        (Match m) => "${m[1]}."),
+                                GlobalVariables.arus
+                                    .toStringAsFixed(0)
+                                    .replaceAllMapped(
+                                        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                        (Match m) => "${m[1]},"),
+                                GlobalVariables.luaspenampangkabellistrik
+                                    .toString(),
+                                GlobalVariables.tarikankabellanbulat.toString(),
+                                GlobalVariables.msd600count.toString(),
+                                GlobalVariables.msd300count.toString(),
+                                GlobalVariables.processor,
+                                GlobalVariables.processoralt,
+                              );
 
-                                  // _addCalculate(
-                                  //     taskName: taskName, taskDesc: taskDesc, taskTag: taskTag);
-                                  Navigator.of(context, rootNavigator: true)
-                                      .pop();
-                                  GlobalVariables.pageController.jumpToPage(0);
-                                },
-                                child: const Text('Calculate & Save'),
-                              ),
-                            ),
-                          ],
+                              // _addCalculate(
+                              //     taskName: taskName, taskDesc: taskDesc, taskTag: taskTag);
+                              Navigator.of(context, rootNavigator: true).pop();
+                              GlobalVariables.pageController.jumpToPage(0);
+                            },
+                            child: const Text('Calculate & Save'),
+                          ),
                         ),
                       ],
                     ),

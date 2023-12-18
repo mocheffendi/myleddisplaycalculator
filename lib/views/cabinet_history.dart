@@ -737,7 +737,16 @@ class _MyCabinetHistoryState extends State<MyCabinetHistory> {
                                                       // style: labelTextStyleSmall
                                                     ),
                                                     Text(
-                                                        '$totalwidthmeter x $totalheightmeter meter')
+                                                        '$totalwidthmeter x $totalheightmeter meter'),
+                                                    const Text(
+                                                      'read more >',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontStyle:
+                                                              FontStyle.italic),
+                                                      // style: labelTextStyleSmall
+                                                    ),
                                                   ],
                                                 ),
                                               ),

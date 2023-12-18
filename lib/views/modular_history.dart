@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myleddisplaycalculator/services/firestore_modul.dart';
 import 'package:myleddisplaycalculator/views/detailpage_modul.dart';
+import 'package:myleddisplaycalculator/views/detailpagetable_modul.dart';
 
 class MyModularHistory extends StatefulWidget {
   const MyModularHistory({super.key});
@@ -630,6 +631,8 @@ class _MyModularHistoryState extends State<MyModularHistory> {
                         String stdratiowidth = data['stdratiowidth'];
                         String stdratioheight = data['stdratioheight'];
                         String modulcount = data['modulcount'];
+                        String psu = data['psu'];
+                        String rc = data['rc'];
                         String totalpowers = data['totalpowers'];
                         String averagepowers = data['averagepowers'];
                         String averagepowers2 = data['averagepowers2'];
@@ -640,6 +643,8 @@ class _MyModularHistoryState extends State<MyModularHistory> {
                             data['tarikankabellanbulat'];
                         String msd600count = data['msd600count'];
                         String msd300count = data['msd300count'];
+                        String processor = data['processor'];
+                        String processoralt = data['processoralt'];
                         var noteTimeStamp =
                             (data['timestamp'] as Timestamp).toDate();
                         return GestureDetector(
@@ -669,6 +674,8 @@ class _MyModularHistoryState extends State<MyModularHistory> {
                                   stdratiowidth: stdratiowidth,
                                   stdratioheight: stdratioheight,
                                   modulcount: modulcount,
+                                  psu: psu,
+                                  rc: rc,
                                   totalpowers: totalpowers,
                                   averagepowers: averagepowers,
                                   averagepowers2: averagepowers2,
@@ -678,6 +685,8 @@ class _MyModularHistoryState extends State<MyModularHistory> {
                                   tarikankabellanbulat: tarikankabellanbulat,
                                   msd600count: msd600count,
                                   msd300count: msd300count,
+                                  processor: processor,
+                                  processoralt: processoralt,
                                 ),
                               ),
                             );
@@ -736,7 +745,16 @@ class _MyModularHistoryState extends State<MyModularHistory> {
                                                       // style: labelTextStyleSmall
                                                     ),
                                                     Text(
-                                                        '$totalwidthmeter x $totalheightmeter meter')
+                                                        '$totalwidthmeter x $totalheightmeter meter'),
+                                                    const Text(
+                                                      'read more >',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontStyle:
+                                                              FontStyle.italic),
+                                                      // style: labelTextStyleSmall
+                                                    ),
                                                   ],
                                                 ),
                                               ),

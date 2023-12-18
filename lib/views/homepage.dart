@@ -5,6 +5,7 @@ import 'package:myleddisplaycalculator/component/switch.dart';
 import 'package:myleddisplaycalculator/variables/global_variables.dart';
 import 'package:myleddisplaycalculator/views/cabinet_history.dart';
 import 'package:myleddisplaycalculator/views/cabinet_price.dart';
+import 'package:myleddisplaycalculator/views/detailpagetable_modul.dart';
 import 'package:myleddisplaycalculator/views/modular_history.dart';
 import 'package:myleddisplaycalculator/views/modular_price.dart';
 import 'package:myleddisplaycalculator/widgets/add_cabinet_calculate.dart';
@@ -300,6 +301,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: MyModularPrice(),
             ),
             Center(
+              // child: MyCabinetPrice(),
               child: MyCabinetPrice(),
             ),
           ],

@@ -60,17 +60,17 @@ class _MainPageState extends State<MainPage> {
                   Provider.of<ThemeProvider>(context, listen: false)
                       .toggleTheme(value),
             ),
-            MyBox(
-              color: Theme.of(context).colorScheme.primary,
-              child: MyButton(
-                  color: Theme.of(context).colorScheme.secondary,
-                  onTap: () {
-                    Provider.of<ThemeProvider>(context, listen: false)
-                        .toggleTheme(
-                            !Provider.of<ThemeProvider>(context, listen: false)
-                                .isDark);
-                  }),
-            ),
+            // MyBox(
+            //   color: Theme.of(context).colorScheme.primary,
+            //   child: MyButton(
+            //       color: Theme.of(context).colorScheme.secondary,
+            //       onTap: () {
+            //         Provider.of<ThemeProvider>(context, listen: false)
+            //             .toggleTheme(
+            //                 !Provider.of<ThemeProvider>(context, listen: false)
+            //                     .isDark);
+            //       }),
+            // ),
             Center(
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 500),

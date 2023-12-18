@@ -36,6 +36,7 @@ class FireStoreServiceCabinet {
     String tarikankabellanbulat,
     String msd600count,
     String msd300count,
+    // String processor,
   ) {
     return tasks.add({
       'timestamp': Timestamp.now(),
@@ -68,6 +69,7 @@ class FireStoreServiceCabinet {
       'tarikankabellanbulat': tarikankabellanbulat,
       'msd600count': msd600count,
       'msd300count': msd300count,
+      // 'processor': processor,
     });
   }
 

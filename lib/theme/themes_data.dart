@@ -24,7 +24,7 @@ import 'package:flutter/material.dart';
 ThemeData lightMode = ThemeData(
   brightness: Brightness.light,
   colorScheme: ColorScheme.light(
-    background: Colors.blueGrey.shade400,
+    background: Colors.blueGrey.shade50,
     primary: Colors.blueGrey.shade300,
     secondary: Colors.blueGrey.shade200,
     tertiary: Colors.blueGrey.shade900,
@@ -34,7 +34,7 @@ ThemeData lightMode = ThemeData(
     foregroundColor: Colors.grey.shade200,
     backgroundColor: Colors.amber.shade900,
   ),
-  scaffoldBackgroundColor: Colors.blueGrey.shade50,
+  scaffoldBackgroundColor: Colors.white,
   // canvasColor: Colors.blueGrey.shade900,
   elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(foregroundColor: Colors.grey.shade800)),
@@ -67,8 +67,8 @@ ThemeData lightMode = ThemeData(
     color: Colors.grey.shade800,
   ),
 
-  floatingActionButtonTheme:
-      FloatingActionButtonThemeData(foregroundColor: Colors.grey.shade800),
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+      foregroundColor: Colors.white, backgroundColor: Colors.amber.shade900),
 );
 
 ThemeData darkMode = ThemeData(
@@ -113,6 +113,6 @@ ThemeData darkMode = ThemeData(
   iconTheme: IconThemeData(
     color: Colors.grey.shade200,
   ),
-  floatingActionButtonTheme:
-      FloatingActionButtonThemeData(foregroundColor: Colors.grey.shade200),
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+      foregroundColor: Colors.white, backgroundColor: Colors.amber.shade900),
 );

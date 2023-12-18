@@ -28,6 +28,8 @@ class FireStoreService {
     String stdratiowidth,
     String stdratioheight,
     String modulcount,
+    String psu,
+    String rc,
     String totalpowers,
     String averagepowers,
     String averagepowers2,
@@ -36,6 +38,8 @@ class FireStoreService {
     String tarikankabellanbulat,
     String msd600count,
     String msd300count,
+    String processor,
+    String processoralt,
   ) {
     return tasks.add({
       'timestamp': Timestamp.now(),
@@ -60,6 +64,8 @@ class FireStoreService {
       'stdratiowidth': stdratiowidth,
       'stdratioheight': stdratioheight,
       'modulcount': modulcount,
+      'psu': psu,
+      'rc': rc,
       'totalpowers': totalpowers,
       'averagepowers': averagepowers,
       'averagepowers2': averagepowers2,
@@ -68,6 +74,8 @@ class FireStoreService {
       'tarikankabellanbulat': tarikankabellanbulat,
       'msd600count': msd600count,
       'msd300count': msd300count,
+      'processor': processor,
+      'processoralt': processoralt,
     });
   }
 
