@@ -5,7 +5,7 @@ import '../utils/colors.dart';
 import '../widgets/delete_task_dialog.dart';
 
 class Tasks extends StatefulWidget {
-  const Tasks({Key? key}) : super(key: key);
+  const Tasks({super.key});
   @override
   State<Tasks> createState() => _TasksState();
 }

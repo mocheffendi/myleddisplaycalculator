@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:myleddisplaycalculator/services/firestore_modul.dart';
 import 'package:myleddisplaycalculator/views/detailpage_modul.dart';
-import 'package:myleddisplaycalculator/views/detailpagetable_modul.dart';
+// import 'package:myleddisplaycalculator/views/detailpagetable_modul.dart';
 
 class MyModularHistory extends StatefulWidget {
   const MyModularHistory({super.key});

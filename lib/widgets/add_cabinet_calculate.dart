@@ -12,8 +12,8 @@ import 'package:myleddisplaycalculator/variables/global_variables.dart';
 
 class AddCabinetCalculate extends StatefulWidget {
   const AddCabinetCalculate({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<AddCabinetCalculate> createState() => _AddCabinetCalculateState();
@@ -1001,7 +1001,7 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
                                   GlobalVariables.pageController.jumpToPage(1);
                                 },
                                 style: ElevatedButton.styleFrom(
-                                  primary: Colors.grey,
+                                  backgroundColor: Colors.grey,
                                 ),
                                 child: const Text('Cancel'),
                               ),

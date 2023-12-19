@@ -1,6 +1,6 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
-import 'package:myleddisplaycalculator/views/tasks.dart';
+// import 'package:myleddisplaycalculator/views/tasks.dart';
 
 class DetailPageTableModul extends StatelessWidget {
   final String taskName;

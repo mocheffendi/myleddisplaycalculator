@@ -8,12 +8,11 @@ class UpdateTaskAlertDialog extends StatefulWidget {
   final String taskId, taskName, taskDesc, taskTag;
 
   const UpdateTaskAlertDialog(
-      {Key? Key,
+      {super.key,
       required this.taskId,
       required this.taskName,
       required this.taskDesc,
-      required this.taskTag})
-      : super(key: Key);
+      required this.taskTag});
 
   @override
   State<UpdateTaskAlertDialog> createState() => _UpdateTaskAlertDialogState();
@@ -126,7 +125,7 @@ class _UpdateTaskAlertDialogState extends State<UpdateTaskAlertDialog> {
             Navigator.of(context, rootNavigator: true).pop();
           },
           style: ElevatedButton.styleFrom(
-            primary: Colors.grey,
+            backgroundColor: Colors.grey,
           ),
           child: const Text('Cancel'),
         ),

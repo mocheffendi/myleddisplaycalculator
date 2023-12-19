@@ -15,8 +15,8 @@ import 'package:provider/provider.dart';
 
 class AddModulCalculate extends StatefulWidget {
   const AddModulCalculate({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<AddModulCalculate> createState() => _AddModulCalculateState();
@@ -75,10 +75,10 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
 
     // Fetch data from your API or any other source
     return [
-      '0.9',
-      '1.26',
-      '1.58',
-      '1.9',
+      '0.8',
+      '1.2',
+      '1.6',
+      '1.8',
       '2.5',
       '3',
       '3.9',
@@ -907,8 +907,8 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
                                 '${GlobalVariables.widthmodul} x ${GlobalVariables.heightmodul} mm'),
                         MyBox(
                             color: thememode.isDark
-                                ? const Color.fromARGB(255, 87, 102, 4)
-                                : const Color.fromARGB(255, 229, 255, 0),
+                                ? const Color.fromARGB(255, 60, 77, 0)
+                                : const Color.fromARGB(255, 166, 212, 0),
                             textlabel: 'Total Resolution | Resolution Capacity',
                             text:
                                 '${GlobalVariables.totalwidthpixels} x ${GlobalVariables.totalheightpixels} pixels | ${GlobalVariables.resolutioncapacity.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")} pixels'),
@@ -993,15 +993,15 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
                                 '${GlobalVariables.totalpowers.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")} Watts'),
                         MyBox(
                             color: thememode.isDark
-                                ? const Color.fromARGB(255, 109, 0, 0)
-                                : const Color.fromARGB(255, 255, 84, 84),
+                                ? const Color.fromARGB(255, 60, 77, 0)
+                                : const Color.fromARGB(255, 166, 212, 0),
                             textlabel: 'Average Power:',
                             text:
                                 '${GlobalVariables.averagepowers.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")} - ${GlobalVariables.averagepowers2.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")} Watts'),
                         MyBox(
                           color: thememode.isDark
-                              ? const Color.fromARGB(255, 109, 0, 0)
-                              : const Color.fromARGB(255, 255, 84, 84),
+                              ? const Color.fromARGB(255, 60, 77, 0)
+                              : const Color.fromARGB(255, 166, 212, 0),
                           textlabel: 'Electric Current per Phase /220/3:',
                           text:
                               'R: ${GlobalVariables.arus.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")} Ampere | S: ${GlobalVariables.arus.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")} Ampere | T: ${GlobalVariables.arus.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")} Ampere',
