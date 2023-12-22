@@ -1,11 +1,15 @@
+// import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myleddisplaycalculator/component/box.dart';
 import 'package:myleddisplaycalculator/theme/theme_provider.dart';
 import 'package:myleddisplaycalculator/views/detailpagetable_modul.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_sequence_animation/flutter_sequence_animation.dart';
+import 'package:intl/intl.dart';
 
-class DetailPageModul extends StatelessWidget {
+class DetailPageModul extends StatefulWidget {
   final String taskName;
   final String taskDesc;
   final String pitch;
@@ -78,8 +82,99 @@ class DetailPageModul extends StatelessWidget {
   });
 
   @override
+  State<DetailPageModul> createState() => _DetailPageModulState();
+}
+
+class _DetailPageModulState extends State<DetailPageModul>
+    with TickerProviderStateMixin {
+  late AnimationController _controllerresolutioncapacity;
+  late SequenceAnimation sequenceAnimationresolutioncapacity;
+  late double resolutioncapacity;
+  final NumberFormat _numberFormatresolutioncapacity =
+      NumberFormat.decimalPattern('id_ID');
+
+  late AnimationController _controllerpower;
+  late SequenceAnimation sequenceAnimationpower;
+  late double power;
+  final NumberFormat _numberFormatpower = NumberFormat.decimalPattern('id_ID');
+
+  @override
+  void initState() {
+    super.initState();
+    resolutioncapacity =
+        double.parse(widget.resolutioncapacity.replaceAll('.', ''));
+    // rescap = rescapint.toDouble();
+    // log(resolutioncapacity.toString());
+    _controllerresolutioncapacity = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    );
+
+    sequenceAnimationresolutioncapacity = SequenceAnimationBuilder()
+        .addAnimatable(
+          animatable: Tween<double>(begin: 0, end: resolutioncapacity
+              // Decimal.parse(widget.resolutioncapacity)
+              //     .toDouble()
+              ), // Set your desired end count
+          from: const Duration(seconds: 0),
+          to: const Duration(seconds: 3),
+          tag: 'counting',
+        )
+        .animate(_controllerresolutioncapacity);
+
+    _controllerresolutioncapacity.forward();
+
+    power = double.parse(widget.totalpowers.replaceAll('.', ''));
+
+    _controllerpower = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    );
+
+    sequenceAnimationpower = SequenceAnimationBuilder()
+        .addAnimatable(
+          animatable: Tween<double>(begin: 0, end: power
+              // Decimal.parse(widget.resolutioncapacity)
+              //     .toDouble()
+              ), // Set your desired end count
+          from: const Duration(seconds: 0),
+          to: const Duration(seconds: 3),
+          tag: 'counting',
+        )
+        .animate(_controllerpower);
+
+    _controllerpower.forward();
+  }
+
+  @override
+  void dispose() {
+    _controllerresolutioncapacity.dispose();
+    _controllerpower.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final thememode = Provider.of<ThemeProvider>(context);
+
+    // AnimationController _controller;
+    // SequenceAnimation<double> sequenceAnimation;
+
+    // _controller = AnimationController(
+    //   vsync: this,
+    //   duration: Duration(seconds: 3),
+    // );
+
+    // sequenceAnimation = SequenceAnimationBuilder<double>()
+    //     .addAnimatable(
+    //       animatable: Tween<double>(begin: 0, end: 100),
+    //       from: Duration(seconds: 0),
+    //       to: Duration(seconds: 3),
+    //       tag: 'counting',
+    //     )
+    //     .animate(_controller);
+
+    // _controller.forward();
 
     return Scaffold(
       appBar: AppBar(
@@ -92,37 +187,37 @@ class DetailPageModul extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => DetailPageTableModul(
-                    taskName: taskName,
-                    taskDesc: taskDesc,
-                    pitch: pitch,
-                    column: column,
-                    row: row,
-                    widthmodul: widthmodul,
-                    heightmodul: heightmodul,
-                    widthmodulcount: widthmodulcount,
-                    heightmodulcount: heightmodulcount,
-                    widthpixels: widthpixels,
-                    heightpixels: heightpixels,
-                    totalwidthpixels: totalwidthpixels,
-                    totalheightpixels: totalheightpixels,
-                    resolutioncapacity: resolutioncapacity,
-                    totalwidthmeter: totalwidthmeter,
-                    totalheightmeter: totalheightmeter,
-                    totalwidthmm: totalwidthmm,
-                    totalheightmm: totalheightmm,
-                    stdratiowidth: stdratiowidth,
-                    stdratioheight: stdratioheight,
-                    modulcount: modulcount,
-                    totalpowers: totalpowers,
-                    averagepowers: averagepowers,
-                    averagepowers2: averagepowers2,
-                    arus: arus,
-                    luaspenampangkabellistrik: luaspenampangkabellistrik,
-                    tarikankabellanbulat: tarikankabellanbulat,
-                    msd600count: msd600count,
-                    msd300count: msd300count,
-                    processor: processor,
-                    processoralt: processoralt,
+                    taskName: widget.taskName,
+                    taskDesc: widget.taskDesc,
+                    pitch: widget.pitch,
+                    column: widget.column,
+                    row: widget.row,
+                    widthmodul: widget.widthmodul,
+                    heightmodul: widget.heightmodul,
+                    widthmodulcount: widget.widthmodulcount,
+                    heightmodulcount: widget.heightmodulcount,
+                    widthpixels: widget.widthpixels,
+                    heightpixels: widget.heightpixels,
+                    totalwidthpixels: widget.totalwidthpixels,
+                    totalheightpixels: widget.totalheightpixels,
+                    resolutioncapacity: widget.resolutioncapacity,
+                    totalwidthmeter: widget.totalwidthmeter,
+                    totalheightmeter: widget.totalheightmeter,
+                    totalwidthmm: widget.totalwidthmm,
+                    totalheightmm: widget.totalheightmm,
+                    stdratiowidth: widget.stdratiowidth,
+                    stdratioheight: widget.stdratioheight,
+                    modulcount: widget.modulcount,
+                    totalpowers: widget.totalpowers,
+                    averagepowers: widget.averagepowers,
+                    averagepowers2: widget.averagepowers2,
+                    arus: widget.arus,
+                    luaspenampangkabellistrik: widget.luaspenampangkabellistrik,
+                    tarikankabellanbulat: widget.tarikankabellanbulat,
+                    msd600count: widget.msd600count,
+                    msd300count: widget.msd300count,
+                    processor: widget.processor,
+                    processoralt: widget.processoralt,
                   ),
                 ),
               );
@@ -163,7 +258,7 @@ class DetailPageModul extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'P$pitch',
+                                      'P${widget.pitch}',
                                       style: const TextStyle(
                                         fontSize: 28,
                                         fontWeight: FontWeight.w900,
@@ -179,129 +274,167 @@ class DetailPageModul extends StatelessWidget {
                                   ? const Color.fromARGB(255, 87, 102, 4)
                                   : const Color.fromARGB(255, 229, 255, 0),
                               textlabel: 'Column x Row:',
-                              text: '$column x $row'),
+                              text: '${widget.column} x ${widget.row}'),
                           MyBox(
                               color: thememode.isDark
                                   ? const Color.fromARGB(255, 87, 102, 4)
                                   : const Color.fromARGB(255, 229, 255, 0),
                               textlabel: 'Modul Dimensions:',
-                              text: '$widthmodul x $heightmodul mm'),
-                          MyBox(
-                              color: thememode.isDark
-                                  ? const Color.fromARGB(255, 60, 77, 0)
-                                  : const Color.fromARGB(255, 166, 212, 0),
-                              textlabel:
-                                  'Total Resolution | Resolution Capacity',
                               text:
-                                  '$totalwidthpixels x $totalheightpixels pixels | $resolutioncapacity pixels'),
+                                  '${widget.widthmodul} x ${widget.heightmodul} mm'),
+                          AnimatedBuilder(
+                            animation: _controllerresolutioncapacity,
+                            builder: (context, child) {
+                              final formattedCount =
+                                  _numberFormatresolutioncapacity.format(
+                                      sequenceAnimationresolutioncapacity[
+                                              'counting']
+                                          .value
+                                          .toInt());
+                              return MyBox(
+                                  color: thememode.isDark
+                                      ? const Color.fromARGB(255, 60, 77, 0)
+                                      : const Color.fromARGB(255, 166, 212, 0),
+                                  textlabel:
+                                      'Total Resolution | Resolution Capacity',
+                                  text:
+                                      '${widget.totalwidthpixels} x ${widget.totalheightpixels} pixels | $formattedCount Pixels');
+                              // Text(
+                              //   '${sequenceAnimation['counting'].value.toInt()}',
+                              //   style: TextStyle(fontSize: 40),
+                              // );
+                            },
+                          ),
                           MyBox(
                               color: thememode.isDark
                                   ? const Color.fromARGB(255, 189, 123, 0)
                                   : const Color.fromARGB(255, 255, 174, 0),
                               textlabel: 'Total Dimension:',
                               text:
-                                  '$totalwidthmeter x $totalheightmeter meter'),
+                                  '${widget.totalwidthmeter} x ${widget.totalheightmeter} meter'),
                           MyBox(
                               color: thememode.isDark
                                   ? const Color.fromARGB(255, 189, 123, 0)
                                   : const Color.fromARGB(255, 255, 174, 0),
                               textlabel: 'Aspect Ratio:',
-                              text: '$stdratiowidth : $stdratioheight'),
+                              text:
+                                  '${widget.stdratiowidth} : ${widget.stdratioheight}'),
                           MyBox(
                               color: thememode.isDark
                                   ? const Color.fromARGB(255, 10, 114, 139)
                                   : const Color.fromARGB(255, 0, 255, 255),
                               textlabel: 'Modul Resolution:',
-                              text: '$widthpixels x $heightpixels px'),
+                              text:
+                                  '${widget.widthpixels} x ${widget.heightpixels} px'),
                           MyBox(
                               color: thememode.isDark
                                   ? const Color.fromARGB(255, 10, 114, 139)
                                   : const Color.fromARGB(255, 0, 255, 255),
                               textlabel: 'Modul Quantity:',
-                              text: '$modulcount unit'),
+                              text: '${widget.modulcount} unit'),
                           MyBox(
                               color: thememode.isDark
                                   ? const Color.fromARGB(255, 10, 114, 139)
                                   : const Color.fromARGB(255, 0, 255, 255),
                               textlabel: 'Modul Weight:',
-                              text: '$modulcount Kg'),
+                              text: '${widget.modulcount} Kg'),
                           MyBox(
                               color: thememode.isDark
                                   ? const Color.fromARGB(255, 134, 114, 0)
                                   : const Color.fromARGB(255, 255, 217, 0),
                               textlabel: 'PSU Quantity:',
-                              text: psu),
+                              text: widget.psu),
                           MyBox(
                               color: thememode.isDark
                                   ? const Color.fromARGB(255, 134, 114, 0)
                                   : const Color.fromARGB(255, 255, 217, 0),
                               textlabel: 'Receiving Card Quantity:',
-                              text: rc),
+                              text: widget.rc),
                           MyBox(
                               color: thememode.isDark
                                   ? const Color.fromARGB(255, 83, 134, 0)
                                   : const Color.fromARGB(255, 115, 255, 0),
                               textlabel: 'LAN Cable Quantity:',
-                              text: tarikankabellanbulat.toString()),
+                              text: widget.tarikankabellanbulat.toString()),
                           MyBox(
                               color: thememode.isDark
                                   ? const Color.fromARGB(255, 83, 134, 0)
                                   : const Color.fromARGB(255, 115, 255, 0),
                               textlabel: 'MCTRL600:',
-                              text: msd600count.toString()),
+                              text: widget.msd600count.toString()),
                           MyBox(
                               color: thememode.isDark
                                   ? const Color.fromARGB(255, 83, 134, 0)
                                   : const Color.fromARGB(255, 115, 255, 0),
                               textlabel: 'MCTRL300:',
-                              text: msd300count.toString()),
-                          MyBox(
-                              color: thememode.isDark
-                                  ? const Color.fromARGB(255, 109, 0, 0)
-                                  : const Color.fromARGB(255, 255, 84, 84),
-                              textlabel: 'Total Maximum Power:',
-                              text: '$totalpowers Watts'),
+                              text: widget.msd300count.toString()),
+                          // MyBox(
+                          //     color: thememode.isDark
+                          //         ? const Color.fromARGB(255, 109, 0, 0)
+                          //         : const Color.fromARGB(255, 255, 84, 84),
+                          //     textlabel: 'Total Maximum Power:',
+                          //     text: '${widget.totalpowers} Watts'),
+                          AnimatedBuilder(
+                            animation: _controllerresolutioncapacity,
+                            builder: (context, child) {
+                              final formattedCountPower = _numberFormatpower
+                                  .format(sequenceAnimationpower['counting']
+                                      .value
+                                      .toInt());
+                              return MyBox(
+                                  color: thememode.isDark
+                                      ? const Color.fromARGB(255, 109, 0, 0)
+                                      : const Color.fromARGB(255, 255, 84, 84),
+                                  textlabel: 'Total Maximum Power:',
+                                  text: '$formattedCountPower Watts');
+                              // Text(
+                              //   '${sequenceAnimation['counting'].value.toInt()}',
+                              //   style: TextStyle(fontSize: 40),
+                              // );
+                            },
+                          ),
                           MyBox(
                               color: thememode.isDark
                                   ? const Color.fromARGB(255, 60, 77, 0)
                                   : const Color.fromARGB(255, 166, 212, 0),
                               textlabel: 'Average Power:',
-                              text: '$averagepowers - $averagepowers2 Watts'),
+                              text:
+                                  '${widget.averagepowers} - ${widget.averagepowers2} Watts'),
                           MyBox(
                             color: thememode.isDark
                                 ? const Color.fromARGB(255, 60, 77, 0)
                                 : const Color.fromARGB(255, 166, 212, 0),
                             textlabel: 'Electric Current per Phase /220/3:',
                             text:
-                                'R: $arus Ampere | S: $arus Ampere | T: $arus Ampere',
+                                'R: ${widget.arus} Ampere | S: ${widget.arus} Ampere | T: ${widget.arus} Ampere',
                           ),
                           MyBox(
                             color: thememode.isDark
                                 ? const Color.fromARGB(255, 114, 51, 0)
                                 : Colors.amber.shade900,
                             textlabel: 'Main Cable /wo Ground:',
-                            text: '4 x $luaspenampangkabellistrik mm',
+                            text: '4 x ${widget.luaspenampangkabellistrik} mm',
                           ),
                           MyBox(
                             color: thememode.isDark
                                 ? const Color.fromARGB(255, 114, 51, 0)
                                 : Colors.amber.shade900,
                             textlabel: 'Main Cable /w Ground:',
-                            text: '5 x $luaspenampangkabellistrik mm',
+                            text: '5 x ${widget.luaspenampangkabellistrik} mm',
                           ),
                           MyBox(
                             color: thememode.isDark
                                 ? const Color.fromARGB(255, 0, 114, 108)
                                 : const Color.fromARGB(255, 0, 255, 179),
                             textlabel: 'Processor:',
-                            text: processor,
+                            text: widget.processor,
                           ),
                           MyBox(
                               color: thememode.isDark
                                   ? const Color.fromARGB(255, 0, 114, 108)
                                   : const Color.fromARGB(255, 0, 255, 179),
                               textlabel: 'Processor Alt',
-                              text: processoralt),
+                              text: widget.processoralt),
                         ],
                       ),
                     ),
@@ -323,4 +456,3 @@ class DetailPageModul extends StatelessWidget {
 
 //   Item({required this.taskName, required this.taskDesc});
 // }
-
