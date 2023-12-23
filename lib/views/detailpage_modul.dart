@@ -139,11 +139,25 @@ class _DetailPageModulState extends State<DetailPageModul>
               ), // Set your desired end count
           from: const Duration(seconds: 0),
           to: const Duration(seconds: 3),
-          tag: 'counting',
+          tag: 'countingpower',
         )
         .animate(_controllerpower);
 
-    _controllerpower.forward();
+    // Delay the start of the second animation
+    // Future.delayed(const Duration(seconds: 3), () {
+    //   _controllerresolutioncapacity.forward();
+
+    //   log('_controllerresolutioncapacity.forward');
+    // });
+
+    // _controllerpower.forward();
+
+    _controllerresolutioncapacity.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _controllerpower.forward();
+        // log('_controllerpower.power');
+      }
+    });
   }
 
   @override
@@ -375,12 +389,13 @@ class _DetailPageModulState extends State<DetailPageModul>
                           //     textlabel: 'Total Maximum Power:',
                           //     text: '${widget.totalpowers} Watts'),
                           AnimatedBuilder(
-                            animation: _controllerresolutioncapacity,
+                            animation: _controllerpower,
                             builder: (context, child) {
-                              final formattedCountPower = _numberFormatpower
-                                  .format(sequenceAnimationpower['counting']
-                                      .value
-                                      .toInt());
+                              final formattedCountPower =
+                                  _numberFormatpower.format(
+                                      sequenceAnimationpower['countingpower']
+                                          .value
+                                          .toInt());
                               return MyBox(
                                   color: thememode.isDark
                                       ? const Color.fromARGB(255, 109, 0, 0)
