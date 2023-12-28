@@ -289,6 +289,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         body: PageView(
           controller: GlobalVariables.pageController,
+          physics: const NeverScrollableScrollPhysics(),
           onPageChanged: _onPageViewChange,
           children: const <Widget>[
             Center(

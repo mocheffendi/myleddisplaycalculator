@@ -631,6 +631,8 @@ class _MyCabinetHistoryState extends State<MyCabinetHistory> {
                         String stdratiowidth = data['stdratiowidth'];
                         String stdratioheight = data['stdratioheight'];
                         String modulcount = data['modulcount'];
+                        String psu = data['psu'];
+                        String rc = data['rc'];
                         String totalpowers = data['totalpowers'];
                         String averagepowers = data['averagepowers'];
                         String averagepowers2 = data['averagepowers2'];
@@ -641,6 +643,10 @@ class _MyCabinetHistoryState extends State<MyCabinetHistory> {
                             data['tarikankabellanbulat'];
                         String msd600count = data['msd600count'];
                         String msd300count = data['msd300count'];
+                        String processorcabinet = data['processorcabinet'];
+                        String processorcabinetalt =
+                            data['processorcabinetalt'];
+
                         var noteTimeStamp =
                             (data['timestamp'] as Timestamp).toDate();
                         return GestureDetector(
@@ -670,6 +676,8 @@ class _MyCabinetHistoryState extends State<MyCabinetHistory> {
                                   stdratiowidth: stdratiowidth,
                                   stdratioheight: stdratioheight,
                                   modulcount: modulcount,
+                                  psu: psu,
+                                  rc: rc,
                                   totalpowers: totalpowers,
                                   averagepowers: averagepowers,
                                   averagepowers2: averagepowers2,
@@ -679,6 +687,8 @@ class _MyCabinetHistoryState extends State<MyCabinetHistory> {
                                   tarikankabellanbulat: tarikankabellanbulat,
                                   msd600count: msd600count,
                                   msd300count: msd300count,
+                                  processorcabinet: processorcabinet,
+                                  processorcabinetalt: processorcabinetalt,
                                 ),
                               ),
                             );

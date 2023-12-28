@@ -28,6 +28,8 @@ class FireStoreServiceCabinet {
     String stdratiowidth,
     String stdratioheight,
     String modulcount,
+    String psu,
+    String rc,
     String totalpowers,
     String averagepowers,
     String averagepowers2,
@@ -36,7 +38,8 @@ class FireStoreServiceCabinet {
     String tarikankabellanbulat,
     String msd600count,
     String msd300count,
-    // String processor,
+    String processorcabinet,
+    String processorcabinetalt,
   ) {
     return tasks.add({
       'timestamp': Timestamp.now(),
@@ -61,6 +64,8 @@ class FireStoreServiceCabinet {
       'stdratiowidth': stdratiowidth,
       'stdratioheight': stdratioheight,
       'modulcount': modulcount,
+      'psu': psu,
+      'rc': rc,
       'totalpowers': totalpowers,
       'averagepowers': averagepowers,
       'averagepowers2': averagepowers2,
@@ -69,7 +74,8 @@ class FireStoreServiceCabinet {
       'tarikankabellanbulat': tarikankabellanbulat,
       'msd600count': msd600count,
       'msd300count': msd300count,
-      // 'processor': processor,
+      'processorcabinet': processorcabinet,
+      'processorcabinetalt': processorcabinetalt,
     });
   }
 

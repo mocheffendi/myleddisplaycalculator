@@ -1,14 +1,19 @@
-// import 'dart:developer';
+import 'dart:developer';
 
 // import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sequence_animation/flutter_sequence_animation.dart';
 // import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:myleddisplaycalculator/component/box.dart';
 import 'package:myleddisplaycalculator/services/firestore_cabinet.dart';
+import 'package:myleddisplaycalculator/theme/theme_provider.dart';
 // import 'package:myleddisplaycalculator/services/firestore_modul.dart';
 import 'package:myleddisplaycalculator/variables/global_variables.dart';
+import 'package:provider/provider.dart';
 
 class AddCabinetCalculate extends StatefulWidget {
   const AddCabinetCalculate({
@@ -19,7 +24,8 @@ class AddCabinetCalculate extends StatefulWidget {
   State<AddCabinetCalculate> createState() => _AddCabinetCalculateState();
 }
 
-class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
+class _AddCabinetCalculateState extends State<AddCabinetCalculate>
+    with TickerProviderStateMixin {
   final FireStoreServiceCabinet firestoreServiceCabinet =
       FireStoreServiceCabinet();
   final GlobalVariables globalVariables = GlobalVariables();
@@ -327,9 +333,80 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
     '35',
   ];
 
+  late AnimationController _controllerresolutioncapacity;
+  late SequenceAnimation sequenceAnimationresolutioncapacity;
+  late double resolutioncapacity;
+  final NumberFormat _numberFormatresolutioncapacity =
+      NumberFormat.decimalPattern('id_ID');
+
+  late AnimationController _controllerpower;
+  late SequenceAnimation sequenceAnimationpower;
+  late double power;
+  final NumberFormat _numberFormatpower = NumberFormat.decimalPattern('id_ID');
+
   @override
   void initState() {
     super.initState();
+
+    resolutioncapacity = double.parse(
+        GlobalVariables.resolutioncapacity.toString().replaceAll('.', ''));
+    // rescap = rescapint.toDouble();
+    // log(resolutioncapacity.toString());
+    _controllerresolutioncapacity = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    );
+
+    sequenceAnimationresolutioncapacity = SequenceAnimationBuilder()
+        .addAnimatable(
+          animatable: Tween<double>(begin: 0, end: resolutioncapacity
+              // Decimal.parse(GlobalVariables.resolutioncapacity)
+              //     .toDouble()
+              ), // Set your desired end count
+          from: const Duration(seconds: 0),
+          to: const Duration(seconds: 3),
+          tag: 'counting',
+        )
+        .animate(_controllerresolutioncapacity);
+
+    // _controllerresolutioncapacity.forward();
+
+    power = double.parse(
+        GlobalVariables.totalpowers.toString().replaceAll('.', ''));
+
+    _controllerpower = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    );
+
+    sequenceAnimationpower = SequenceAnimationBuilder()
+        .addAnimatable(
+          animatable: Tween<double>(begin: 0, end: power
+              // Decimal.parse(GlobalVariables.resolutioncapacity)
+              //     .toDouble()
+              ), // Set your desired end count
+          from: const Duration(seconds: 0),
+          to: const Duration(seconds: 3),
+          tag: 'countingpower',
+        )
+        .animate(_controllerpower);
+
+    // Delay the start of the second animation
+    // Future.delayed(const Duration(seconds: 3), () {
+    //   _controllerresolutioncapacity.forward();
+
+    //   log('_controllerresolutioncapacity.forward');
+    // });
+
+    // _controllerpower.forward();
+
+    // _controllerresolutioncapacity.addStatusListener((status) {
+    //   if (status == AnimationStatus.completed) {
+    //     _controllerpower.forward();
+    //     // log('_controllerpower.power');
+    //   }
+    // });
+
     // Permission.storage.request();
     googleFontsPending = GoogleFonts.pendingFonts([
       GoogleFonts.plusJakartaSans(),
@@ -451,6 +528,43 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
     controllerwidthmodul.dispose();
     controllercolumns.dispose();
     controllerrows.dispose();
+
+    _controllerresolutioncapacity.dispose();
+    _controllerpower.dispose();
+
+    GlobalVariables.pitch = 0;
+    GlobalVariables.heightmodul = 0;
+    GlobalVariables.widthmodul = 0;
+    GlobalVariables.widthpixels = 0;
+    GlobalVariables.heightpixels = 0;
+    GlobalVariables.heightmodulcount = 0;
+    GlobalVariables.widthmodulcount = 0;
+    GlobalVariables.totalheightpixels = 0;
+    GlobalVariables.totalwidthpixels = 0;
+    GlobalVariables.resolutioncapacity = 0;
+    GlobalVariables.totalheightmm = 0;
+    GlobalVariables.totalwidthmm = 0;
+    GlobalVariables.totalheightmeter = 0;
+    GlobalVariables.totalwidthmeter = 0;
+    GlobalVariables.totalpowers = 0;
+    GlobalVariables.averagepowers = 0;
+    GlobalVariables.averagepowers2 = 0;
+    GlobalVariables.stdratiowidth = 0;
+    GlobalVariables.stdratioheight = 0;
+    GlobalVariables.tarikankabellan = 0;
+    GlobalVariables.tarikankabellistrikbabok = 0;
+    GlobalVariables.arus = 0;
+    GlobalVariables.luaspenampangkabellistrik = 0;
+    // GlobalVariables.satutarikankabellan = 625000;
+    GlobalVariables.tarikankabellanbulat = 0;
+    GlobalVariables.lan = 0;
+    GlobalVariables.modulcount = 0;
+    GlobalVariables.psu = 0;
+    GlobalVariables.rc = 0;
+    GlobalVariables.processorcabinet = '';
+    GlobalVariables.processorcabinetalt = '';
+    GlobalVariables.pageController.jumpToPage(1);
+
     super.dispose();
   }
 
@@ -580,6 +694,24 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
       GlobalVariables.msd300count = 0; // Set msd300 to 0 for other cases
     }
 
+    GlobalVariables.lan = (GlobalVariables.resolutioncapacity / 625000).ceil();
+    if (GlobalVariables.lan == 1) {
+      GlobalVariables.processorcabinet = GlobalVariables.processorcabinet1;
+      GlobalVariables.processorcabinetalt = GlobalVariables.processorcabinet3;
+    }
+    if (GlobalVariables.lan == 2) {
+      GlobalVariables.processorcabinet = GlobalVariables.processorcabinet1;
+      GlobalVariables.processorcabinetalt = GlobalVariables.processorcabinet4;
+    }
+
+    if ((GlobalVariables.lan > 2) && (GlobalVariables.lan <= 4)) {
+      GlobalVariables.processorcabinet = GlobalVariables.processorcabinet2;
+      GlobalVariables.processorcabinetalt = GlobalVariables.processorcabinet5;
+    }
+
+    GlobalVariables.psu = (GlobalVariables.modulcount * 3);
+    GlobalVariables.rc = (GlobalVariables.modulcount * 1);
+
     // log('msd600 : ${GlobalVariables.msd600count}');
     // log('msd300 : ${GlobalVariables.msd300count}');
 
@@ -653,6 +785,59 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
     // log('Ratio Width : ${GlobalVariables.stdratiowidth}');
     // log('Ratio Height : ${GlobalVariables.stdratioheight}');
 
+    resolutioncapacity = double.parse(
+        GlobalVariables.resolutioncapacity.toString().replaceAll('.', ''));
+    // rescap = rescapint.toDouble();
+    // log(resolutioncapacity.toString());
+    _controllerresolutioncapacity = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    );
+
+    sequenceAnimationresolutioncapacity = SequenceAnimationBuilder()
+        .addAnimatable(
+          animatable: Tween<double>(begin: 0, end: resolutioncapacity
+              // Decimal.parse(GlobalVariables.resolutioncapacity)
+              //     .toDouble()
+              ), // Set your desired end count
+          from: const Duration(seconds: 0),
+          to: const Duration(seconds: 3),
+          tag: 'counting',
+        )
+        .animate(_controllerresolutioncapacity);
+
+    // _controllerresolutioncapacity.forward();
+
+    power = double.parse(GlobalVariables.totalpowers.toString());
+
+    log(power.toString());
+    log(GlobalVariables.totalpowers.toString());
+    _controllerpower = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    );
+
+    sequenceAnimationpower = SequenceAnimationBuilder()
+        .addAnimatable(
+          animatable: Tween<double>(begin: 0, end: power
+              // Decimal.parse(GlobalVariables.resolutioncapacity)
+              //     .toDouble()
+              ), // Set your desired end count
+          from: const Duration(seconds: 0),
+          to: const Duration(seconds: 3),
+          tag: 'countingpower',
+        )
+        .animate(_controllerpower);
+
+    _controllerresolutioncapacity.forward();
+
+    _controllerresolutioncapacity.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _controllerpower.forward();
+        // log('_controllerpower.power');
+      }
+    });
+
     return setState(() {
       [GlobalVariables.heightpixels, GlobalVariables.widthpixels];
     });
@@ -660,6 +845,7 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
 
   @override
   Widget build(BuildContext context) {
+    final thememode = Provider.of<ThemeProvider>(context);
     // final pushButtonTextStyle = GoogleFonts.plusJakartaSans(
     //   textStyle: Theme.of(context).textTheme.labelMedium,
     // );
@@ -682,83 +868,241 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
     // var width = MediaQuery.of(context).size.width;
     // var height = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+    final ScrollController scrollController = ScrollController();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cabinet Calculator'),
       ),
       body: SingleChildScrollView(
+        controller: scrollController,
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(4.0),
               child: Container(
-                  width: screenWidth,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(width: 1, color: Colors.amber),
-                  ),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          // height: 60,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.deepOrange),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              // crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text(
-                                  'Total Resolution : ',
-                                  // style: labelTextStyleSmall
+                width: screenWidth,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(width: 1, color: Colors.amber),
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Wrap(
+                        alignment: WrapAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Container(
+                              // width: screenWidth,
+                              // height: 60,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.orange,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Column(
+                                  // crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'P${GlobalVariables.pitch}',
+                                      style: const TextStyle(
+                                        fontSize: 28,
+                                        fontWeight: FontWeight.w900,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  '${GlobalVariables.totalwidthpixels} x ${GlobalVariables.totalheightpixels} px | ${GlobalVariables.totalwidthmeter} x ${GlobalVariables.totalheightmeter} mtr',
-                                  // style: bodyTextStyleLarge
-                                ),
-                              ],
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                        child: Container(
-                          // height: 60,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Colors.orange),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              // crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Text(
-                                  'Aspect Ratio : ',
-                                  // style: labelTextStyleSmall
-                                ),
-                                Text(
-                                  '${GlobalVariables.stdratiowidth} : ${GlobalVariables.stdratioheight.toStringAsFixed(2).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")}',
-                                  // style: bodyTextStyleLarge
-                                ),
-                              ],
-                            ),
+                          MyBox(
+                              color: thememode.isDark
+                                  ? const Color.fromARGB(255, 87, 102, 4)
+                                  : const Color.fromARGB(255, 229, 255, 0),
+                              textlabel: 'Column x Row:',
+                              text:
+                                  '${GlobalVariables.column} x ${GlobalVariables.row}'),
+                          MyBox(
+                              color: thememode.isDark
+                                  ? const Color.fromARGB(255, 87, 102, 4)
+                                  : const Color.fromARGB(255, 229, 255, 0),
+                              textlabel: 'Cabinet Dimensions:',
+                              text:
+                                  '${GlobalVariables.widthmodul} x ${GlobalVariables.heightmodul} mm'),
+                          AnimatedBuilder(
+                            animation: _controllerresolutioncapacity,
+                            builder: (context, child) {
+                              final formattedCount =
+                                  _numberFormatresolutioncapacity.format(
+                                      sequenceAnimationresolutioncapacity[
+                                              'counting']
+                                          .value
+                                          .toInt());
+                              return MyBox(
+                                  color: thememode.isDark
+                                      ? const Color.fromARGB(255, 60, 77, 0)
+                                      : const Color.fromARGB(255, 166, 212, 0),
+                                  textlabel:
+                                      'Total Resolution | Total Resolution Capacity',
+                                  text:
+                                      '${GlobalVariables.totalwidthpixels} x ${GlobalVariables.totalheightpixels} pixels | $formattedCount Pixels');
+                              // Text(
+                              //   '${sequenceAnimation['counting'].value.toInt()}',
+                              //   style: TextStyle(fontSize: 40),
+                              // );
+                            },
                           ),
-                        ),
+                          MyBox(
+                              color: thememode.isDark
+                                  ? const Color.fromARGB(255, 189, 123, 0)
+                                  : const Color.fromARGB(255, 255, 174, 0),
+                              textlabel: 'Total Dimension:',
+                              text:
+                                  '${GlobalVariables.totalwidthmeter} x ${GlobalVariables.totalheightmeter} meter'),
+                          MyBox(
+                              color: thememode.isDark
+                                  ? const Color.fromARGB(255, 189, 123, 0)
+                                  : const Color.fromARGB(255, 255, 174, 0),
+                              textlabel: 'Aspect Ratio:',
+                              text:
+                                  '${GlobalVariables.stdratiowidth} : ${GlobalVariables.stdratioheight}'),
+                          MyBox(
+                              color: thememode.isDark
+                                  ? const Color.fromARGB(255, 10, 114, 139)
+                                  : const Color.fromARGB(255, 0, 255, 255),
+                              textlabel: 'Cabinet Resolution:',
+                              text:
+                                  '${GlobalVariables.widthpixels} x ${GlobalVariables.heightpixels} px'),
+                          MyBox(
+                              color: thememode.isDark
+                                  ? const Color.fromARGB(255, 10, 114, 139)
+                                  : const Color.fromARGB(255, 0, 255, 255),
+                              textlabel: 'Cabinet Qty:',
+                              text: '${GlobalVariables.modulcount} unit'),
+                          MyBox(
+                              color: thememode.isDark
+                                  ? const Color.fromARGB(255, 10, 114, 139)
+                                  : const Color.fromARGB(255, 0, 255, 255),
+                              textlabel: 'Cab Weight:',
+                              text: '${GlobalVariables.modulcount} Kg'),
+                          MyBox(
+                              color: thememode.isDark
+                                  ? const Color.fromARGB(255, 134, 114, 0)
+                                  : const Color.fromARGB(255, 255, 217, 0),
+                              textlabel: 'PSU Quantity:',
+                              text: '${GlobalVariables.psu.toString()} unit'),
+                          MyBox(
+                              color: thememode.isDark
+                                  ? const Color.fromARGB(255, 134, 114, 0)
+                                  : const Color.fromARGB(255, 255, 217, 0),
+                              textlabel: 'RC Quantity (depends on port used)',
+                              text: '${GlobalVariables.rc.toString()} Unit'),
+                          MyBox(
+                              color: thememode.isDark
+                                  ? const Color.fromARGB(255, 83, 134, 0)
+                                  : const Color.fromARGB(255, 115, 255, 0),
+                              textlabel: 'LAN Cable Quantity:',
+                              text: GlobalVariables.tarikankabellanbulat
+                                  .toString()),
+                          MyBox(
+                              color: thememode.isDark
+                                  ? const Color.fromARGB(255, 83, 134, 0)
+                                  : const Color.fromARGB(255, 115, 255, 0),
+                              textlabel: 'MCTRL600:',
+                              text: GlobalVariables.msd600count.toString()),
+                          MyBox(
+                              color: thememode.isDark
+                                  ? const Color.fromARGB(255, 83, 134, 0)
+                                  : const Color.fromARGB(255, 115, 255, 0),
+                              textlabel: 'MCTRL300:',
+                              text: GlobalVariables.msd300count.toString()),
+                          // MyBox(
+                          //     color: thememode.isDark
+                          //         ? const Color.fromARGB(255, 109, 0, 0)
+                          //         : const Color.fromARGB(255, 255, 84, 84),
+                          //     textlabel: 'Total Maximum Power:',
+                          //     text: '${GlobalVariables.totalpowers} Watts'),
+                          AnimatedBuilder(
+                            animation: _controllerpower,
+                            builder: (context, child) {
+                              final formattedCountPower =
+                                  _numberFormatpower.format(
+                                      sequenceAnimationpower['countingpower']
+                                          .value
+                                          .toInt());
+                              return MyBox(
+                                  color: thememode.isDark
+                                      ? const Color.fromARGB(255, 109, 0, 0)
+                                      : const Color.fromARGB(255, 255, 84, 84),
+                                  textlabel: 'Total Maximum Power:',
+                                  text: '$formattedCountPower Watts');
+                              // Text(
+                              //   '${sequenceAnimation['counting'].value.toInt()}',
+                              //   style: TextStyle(fontSize: 40),
+                              // );
+                            },
+                          ),
+                          MyBox(
+                              color: thememode.isDark
+                                  ? const Color.fromARGB(255, 60, 77, 0)
+                                  : const Color.fromARGB(255, 166, 212, 0),
+                              textlabel: 'Average Power:',
+                              text:
+                                  '${GlobalVariables.averagepowers.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")} - ${GlobalVariables.averagepowers2.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")} Watts'),
+                          MyBox(
+                            color: thememode.isDark
+                                ? const Color.fromARGB(255, 60, 77, 0)
+                                : const Color.fromARGB(255, 166, 212, 0),
+                            textlabel: 'Electric Current per Phase /220/3:',
+                            text:
+                                'R: ${GlobalVariables.arus.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},")} Ampere | S: ${GlobalVariables.arus.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},")} Ampere | T: ${GlobalVariables.arus.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]},")} Ampere',
+                          ),
+                          MyBox(
+                            color: thememode.isDark
+                                ? const Color.fromARGB(255, 114, 51, 0)
+                                : Colors.amber.shade900,
+                            textlabel: 'Main Cable /wo Ground:',
+                            text:
+                                '4 x ${GlobalVariables.luaspenampangkabellistrik} mm',
+                          ),
+                          MyBox(
+                            color: thememode.isDark
+                                ? const Color.fromARGB(255, 114, 51, 0)
+                                : Colors.amber.shade900,
+                            textlabel: 'Main Cable /w Ground:',
+                            text:
+                                '5 x ${GlobalVariables.luaspenampangkabellistrik} mm',
+                          ),
+                          MyBox(
+                            color: thememode.isDark
+                                ? const Color.fromARGB(255, 0, 114, 108)
+                                : const Color.fromARGB(255, 0, 255, 179),
+                            textlabel: 'Player:',
+                            text: GlobalVariables.processorcabinet,
+                          ),
+                          MyBox(
+                              color: thememode.isDark
+                                  ? const Color.fromARGB(255, 0, 114, 108)
+                                  : const Color.fromARGB(255, 0, 255, 179),
+                              textlabel: 'Player alt',
+                              text: GlobalVariables.processorcabinetalt),
+                        ],
                       ),
-                    ],
-                  )),
+                    ),
+                  ],
+                ),
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+              padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
               child: Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(10),
                     border: Border.all(width: 1, color: Colors.amber)),
                 child: Column(
                   children: [
@@ -810,10 +1154,10 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(4.0),
               child: Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(10),
                     border: Border.all(
                       width: 1,
                       color: Colors.amber,
@@ -986,179 +1330,170 @@ class _AddCabinetCalculateState extends State<AddCabinetCalculate> {
                       ],
                     ),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                    Wrap(
+                      // mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.of(context, rootNavigator: true)
-                                      .pop();
-                                  GlobalVariables.pageController.jumpToPage(1);
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.grey,
-                                ),
-                                child: const Text('Cancel'),
-                              ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context, rootNavigator: true).pop();
+                              GlobalVariables.pageController.jumpToPage(1);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.grey,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(4, 0, 4, 4),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  double n =
-                                      double.tryParse(controllerpixels.text) ??
-                                          0;
-                                  modulcalculator(n);
-                                  GlobalVariables.pageController.jumpToPage(1);
-                                  // final taskName = taskNameController.text;
-                                  // final taskDesc = taskDescController.text;
-                                  // // final taskTag = selectedValue;
+                            child: const Text('Cancel'),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(4, 0, 4, 4),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              double n =
+                                  double.tryParse(controllerpixels.text) ?? 0;
+                              modulcalculator(n);
+                              scrollController.animateTo(
+                                0.0,
+                                duration: const Duration(seconds: 1),
+                                curve: Curves.easeInOut,
+                              );
+                              GlobalVariables.pageController.jumpToPage(1);
+                              // final taskName = taskNameController.text;
+                              // final taskDesc = taskDescController.text;
+                              // // final taskTag = selectedValue;
 
-                                  // firestoreServiceCabinet.addTaskLedDisplayCalculator(
-                                  //   taskName,
-                                  //   taskDesc,
-                                  //   GlobalVariables.pitch.toString(),
-                                  //   GlobalVariables.column.toString(),
-                                  //   GlobalVariables.row.toString(),
-                                  //   GlobalVariables.widthmodul.toString(),
-                                  //   GlobalVariables.heightmodul.toString(),
-                                  //   GlobalVariables.widthmodulcount.toString(),
-                                  //   GlobalVariables.heightmodulcount.toString(),
-                                  //   GlobalVariables.widthpixels.toString(),
-                                  //   GlobalVariables.heightpixels.toString(),
-                                  //   GlobalVariables.totalwidthpixels.toString(),
-                                  //   GlobalVariables.totalheightpixels.toString(),
-                                  //   GlobalVariables.totalwidthmeter.toString(),
-                                  //   GlobalVariables.totalheightmeter.toString(),
-                                  //   GlobalVariables.stdratiowidth.toString(),
-                                  //   GlobalVariables.stdratioheight
-                                  //       .toStringAsFixed(0)
-                                  //       .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                  //           (Match m) => "${m[1]},"),
-                                  //   GlobalVariables.modulcount.toString(),
-                                  //   GlobalVariables.totalpowers.toStringAsFixed(0).replaceAllMapped(
-                                  //       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                  //       (Match m) => "${m[1]}."),
-                                  //   GlobalVariables.averagepowers.toStringAsFixed(0).replaceAllMapped(
-                                  //       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                  //       (Match m) => "${m[1]}."),
-                                  //   GlobalVariables.averagepowers2
-                                  //       .toStringAsFixed(0)
-                                  //       .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                  //           (Match m) => "${m[1]}."),
-                                  //   GlobalVariables.arus.toStringAsFixed(0).replaceAllMapped(
-                                  //       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                  //       (Match m) => "${m[1]},"),
-                                  //   GlobalVariables.luaspenampangkabellistrik.toString(),
-                                  //   GlobalVariables.tarikankabellanbulat.toString(),
-                                  //   GlobalVariables.msd600count.toString(),
-                                  //   GlobalVariables.msd300count.toString(),
-                                  // );
+                              // firestoreServiceCabinet.addTaskLedDisplayCalculator(
+                              //   taskName,
+                              //   taskDesc,
+                              //   GlobalVariables.pitch.toString(),
+                              //   GlobalVariables.column.toString(),
+                              //   GlobalVariables.row.toString(),
+                              //   GlobalVariables.widthmodul.toString(),
+                              //   GlobalVariables.heightmodul.toString(),
+                              //   GlobalVariables.widthmodulcount.toString(),
+                              //   GlobalVariables.heightmodulcount.toString(),
+                              //   GlobalVariables.widthpixels.toString(),
+                              //   GlobalVariables.heightpixels.toString(),
+                              //   GlobalVariables.totalwidthpixels.toString(),
+                              //   GlobalVariables.totalheightpixels.toString(),
+                              //   GlobalVariables.totalwidthmeter.toString(),
+                              //   GlobalVariables.totalheightmeter.toString(),
+                              //   GlobalVariables.stdratiowidth.toString(),
+                              //   GlobalVariables.stdratioheight
+                              //       .toStringAsFixed(0)
+                              //       .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                              //           (Match m) => "${m[1]},"),
+                              //   GlobalVariables.modulcount.toString(),
+                              //   GlobalVariables.totalpowers.toStringAsFixed(0).replaceAllMapped(
+                              //       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                              //       (Match m) => "${m[1]}."),
+                              //   GlobalVariables.averagepowers.toStringAsFixed(0).replaceAllMapped(
+                              //       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                              //       (Match m) => "${m[1]}."),
+                              //   GlobalVariables.averagepowers2
+                              //       .toStringAsFixed(0)
+                              //       .replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                              //           (Match m) => "${m[1]}."),
+                              //   GlobalVariables.arus.toStringAsFixed(0).replaceAllMapped(
+                              //       RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                              //       (Match m) => "${m[1]},"),
+                              //   GlobalVariables.luaspenampangkabellistrik.toString(),
+                              //   GlobalVariables.tarikankabellanbulat.toString(),
+                              //   GlobalVariables.msd600count.toString(),
+                              //   GlobalVariables.msd300count.toString(),
+                              // );
 
-                                  // _addCalculate(
-                                  //     taskName: taskName, taskDesc: taskDesc, taskTag: taskTag);
-                                },
-                                child: const Text('Calculate'),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(4, 0, 4, 4),
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  double n =
-                                      double.tryParse(controllerpixels.text) ??
-                                          0;
-                                  modulcalculator(n);
-                                  final taskName = taskNameController.text;
-                                  final taskDesc = taskDescController.text;
-                                  // final taskTag = selectedValue;
+                              // _addCalculate(
+                              //     taskName: taskName, taskDesc: taskDesc, taskTag: taskTag);
+                            },
+                            child: const Text('Calculate'),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(4, 0, 4, 4),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              double n =
+                                  double.tryParse(controllerpixels.text) ?? 0;
+                              modulcalculator(n);
+                              final taskName = taskNameController.text;
+                              final taskDesc = taskDescController.text;
+                              // final taskTag = selectedValue;
 
-                                  firestoreServiceCabinet
-                                      .addTaskLedDisplayCalculator(
-                                    taskName,
-                                    taskDesc,
-                                    GlobalVariables.pitch.toString(),
-                                    GlobalVariables.column.toString(),
-                                    GlobalVariables.row.toString(),
-                                    GlobalVariables.widthmodul.toString(),
-                                    GlobalVariables.heightmodul.toString(),
-                                    GlobalVariables.widthmodulcount.toString(),
-                                    GlobalVariables.heightmodulcount.toString(),
-                                    GlobalVariables.widthpixels.toString(),
-                                    GlobalVariables.heightpixels.toString(),
-                                    GlobalVariables.totalwidthpixels.toString(),
-                                    GlobalVariables.totalheightpixels
-                                        .toString(),
-                                    GlobalVariables.resolutioncapacity
-                                        .toStringAsFixed(0)
-                                        .replaceAllMapped(
-                                            RegExp(
-                                                r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                            (Match m) => "${m[1]}."),
-                                    GlobalVariables.totalwidthmeter.toString(),
-                                    GlobalVariables.totalheightmeter.toString(),
-                                    GlobalVariables.totalheightmm.toString(),
-                                    GlobalVariables.totalwidthmm.toString(),
-                                    GlobalVariables.stdratiowidth
-                                        .toStringAsFixed(0)
-                                        .replaceAllMapped(
-                                            RegExp(
-                                                r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                            (Match m) => "${m[1]}."),
-                                    GlobalVariables.stdratioheight
-                                        .toStringAsFixed(0)
-                                        .replaceAllMapped(
-                                            RegExp(
-                                                r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                            (Match m) => "${m[1]}."),
-                                    GlobalVariables.modulcount.toString(),
-                                    GlobalVariables.totalpowers
-                                        .toStringAsFixed(0)
-                                        .replaceAllMapped(
-                                            RegExp(
-                                                r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                            (Match m) => "${m[1]}."),
-                                    GlobalVariables.averagepowers
-                                        .toStringAsFixed(0)
-                                        .replaceAllMapped(
-                                            RegExp(
-                                                r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                            (Match m) => "${m[1]}."),
-                                    GlobalVariables.averagepowers2
-                                        .toStringAsFixed(0)
-                                        .replaceAllMapped(
-                                            RegExp(
-                                                r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                            (Match m) => "${m[1]}."),
-                                    GlobalVariables.arus
-                                        .toStringAsFixed(0)
-                                        .replaceAllMapped(
-                                            RegExp(
-                                                r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                            (Match m) => "${m[1]},"),
-                                    GlobalVariables.luaspenampangkabellistrik
-                                        .toString(),
-                                    GlobalVariables.tarikankabellanbulat
-                                        .toString(),
-                                    GlobalVariables.msd600count.toString(),
-                                    GlobalVariables.msd300count.toString(),
-                                  );
+                              firestoreServiceCabinet
+                                  .addTaskLedDisplayCalculator(
+                                taskName,
+                                taskDesc,
+                                GlobalVariables.pitch.toString(),
+                                GlobalVariables.column.toString(),
+                                GlobalVariables.row.toString(),
+                                GlobalVariables.widthmodul.toString(),
+                                GlobalVariables.heightmodul.toString(),
+                                GlobalVariables.widthmodulcount.toString(),
+                                GlobalVariables.heightmodulcount.toString(),
+                                GlobalVariables.widthpixels.toString(),
+                                GlobalVariables.heightpixels.toString(),
+                                GlobalVariables.totalwidthpixels.toString(),
+                                GlobalVariables.totalheightpixels.toString(),
+                                GlobalVariables.resolutioncapacity
+                                    .toStringAsFixed(0)
+                                    .replaceAllMapped(
+                                        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                        (Match m) => "${m[1]}."),
+                                GlobalVariables.totalwidthmeter.toString(),
+                                GlobalVariables.totalheightmeter.toString(),
+                                GlobalVariables.totalheightmm.toString(),
+                                GlobalVariables.totalwidthmm.toString(),
+                                GlobalVariables.stdratiowidth
+                                    .toStringAsFixed(0)
+                                    .replaceAllMapped(
+                                        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                        (Match m) => "${m[1]}."),
+                                GlobalVariables.stdratioheight
+                                    .toStringAsFixed(0)
+                                    .replaceAllMapped(
+                                        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                        (Match m) => "${m[1]}."),
+                                GlobalVariables.modulcount.toString(),
+                                GlobalVariables.psu.toString(),
+                                GlobalVariables.rc.toString(),
+                                GlobalVariables.totalpowers
+                                    .toStringAsFixed(0)
+                                    .replaceAllMapped(
+                                        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                        (Match m) => "${m[1]}."),
+                                GlobalVariables.averagepowers
+                                    .toStringAsFixed(0)
+                                    .replaceAllMapped(
+                                        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                        (Match m) => "${m[1]}."),
+                                GlobalVariables.averagepowers2
+                                    .toStringAsFixed(0)
+                                    .replaceAllMapped(
+                                        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                        (Match m) => "${m[1]}."),
+                                GlobalVariables.arus
+                                    .toStringAsFixed(0)
+                                    .replaceAllMapped(
+                                        RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+                                        (Match m) => "${m[1]},"),
+                                GlobalVariables.luaspenampangkabellistrik
+                                    .toString(),
+                                GlobalVariables.tarikankabellanbulat.toString(),
+                                GlobalVariables.msd600count.toString(),
+                                GlobalVariables.msd300count.toString(),
+                                GlobalVariables.processorcabinet,
+                                GlobalVariables.processorcabinetalt,
+                              );
 
-                                  // _addCalculate(
-                                  //     taskName: taskName, taskDesc: taskDesc, taskTag: taskTag);
-                                  Navigator.of(context, rootNavigator: true)
-                                      .pop();
-                                  GlobalVariables.pageController.jumpToPage(1);
-                                },
-                                child: const Text('Calculate & Save'),
-                              ),
-                            ),
-                          ],
+                              // _addCalculate(
+                              //     taskName: taskName, taskDesc: taskDesc, taskTag: taskTag);
+                              Navigator.of(context, rootNavigator: true).pop();
+                              GlobalVariables.pageController.jumpToPage(1);
+                            },
+                            child: const Text('Calculate & Save'),
+                          ),
                         ),
                       ],
                     ),

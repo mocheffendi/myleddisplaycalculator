@@ -1,6 +1,5 @@
 // import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myleddisplaycalculator/component/box.dart';
 import 'package:myleddisplaycalculator/theme/theme_provider.dart';
@@ -8,6 +7,7 @@ import 'package:myleddisplaycalculator/views/detailpagetable_modul.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_sequence_animation/flutter_sequence_animation.dart';
 import 'package:intl/intl.dart';
+import 'package:zoom_widget/zoom_widget.dart';
 
 class DetailPageModul extends StatefulWidget {
   final String taskName;
@@ -67,6 +67,8 @@ class DetailPageModul extends StatefulWidget {
     required this.stdratiowidth,
     required this.stdratioheight,
     required this.modulcount,
+    required this.psu,
+    required this.rc,
     required this.totalpowers,
     required this.averagepowers,
     required this.averagepowers2,
@@ -77,8 +79,6 @@ class DetailPageModul extends StatefulWidget {
     required this.msd300count,
     required this.processor,
     required this.processoralt,
-    required this.psu,
-    required this.rc,
   });
 
   @override
@@ -222,6 +222,8 @@ class _DetailPageModulState extends State<DetailPageModul>
                     stdratiowidth: widget.stdratiowidth,
                     stdratioheight: widget.stdratioheight,
                     modulcount: widget.modulcount,
+                    psu: widget.psu,
+                    rc: widget.rc,
                     totalpowers: widget.totalpowers,
                     averagepowers: widget.averagepowers,
                     averagepowers2: widget.averagepowers2,
@@ -236,11 +238,22 @@ class _DetailPageModulState extends State<DetailPageModul>
                 ),
               );
             },
-            icon: const Icon(CupertinoIcons.table),
+            icon: const Icon(Icons.article_outlined),
           ),
         ],
       ),
-      body: SingleChildScrollView(
+      body: Zoom(
+        maxZoomWidth: MediaQuery.of(context).size.width,
+        maxZoomHeight: MediaQuery.of(context).size.height * .9,
+        canvasColor: thememode.isDark ? Colors.blueGrey.shade900 : Colors.white,
+        backgroundColor: Colors.amber.shade900,
+        colorScrollBars: Colors.amber.shade900,
+        opacityScrollBars: 0.9,
+        scrollWeight: 5.0,
+        centerOnScale: true,
+        enableScroll: true,
+        // doubleTapZoom: true,
+        zoomSensibility: 0.05,
         child: Column(
           children: [
             Center(

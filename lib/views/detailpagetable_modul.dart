@@ -24,6 +24,8 @@ class DetailPageTableModul extends StatelessWidget {
   final String stdratiowidth;
   final String stdratioheight;
   final String modulcount;
+  final String psu;
+  final String rc;
   final String totalpowers;
   final String averagepowers;
   final String averagepowers2;
@@ -58,6 +60,8 @@ class DetailPageTableModul extends StatelessWidget {
       required this.stdratiowidth,
       required this.stdratioheight,
       required this.modulcount,
+      required this.psu,
+      required this.rc,
       required this.totalpowers,
       required this.averagepowers,
       required this.averagepowers2,
@@ -164,6 +168,18 @@ class DetailPageTableModul extends StatelessWidget {
             ),
             DataRow(
               cells: [
+                const DataCell(Text('PSU Quantity')),
+                DataCell(Text('$psu unit')),
+              ],
+            ),
+            DataRow(
+              cells: [
+                const DataCell(Text('RC Quantity')),
+                DataCell(Text('$rc unit (depends on port used)')),
+              ],
+            ),
+            DataRow(
+              cells: [
                 const DataCell(Text('Modul Weight')),
                 DataCell(Text('$modulcount kg')),
               ],
@@ -202,7 +218,7 @@ class DetailPageTableModul extends StatelessWidget {
               cells: [
                 const DataCell(Text('Current per Phase [/220/3]')),
                 DataCell(Text(
-                  'RST $arus Ampere',
+                  'R: $arus A | S: $arus A | T: $arus A',
                   softWrap: true,
                 )),
               ],

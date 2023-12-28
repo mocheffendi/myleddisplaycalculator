@@ -1,11 +1,13 @@
-// import 'dart:developer';
+import 'dart:developer';
 
 // import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_sequence_animation/flutter_sequence_animation.dart';
 // import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:myleddisplaycalculator/component/box.dart';
 import 'package:myleddisplaycalculator/component/switch.dart';
 import 'package:myleddisplaycalculator/services/firestore_modul.dart';
@@ -22,7 +24,8 @@ class AddModulCalculate extends StatefulWidget {
   State<AddModulCalculate> createState() => _AddModulCalculateState();
 }
 
-class _AddModulCalculateState extends State<AddModulCalculate> {
+class _AddModulCalculateState extends State<AddModulCalculate>
+    with TickerProviderStateMixin {
   final FireStoreService firestoreService = FireStoreService();
   final GlobalVariables globalVariables = GlobalVariables();
   final TextEditingController taskNameController = TextEditingController();
@@ -310,9 +313,73 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
     ];
   }
 
+  late AnimationController _controllerresolutioncapacity;
+  late SequenceAnimation sequenceAnimationresolutioncapacity;
+  late double resolutioncapacity;
+  final NumberFormat _numberFormatresolutioncapacity =
+      NumberFormat.decimalPattern('id_ID');
+
+  late AnimationController _controllerpower;
+  late SequenceAnimation sequenceAnimationpower;
+  late double power;
+  final NumberFormat _numberFormatpower = NumberFormat.decimalPattern('id_ID');
+
   @override
   void initState() {
     super.initState();
+
+    resolutioncapacity = double.parse(
+        GlobalVariables.resolutioncapacity.toString().replaceAll('.', ''));
+    // rescap = rescapint.toDouble();
+    // log(resolutioncapacity.toString());
+    _controllerresolutioncapacity = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    );
+
+    sequenceAnimationresolutioncapacity = SequenceAnimationBuilder()
+        .addAnimatable(
+          animatable: Tween<double>(begin: 0, end: resolutioncapacity
+              // Decimal.parse(GlobalVariables.resolutioncapacity)
+              //     .toDouble()
+              ), // Set your desired end count
+          from: const Duration(seconds: 0),
+          to: const Duration(seconds: 3),
+          tag: 'counting',
+        )
+        .animate(_controllerresolutioncapacity);
+
+    // _controllerresolutioncapacity.forward();
+
+    power = double.parse(
+        GlobalVariables.totalpowers.toString().replaceAll('.', ''));
+
+    _controllerpower = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    );
+
+    sequenceAnimationpower = SequenceAnimationBuilder()
+        .addAnimatable(
+          animatable: Tween<double>(begin: 0, end: power
+              // Decimal.parse(GlobalVariables.resolutioncapacity)
+              //     .toDouble()
+              ), // Set your desired end count
+          from: const Duration(seconds: 0),
+          to: const Duration(seconds: 3),
+          tag: 'countingpower',
+        )
+        .animate(_controllerpower);
+
+    // Delay the start of the second animation
+    // Future.delayed(const Duration(seconds: 3), () {
+    //   _controllerresolutioncapacity.forward();
+
+    //   log('_controllerresolutioncapacity.forward');
+    // });
+
+    // _controllerpower.forward();
+
     // Permission.storage.request();
     googleFontsPending = GoogleFonts.pendingFonts([
       GoogleFonts.plusJakartaSans(),
@@ -431,6 +498,9 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
     controllerwidthmodul.dispose();
     controllercolumns.dispose();
     controllerrows.dispose();
+
+    _controllerresolutioncapacity.dispose();
+    _controllerpower.dispose();
 
     GlobalVariables.pitch = 0;
     GlobalVariables.heightmodul = 0;
@@ -809,6 +879,59 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
     // log('Ratio Width : ${GlobalVariables.stdratiowidth}');
     // log('Ratio Height : ${GlobalVariables.stdratioheight}');
 
+    resolutioncapacity = double.parse(
+        GlobalVariables.resolutioncapacity.toString().replaceAll('.', ''));
+    // rescap = rescapint.toDouble();
+    // log(resolutioncapacity.toString());
+    _controllerresolutioncapacity = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    );
+
+    sequenceAnimationresolutioncapacity = SequenceAnimationBuilder()
+        .addAnimatable(
+          animatable: Tween<double>(begin: 0, end: resolutioncapacity
+              // Decimal.parse(GlobalVariables.resolutioncapacity)
+              //     .toDouble()
+              ), // Set your desired end count
+          from: const Duration(seconds: 0),
+          to: const Duration(seconds: 3),
+          tag: 'counting',
+        )
+        .animate(_controllerresolutioncapacity);
+
+    // _controllerresolutioncapacity.forward();
+
+    power = double.parse(GlobalVariables.totalpowers.toString());
+
+    log(power.toString());
+    log(GlobalVariables.totalpowers.toString());
+    _controllerpower = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    );
+
+    sequenceAnimationpower = SequenceAnimationBuilder()
+        .addAnimatable(
+          animatable: Tween<double>(begin: 0, end: power
+              // Decimal.parse(GlobalVariables.resolutioncapacity)
+              //     .toDouble()
+              ), // Set your desired end count
+          from: const Duration(seconds: 0),
+          to: const Duration(seconds: 3),
+          tag: 'countingpower',
+        )
+        .animate(_controllerpower);
+
+    _controllerresolutioncapacity.forward();
+
+    _controllerresolutioncapacity.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _controllerpower.forward();
+        // log('_controllerpower.power');
+      }
+    });
+
     return setState(() {
       [GlobalVariables.heightpixels, GlobalVariables.widthpixels];
     });
@@ -837,6 +960,8 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
     //     textStyle: Theme.of(context).textTheme.labelLarge,
     //     color: Colors.grey.shade100);
     double screenWidth = MediaQuery.of(context).size.width;
+    final ScrollController scrollController = ScrollController();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Modular Calculator'),
@@ -849,6 +974,7 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
         ],
       ),
       body: SingleChildScrollView(
+        controller: scrollController,
         child: Column(
           children: [
             Padding(
@@ -905,13 +1031,29 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
                             textlabel: 'Modul Dimensions:',
                             text:
                                 '${GlobalVariables.widthmodul} x ${GlobalVariables.heightmodul} mm'),
-                        MyBox(
-                            color: thememode.isDark
-                                ? const Color.fromARGB(255, 60, 77, 0)
-                                : const Color.fromARGB(255, 166, 212, 0),
-                            textlabel: 'Total Resolution | Resolution Capacity',
-                            text:
-                                '${GlobalVariables.totalwidthpixels} x ${GlobalVariables.totalheightpixels} pixels | ${GlobalVariables.resolutioncapacity.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")} pixels'),
+                        AnimatedBuilder(
+                          animation: _controllerresolutioncapacity,
+                          builder: (context, child) {
+                            final formattedCount =
+                                _numberFormatresolutioncapacity.format(
+                                    sequenceAnimationresolutioncapacity[
+                                            'counting']
+                                        .value
+                                        .toInt());
+                            return MyBox(
+                                color: thememode.isDark
+                                    ? const Color.fromARGB(255, 60, 77, 0)
+                                    : const Color.fromARGB(255, 166, 212, 0),
+                                textlabel:
+                                    'Total Resolution | Total Resolution Capacity',
+                                text:
+                                    '${GlobalVariables.totalwidthpixels} x ${GlobalVariables.totalheightpixels} pixels | $formattedCount Pixels');
+                            // Text(
+                            //   '${sequenceAnimation['counting'].value.toInt()}',
+                            //   style: TextStyle(fontSize: 40),
+                            // );
+                          },
+                        ),
                         MyBox(
                             color: thememode.isDark
                                 ? const Color.fromARGB(255, 189, 123, 0)
@@ -984,13 +1126,25 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
                                 : const Color.fromARGB(255, 115, 255, 0),
                             textlabel: 'MCTRL300:',
                             text: GlobalVariables.msd300count.toString()),
-                        MyBox(
-                            color: thememode.isDark
-                                ? const Color.fromARGB(255, 109, 0, 0)
-                                : const Color.fromARGB(255, 255, 84, 84),
-                            textlabel: 'Total Maximum Power:',
-                            text:
-                                '${GlobalVariables.totalpowers.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")} Watts'),
+                        AnimatedBuilder(
+                          animation: _controllerpower,
+                          builder: (context, child) {
+                            final formattedCountPower = _numberFormatpower
+                                .format(sequenceAnimationpower['countingpower']
+                                    .value
+                                    .toInt());
+                            return MyBox(
+                                color: thememode.isDark
+                                    ? const Color.fromARGB(255, 109, 0, 0)
+                                    : const Color.fromARGB(255, 255, 84, 84),
+                                textlabel: 'Total Maximum Power:',
+                                text: '$formattedCountPower Watts');
+                            // Text(
+                            //   '${sequenceAnimation['counting'].value.toInt()}',
+                            //   style: TextStyle(fontSize: 40),
+                            // );
+                          },
+                        ),
                         MyBox(
                             color: thememode.isDark
                                 ? const Color.fromARGB(255, 60, 77, 0)
@@ -1296,6 +1450,11 @@ class _AddModulCalculateState extends State<AddModulCalculate> {
                               double n =
                                   double.tryParse(controllerpixels.text) ?? 0;
                               modulcalculator(n);
+                              scrollController.animateTo(
+                                0.0,
+                                duration: const Duration(seconds: 1),
+                                curve: Curves.easeInOut,
+                              );
                               GlobalVariables.pageController.jumpToPage(0);
                               // final taskName = taskNameController.text;
                               // final taskDesc = taskDescController.text;
