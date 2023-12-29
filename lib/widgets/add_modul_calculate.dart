@@ -1101,7 +1101,7 @@ class _AddModulCalculateState extends State<AddModulCalculate>
                             color: thememode.isDark
                                 ? const Color.fromARGB(255, 134, 114, 0)
                                 : const Color.fromARGB(255, 255, 217, 0),
-                            textlabel: 'Receiving Card Quantity:',
+                            textlabel: 'RC Quantity (depends on port used)',
                             text: GlobalVariables.rc
                                 .toStringAsFixed(0)
                                 .replaceAllMapped(
