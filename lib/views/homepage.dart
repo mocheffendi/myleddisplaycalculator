@@ -19,12 +19,25 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool isLoading = true;
+
   late int _selectedIndex = 0;
 
   _onPageViewChange(int page) {
     Future.delayed(const Duration(milliseconds: 500), () {
       setState(() {
         _selectedIndex = page;
+      });
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        isLoading = false;
       });
     });
   }
@@ -287,26 +300,30 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        body: PageView(
-          controller: GlobalVariables.pageController,
-          physics: const NeverScrollableScrollPhysics(),
-          onPageChanged: _onPageViewChange,
-          children: const <Widget>[
-            Center(
-              child: MyModularHistory(),
-            ),
-            Center(
-              child: MyCabinetHistory(),
-            ),
-            Center(
-              child: MyModularPrice(),
-            ),
-            Center(
-              // child: MyCabinetPrice(),
-              child: MyCabinetPrice(),
-            ),
-          ],
-        ),
+        body: isLoading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : PageView(
+                controller: GlobalVariables.pageController,
+                physics: const NeverScrollableScrollPhysics(),
+                onPageChanged: _onPageViewChange,
+                children: const <Widget>[
+                  Center(
+                    child: MyModularHistory(),
+                  ),
+                  Center(
+                    child: MyCabinetHistory(),
+                  ),
+                  Center(
+                    child: MyModularPrice(),
+                  ),
+                  Center(
+                    // child: MyCabinetPrice(),
+                    child: MyCabinetPrice(),
+                  ),
+                ],
+              ),
       ),
     );
   }
