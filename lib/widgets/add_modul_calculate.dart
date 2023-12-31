@@ -714,7 +714,7 @@ class _AddModulCalculateState extends State<AddModulCalculate>
 
     if ((GlobalVariables.lan > 2) && (GlobalVariables.lan <= 4)) {
       GlobalVariables.processor =
-          '${GlobalVariables.processor3} + MCTRL600 1unit';
+          '${GlobalVariables.processor1} + MCTRL600 1unit';
       GlobalVariables.processoralt = GlobalVariables.processor5;
     }
 
