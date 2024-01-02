@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:myleddisplaycalculator/component/switch.dart';
+import 'package:myleddisplaycalculator/responsive/desktop_scaffold.dart';
+import 'package:myleddisplaycalculator/responsive/responsive_layout.dart';
+import 'package:myleddisplaycalculator/responsive/tablet_scaffold.dart';
 import 'package:myleddisplaycalculator/variables/global_variables.dart';
 import 'package:myleddisplaycalculator/views/cabinet_history.dart';
 import 'package:myleddisplaycalculator/views/cabinet_price.dart';
@@ -138,7 +141,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const AddModulCalculate(),
+                    builder: (context) => const ResponsiveLayout(
+                        mobileScaffold: AddModulCalculate(),
+                        tabletScaffold: TabletScaffold(),
+                        desktopScaffold: DesktopScaffold()),
                   ),
                 );
                 // showDialog(
