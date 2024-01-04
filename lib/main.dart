@@ -1,6 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:myleddisplaycalculator/firebase_options.dart';
+import 'package:myleddisplaycalculator/responsive/desktop_scaffold.dart';
+import 'package:myleddisplaycalculator/responsive/responsive_layout.dart';
+import 'package:myleddisplaycalculator/responsive/tablet_scaffold.dart';
 import 'package:myleddisplaycalculator/theme/theme_provider.dart';
 import 'package:myleddisplaycalculator/views/homepage.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +33,11 @@ class MyApp extends StatelessWidget {
       //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
       //   useMaterial3: true,
       // ),
-      home: const SafeArea(child: HomeScreen()),
+      home: const SafeArea(
+          child: ResponsiveLayout(
+              mobileScaffold: HomeScreen(),
+              tabletScaffold: TabletScaffold(),
+              desktopScaffold: DesktopScaffold())),
     );
   }
 }

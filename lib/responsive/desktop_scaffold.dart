@@ -1,5 +1,7 @@
-import 'dart:developer';
+// import 'dart:developer';
+import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sequence_animation/flutter_sequence_animation.dart';
@@ -9,6 +11,7 @@ import 'package:myleddisplaycalculator/component/box.dart';
 import 'package:myleddisplaycalculator/services/firestore_modul.dart';
 import 'package:myleddisplaycalculator/theme/theme_provider.dart';
 import 'package:myleddisplaycalculator/variables/global_variables.dart';
+import 'package:myleddisplaycalculator/views/detailpage_modul.dart';
 import 'package:provider/provider.dart';
 
 class DesktopScaffold extends StatefulWidget {
@@ -898,8 +901,8 @@ class _DesktopScaffoldState extends State<DesktopScaffold>
 
     power = double.parse(GlobalVariables.totalpowers.toString());
 
-    log(power.toString());
-    log(GlobalVariables.totalpowers.toString());
+    // log(power.toString());
+    // log(GlobalVariables.totalpowers.toString());
     _controllerpower = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 3),
@@ -935,12 +938,361 @@ class _DesktopScaffoldState extends State<DesktopScaffold>
   Widget build(BuildContext context) {
     final thememode = Provider.of<ThemeProvider>(context);
     double screenWidth = MediaQuery.of(context).size.width;
+
+    final headLineLargeTextStyle = GoogleFonts.plusJakartaSans(
+      textStyle: Theme.of(context).textTheme.headlineLarge,
+    );
+    final headLineSmallTextStyle = GoogleFonts.plusJakartaSans(
+      textStyle: Theme.of(context).textTheme.headlineSmall,
+    );
+    final labelMediumTextStyle = GoogleFonts.plusJakartaSans(
+      textStyle: Theme.of(context).textTheme.labelMedium,
+    );
+    final currentCount = (MediaQuery.of(context).size.width ~/ 600).toInt();
+    const minCount = 2;
+
     return Scaffold(
         appBar: AppBar(
           title: const Text('Desktop Scaffold'),
         ),
         body: Row(
           children: [
+            const SizedBox(
+              width: 100,
+            ),
+            SingleChildScrollView(
+              child: SizedBox(
+                width: 500,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Discover',
+                            style: headLineLargeTextStyle,
+                          ),
+                          Text(
+                            'Modular [Indoor]',
+                            style: headLineSmallTextStyle,
+                          ),
+                          Text('The LED Display Screen Size and Resolution :',
+                              style: labelMediumTextStyle),
+                        ],
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        StreamBuilder<QuerySnapshot>(
+                          stream: firestoreService.getNotesStream(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              List notesList = snapshot.data!.docs;
+                              return GridView.builder(
+                                // padding: const EdgeInsets.only(top: 8.0),
+                                physics: const ScrollPhysics(),
+                                shrinkWrap: true,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  // max(currentCount, minCount),
+                                  // crossAxisCount:
+                                  //     (orientation == Orientation.portrait) ? 2 : 3,
+                                  childAspectRatio: 2 / 2.5,
+                                  mainAxisSpacing: 8,
+                                  crossAxisSpacing: 8,
+                                  // (MediaQuery.of(context).size.height * 0.001),
+                                ),
+                                // gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                //   crossAxisCount: 2,
+                                // ),
+                                itemCount: notesList.length,
+                                itemBuilder: (BuildContext context, index) {
+                                  DocumentSnapshot document = notesList[index];
+                                  String docID = document.id;
+                                  Map<String, dynamic> data =
+                                      document.data() as Map<String, dynamic>;
+                                  String taskName = data['taskName'];
+                                  String taskDesc = data['taskDesc'];
+                                  String pitch = data['pitch'];
+                                  String column = data['column'];
+                                  String row = data['row'];
+                                  String widthmodul = data['widthmodul'];
+                                  String heightmodul = data['heightmodul'];
+                                  String widthmodulcount =
+                                      data['widthmodulcount'];
+                                  String heightmodulcount =
+                                      data['heightmodulcount'];
+                                  String widthpixels = data['widthpixels'];
+                                  String heightpixels = data['heightpixels'];
+                                  String totalwidthpixels =
+                                      data['totalwidthpixels'];
+                                  String totalheightpixels =
+                                      data['totalheightpixels'];
+                                  String resolutioncapacity =
+                                      data['resolutioncapacity'];
+                                  String totalwidthmeter =
+                                      data['totalwidthmeter'];
+                                  String totalheightmeter =
+                                      data['totalheightmeter'];
+                                  String totalwidthmm = data['totalwidthmm'];
+                                  String totalheightmm = data['totalheightmm'];
+                                  String stdratiowidth = data['stdratiowidth'];
+                                  String stdratioheight =
+                                      data['stdratioheight'];
+                                  String modulcount = data['modulcount'];
+                                  String psu = data['psu'];
+                                  String rc = data['rc'];
+                                  String totalpowers = data['totalpowers'];
+                                  String averagepowers = data['averagepowers'];
+                                  String averagepowers2 =
+                                      data['averagepowers2'];
+                                  String arus = data['arus'];
+                                  String luaspenampangkabellistrik =
+                                      data['luaspenampangkabellistrik'];
+                                  String tarikankabellanbulat =
+                                      data['tarikankabellanbulat'];
+                                  String msd600count = data['msd600count'];
+                                  String msd300count = data['msd300count'];
+                                  String processor = data['processor'];
+                                  String processoralt = data['processoralt'];
+                                  var noteTimeStamp =
+                                      (data['timestamp'] as Timestamp).toDate();
+                                  return GestureDetector(
+                                    onTap: () {
+                                      setState(() {});
+
+                                      // Navigator.push(
+                                      //   context,
+                                      //   MaterialPageRoute(
+                                      //     builder: (context) => DetailPageModul(
+                                      //       taskName: taskName,
+                                      //       taskDesc: taskDesc,
+                                      //       pitch: pitch,
+                                      //       column: column,
+                                      //       row: row,
+                                      //       widthmodul: widthmodul,
+                                      //       heightmodul: heightmodul,
+                                      //       widthmodulcount: widthmodulcount,
+                                      //       heightmodulcount: heightmodulcount,
+                                      //       widthpixels: widthpixels,
+                                      //       heightpixels: heightpixels,
+                                      //       totalwidthpixels: totalwidthpixels,
+                                      //       totalheightpixels:
+                                      //           totalheightpixels,
+                                      //       resolutioncapacity:
+                                      //           resolutioncapacity,
+                                      //       totalwidthmeter: totalwidthmeter,
+                                      //       totalheightmeter: totalheightmeter,
+                                      //       totalwidthmm: totalwidthmm,
+                                      //       totalheightmm: totalheightmm,
+                                      //       stdratiowidth: stdratiowidth,
+                                      //       stdratioheight: stdratioheight,
+                                      //       modulcount: modulcount,
+                                      //       psu: psu,
+                                      //       rc: rc,
+                                      //       totalpowers: totalpowers,
+                                      //       averagepowers: averagepowers,
+                                      //       averagepowers2: averagepowers2,
+                                      //       arus: arus,
+                                      //       luaspenampangkabellistrik:
+                                      //           luaspenampangkabellistrik,
+                                      //       tarikankabellanbulat:
+                                      //           tarikankabellanbulat,
+                                      //       msd600count: msd600count,
+                                      //       msd300count: msd300count,
+                                      //       processor: processor,
+                                      //       processoralt: processoralt,
+                                      //     ),
+                                      //   ),
+                                      // );
+                                    },
+                                    child: GridTile(
+                                      child: Container(
+                                        // height: 200,
+                                        decoration: BoxDecoration(
+                                          border:
+                                              Border.all(color: Colors.amber),
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: Stack(
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Center(
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Text(taskName),
+                                                    Text(taskDesc),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Container(
+                                                        width: (MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .width *
+                                                            1),
+                                                        // height: 120,
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10),
+                                                            color: Colors.amber
+                                                                .shade800),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: Column(
+                                                            // crossAxisAlignment: CrossAxisAlignment.center,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Text(
+                                                                'Pitch : $pitch',
+                                                                // style: labelTextStyleSmall
+                                                              ),
+                                                              const Text(
+                                                                'Total Resolution : ',
+                                                                // style: labelTextStyleSmall
+                                                              ),
+                                                              Text(
+                                                                '  $totalwidthpixels x $totalheightpixels px',
+                                                                // style: bodyTextStyleLarge
+                                                              ),
+                                                              const Text(
+                                                                'Total Dimension : ',
+                                                                // style: labelTextStyleSmall
+                                                              ),
+                                                              Text(
+                                                                  '$totalwidthmeter x $totalheightmeter meter'),
+                                                              const Text(
+                                                                'read more >',
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontStyle:
+                                                                        FontStyle
+                                                                            .italic),
+                                                                // style: labelTextStyleSmall
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            Positioned(
+                                              right: 0,
+                                              bottom: 0,
+                                              child: Row(
+                                                children: [
+                                                  Text(
+                                                    noteTimeStamp
+                                                        .toString()
+                                                        .substring(0, 19),
+                                                    style: const TextStyle(
+                                                        fontSize: 10,
+                                                        color: Colors.blueGrey),
+                                                  ),
+                                                  // IconButton(
+                                                  //   onPressed: () {
+                                                  //     openNoteBox(docID);
+                                                  //     fillTextFieldForUpdate(docID, taskName);
+                                                  //   },
+                                                  //   icon: const Icon(Icons.edit),
+                                                  // ),
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      showDialog<String>(
+                                                        context: context,
+                                                        builder: (BuildContext
+                                                                context) =>
+                                                            AlertDialog(
+                                                          title: const Text(
+                                                              'Remove the Project'),
+                                                          content: const Text(
+                                                              'Are you sure you want to remove?'),
+                                                          actions: <Widget>[
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      context,
+                                                                      'Cancel'),
+                                                              child: Text(
+                                                                'Cancel',
+                                                                style: TextStyle(
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .colorScheme
+                                                                        .tertiary),
+                                                              ),
+                                                            ),
+                                                            TextButton(
+                                                              onPressed: () {
+                                                                firestoreService
+                                                                    .deleteNote(
+                                                                        docID);
+                                                                Navigator.pop(
+                                                                    context,
+                                                                    'OK');
+                                                              },
+                                                              child: Text(
+                                                                'OK',
+                                                                style: TextStyle(
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .colorScheme
+                                                                        .tertiary),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    },
+                                                    // onPressed: () => firestoreService
+                                                    //     .deleteNote(docID),
+                                                    icon: const Icon(
+                                                        Icons.delete),
+                                                  ),
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            } else {
+                              return const Center(
+                                  child: CircularProgressIndicator());
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
             Column(
               children: [
                 Padding(
@@ -1528,7 +1880,7 @@ class _DesktopScaffoldState extends State<DesktopScaffold>
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 4, 4, 4),
               child: Container(
-                width: screenWidth * 0.5,
+                width: screenWidth * 0.3,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(width: 1, color: Colors.amber),
@@ -1554,7 +1906,7 @@ class _DesktopScaffoldState extends State<DesktopScaffold>
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    'P${GlobalVariables.pitch}',
+                                    'P$pitch',
                                     style: const TextStyle(
                                       fontSize: 28,
                                       fontWeight: FontWeight.w900,
@@ -1570,15 +1922,13 @@ class _DesktopScaffoldState extends State<DesktopScaffold>
                                 ? const Color.fromARGB(255, 87, 102, 4)
                                 : const Color.fromARGB(255, 229, 255, 0),
                             textlabel: 'Column x Row:',
-                            text:
-                                '${GlobalVariables.column} x ${GlobalVariables.row}'),
+                            text: '$column x $row'),
                         MyBox(
                             color: thememode.isDark
                                 ? const Color.fromARGB(255, 87, 102, 4)
                                 : const Color.fromARGB(255, 229, 255, 0),
                             textlabel: 'Modul Dimensions:',
-                            text:
-                                '${GlobalVariables.widthmodul} x ${GlobalVariables.heightmodul} mm'),
+                            text: '$widthmodul x $heightmodul mm'),
                         AnimatedBuilder(
                           animation: _controllerresolutioncapacity,
                           builder: (context, child) {
@@ -1595,7 +1945,7 @@ class _DesktopScaffoldState extends State<DesktopScaffold>
                                 textlabel:
                                     'Total Resolution | Total Resolution Capacity',
                                 text:
-                                    '${GlobalVariables.totalwidthpixels} x ${GlobalVariables.totalheightpixels} pixels | $formattedCount Pixels');
+                                    '$totalwidthpixels x $totalheightpixels pixels | $formattedCount Pixels');
                             // Text(
                             //   '${sequenceAnimation['counting'].value.toInt()}',
                             //   style: TextStyle(fontSize: 40),
@@ -1607,73 +1957,61 @@ class _DesktopScaffoldState extends State<DesktopScaffold>
                                 ? const Color.fromARGB(255, 189, 123, 0)
                                 : const Color.fromARGB(255, 255, 174, 0),
                             textlabel: 'Total Dimension:',
-                            text:
-                                '${GlobalVariables.totalwidthmeter} x ${GlobalVariables.totalheightmeter} meter'),
+                            text: '$totalwidthmeter x $totalheightmeter meter'),
                         MyBox(
                             color: thememode.isDark
                                 ? const Color.fromARGB(255, 189, 123, 0)
                                 : const Color.fromARGB(255, 255, 174, 0),
                             textlabel: 'Aspect Ratio:',
-                            text:
-                                '${GlobalVariables.stdratiowidth.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")} : ${GlobalVariables.stdratioheight.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")}'),
+                            text: '$stdratiowidth : $stdratioheight'),
                         MyBox(
                             color: thememode.isDark
                                 ? const Color.fromARGB(255, 10, 114, 139)
                                 : const Color.fromARGB(255, 0, 255, 255),
                             textlabel: 'Modul Resolution:',
-                            text:
-                                '${GlobalVariables.widthpixels} x ${GlobalVariables.heightpixels} px'),
+                            text: '$widthpixels x $heightpixels px'),
                         MyBox(
                             color: thememode.isDark
                                 ? const Color.fromARGB(255, 10, 114, 139)
                                 : const Color.fromARGB(255, 0, 255, 255),
                             textlabel: 'Modul Quantity:',
-                            text: '${GlobalVariables.modulcount} unit'),
+                            text: '$modulcount unit'),
                         MyBox(
                             color: thememode.isDark
                                 ? const Color.fromARGB(255, 10, 114, 139)
                                 : const Color.fromARGB(255, 0, 255, 255),
                             textlabel: 'Modul Weight:',
-                            text: '${GlobalVariables.modulcount} Kg'),
+                            text: '$modulcount Kg'),
                         MyBox(
                             color: thememode.isDark
                                 ? const Color.fromARGB(255, 134, 114, 0)
                                 : const Color.fromARGB(255, 255, 217, 0),
                             textlabel: 'PSU Quantity:',
-                            text: GlobalVariables.psu
-                                .toStringAsFixed(0)
-                                .replaceAllMapped(
-                                    RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                    (Match m) => "${m[1]}.")),
+                            text: psu),
                         MyBox(
                             color: thememode.isDark
                                 ? const Color.fromARGB(255, 134, 114, 0)
                                 : const Color.fromARGB(255, 255, 217, 0),
                             textlabel: 'RC Quantity (depends on port used)',
-                            text: GlobalVariables.rc
-                                .toStringAsFixed(0)
-                                .replaceAllMapped(
-                                    RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
-                                    (Match m) => "${m[1]}.")),
+                            text: rc),
                         MyBox(
                             color: thememode.isDark
                                 ? const Color.fromARGB(255, 83, 134, 0)
                                 : const Color.fromARGB(255, 115, 255, 0),
                             textlabel: 'LAN Cable Quantity:',
-                            text: GlobalVariables.tarikankabellanbulat
-                                .toString()),
+                            text: tarikankabellanbulat.toString()),
                         MyBox(
                             color: thememode.isDark
                                 ? const Color.fromARGB(255, 83, 134, 0)
                                 : const Color.fromARGB(255, 115, 255, 0),
                             textlabel: 'MCTRL600:',
-                            text: GlobalVariables.msd600count.toString()),
+                            text: msd600count.toString()),
                         MyBox(
                             color: thememode.isDark
                                 ? const Color.fromARGB(255, 83, 134, 0)
                                 : const Color.fromARGB(255, 115, 255, 0),
                             textlabel: 'MCTRL300:',
-                            text: GlobalVariables.msd300count.toString()),
+                            text: msd300count.toString()),
                         AnimatedBuilder(
                           animation: _controllerpower,
                           builder: (context, child) {
@@ -1698,45 +2036,42 @@ class _DesktopScaffoldState extends State<DesktopScaffold>
                                 ? const Color.fromARGB(255, 60, 77, 0)
                                 : const Color.fromARGB(255, 166, 212, 0),
                             textlabel: 'Average Power:',
-                            text:
-                                '${GlobalVariables.averagepowers.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")} - ${GlobalVariables.averagepowers2.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")} Watts'),
+                            text: '$averagepowers - $averagepowers2 Watts'),
                         MyBox(
                           color: thememode.isDark
                               ? const Color.fromARGB(255, 60, 77, 0)
                               : const Color.fromARGB(255, 166, 212, 0),
                           textlabel: 'Electric Current per Phase /220/3:',
                           text:
-                              'R: ${GlobalVariables.arus.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")} Ampere | S: ${GlobalVariables.arus.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")} Ampere | T: ${GlobalVariables.arus.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => "${m[1]}.")} Ampere',
+                              'R: $arus Ampere | S: $arus Ampere | T: $arus Ampere',
                         ),
                         MyBox(
                           color: thememode.isDark
                               ? const Color.fromARGB(255, 114, 51, 0)
                               : Colors.amber.shade900,
                           textlabel: 'Main Cable /wo Ground:',
-                          text:
-                              '4 x ${GlobalVariables.luaspenampangkabellistrik} mm',
+                          text: '4 x $luaspenampangkabellistrik mm',
                         ),
                         MyBox(
                           color: thememode.isDark
                               ? const Color.fromARGB(255, 114, 51, 0)
                               : Colors.amber.shade900,
                           textlabel: 'Main Cable /w Ground:',
-                          text:
-                              '5 x ${GlobalVariables.luaspenampangkabellistrik} mm',
+                          text: '5 x $luaspenampangkabellistrik mm',
                         ),
                         MyBox(
                           color: thememode.isDark
                               ? const Color.fromARGB(255, 0, 114, 108)
                               : const Color.fromARGB(255, 0, 255, 179),
                           textlabel: 'Processor:',
-                          text: GlobalVariables.processor,
+                          text: processor,
                         ),
                         MyBox(
                             color: thememode.isDark
                                 ? const Color.fromARGB(255, 0, 114, 108)
                                 : const Color.fromARGB(255, 0, 255, 179),
                             textlabel: 'Processor Alt',
-                            text: GlobalVariables.processoralt),
+                            text: processoralt),
                       ],
                     ),
                   ],
