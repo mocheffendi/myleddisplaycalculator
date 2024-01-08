@@ -650,11 +650,11 @@ class _AddModulCalculateState extends State<AddModulCalculate>
       GlobalVariables.luaspenampangkabellistrik = 6;
     }
 
-    if ((GlobalVariables.arus <= 39) && (GlobalVariables.arus >= 33)) {
+    if ((GlobalVariables.arus <= 39) && (GlobalVariables.arus >= 21)) {
       GlobalVariables.luaspenampangkabellistrik = 4;
     }
 
-    if ((GlobalVariables.arus <= 32) && (GlobalVariables.arus >= 1)) {
+    if ((GlobalVariables.arus <= 20) && (GlobalVariables.arus >= 1)) {
       GlobalVariables.luaspenampangkabellistrik = 2.5;
     }
 
@@ -780,7 +780,7 @@ class _AddModulCalculateState extends State<AddModulCalculate>
 
     if ((GlobalVariables.lan > 32) && (GlobalVariables.lan <= 36)) {
       GlobalVariables.processor =
-          '${GlobalVariables.processor8} + MCTRL600 5 unit';
+          '${GlobalVariables.processor8} + MCTRL600 9 unit';
       GlobalVariables.processoralt =
           '${GlobalVariables.processor11} + MCTRL600 9 unit';
     }

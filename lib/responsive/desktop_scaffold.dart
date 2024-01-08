@@ -162,85 +162,103 @@ class _DesktopScaffoldState extends State<DesktopScaffold>
       ),
       body: Row(
         children: [
-          SizedBox(
-            width: 400,
-            child: StreamBuilder<List<ItemModul>>(
-              stream: _itemsController.stream,
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                }
+          Stack(
+            children: [
+              SizedBox(
+                width: 300,
+                child: StreamBuilder<List<ItemModul>>(
+                  stream: _itemsController.stream,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    }
 
-                if (!snapshot.hasData) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
+                    if (!snapshot.hasData) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
 
-                List<ItemModul> items = snapshot.data!;
+                    List<ItemModul> items = snapshot.data!;
 
-                return GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 2.0,
-                    mainAxisSpacing: 2.0,
-                    // childAspectRatio: 300 / 400,
-                  ),
-                  itemCount: items.length,
-                  itemBuilder: (context, index) {
-                    Color randomColor = _getRandomColor();
-                    return GestureDetector(
-                      onTap: () {
-                        _selectedItemController.add(items[index]);
-                      },
-                      child: Card(
-                        elevation: 4, // Set elevation for shadow
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        color: randomColor,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(items[index].taskName),
-                            Text(
-                              'Pitch : ${items[index].pitch}',
-                              // style: labelTextStyleSmall
-                            ),
-                            const Text(
-                              'Total Resolution : ',
-                              // style: labelTextStyleSmall
-                            ),
-                            Text(
-                              '  ${items[index].totalwidthpixels} x ${items[index].totalheightpixels} px',
-                              // style: bodyTextStyleLarge
-                            ),
-                            const Text(
-                              'Total Dimension : ',
-                              // style: labelTextStyleSmall
-                            ),
-                            Text(
-                                '${items[index].totalwidthmeter} x ${items[index].totalheightmeter} meter'),
-                            const Text(
-                              'read more >',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontStyle: FontStyle.italic),
-                              // style: labelTextStyleSmall
-                            ),
-                          ],
-                        ),
+                    return GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 2.0,
+                        mainAxisSpacing: 2.0,
+                        // childAspectRatio: 300 / 400,
                       ),
+                      itemCount: items.length,
+                      itemBuilder: (context, index) {
+                        Color randomColor = _getRandomColor();
+                        return GestureDetector(
+                          onTap: () {
+                            _selectedItemController.add(items[index]);
+                          },
+                          child: Card(
+                            elevation: 4, // Set elevation for shadow
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            color: randomColor,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(items[index].taskName),
+                                Text(
+                                  'Pitch : ${items[index].pitch}',
+                                  // style: labelTextStyleSmall
+                                ),
+                                const Text(
+                                  'Total Resolution : ',
+                                  // style: labelTextStyleSmall
+                                ),
+                                Text(
+                                  '  ${items[index].totalwidthpixels} x ${items[index].totalheightpixels} px',
+                                  // style: bodyTextStyleLarge
+                                ),
+                                const Text(
+                                  'Total Dimension : ',
+                                  // style: labelTextStyleSmall
+                                ),
+                                Text(
+                                    '${items[index].totalwidthmeter} x ${items[index].totalheightmeter} meter'),
+                                const Text(
+                                  'read more >',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: FontStyle.italic),
+                                  // style: labelTextStyleSmall
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
                     );
                   },
-                );
-              },
-            ),
+                ),
+              ),
+              Positioned(
+                bottom: 8.0,
+                right: 8.0,
+                child: FloatingActionButton(
+                  onPressed: () {
+                    // Handle the onPressed event for the FloatingActionButton
+                    // For example, you can add a new item or perform any action
+                    // print('FloatingActionButton pressed');
+                  },
+                  child: const Icon(Icons.add),
+                ),
+              ),
+            ],
           ),
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.all(8.0),
-              color: Colors.grey[200],
+          Container(
+            width: 400,
+            padding: const EdgeInsets.all(8.0),
+            color: Colors.grey[200],
+            child: SingleChildScrollView(
               child: StreamBuilder<ItemModul>(
                 stream: _selectedItemController.stream,
                 builder: (context, snapshot) {
