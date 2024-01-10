@@ -165,7 +165,7 @@ class _DesktopScaffoldState extends State<DesktopScaffold>
           Stack(
             children: [
               SizedBox(
-                width: 300,
+                width: 400,
                 child: StreamBuilder<List<ItemModul>>(
                   stream: _itemsController.stream,
                   builder: (context, snapshot) {
@@ -248,6 +248,23 @@ class _DesktopScaffoldState extends State<DesktopScaffold>
                     // Handle the onPressed event for the FloatingActionButton
                     // For example, you can add a new item or perform any action
                     // print('FloatingActionButton pressed');
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Dialog Title'),
+                          content: const Text('This is a simple dialog.'),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('Close'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                   child: const Icon(Icons.add),
                 ),
@@ -255,7 +272,7 @@ class _DesktopScaffoldState extends State<DesktopScaffold>
             ],
           ),
           Container(
-            width: 400,
+            width: 450,
             padding: const EdgeInsets.all(8.0),
             color: Colors.grey[200],
             child: SingleChildScrollView(
@@ -541,8 +558,83 @@ class _DesktopScaffoldState extends State<DesktopScaffold>
               ),
             ),
           ),
+          Stack(
+            children: [
+              SizedBox(
+                width: 300.0,
+                height: 450.0,
+                child: Image.network(
+                    'https://images.tokopedia.net/img/cache/700/VqbcmM/2023/7/10/f4fd47cc-973b-4cb4-a78f-83e423cdca73.jpg'),
+              ),
+              const Positioned(
+                top: 270,
+                left: 100,
+                child: Text(
+                  '32 A',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+              ),
+              const Positioned(
+                top: 265,
+                left: 160,
+                child: Text(
+                  '32 A',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+              ),
+              const Positioned(
+                top: 260,
+                left: 220,
+                child: Text(
+                  '32 A',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
+  }
+}
+
+class CircuitBreakerPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    // Draw the body of the circuit breaker
+    Paint bodyPaint = Paint()..color = Colors.blueGrey;
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(Rect.fromLTRB(0, 0, size.width, size.height),
+          const Radius.circular(10.0)),
+      bodyPaint,
+    );
+
+    // Draw the switch handle
+    Paint switchHandlePaint = Paint()..color = Colors.grey;
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+          Rect.fromLTWH(size.width * 0.4, 10, size.width * 0.2, 20),
+          const Radius.circular(5.0)),
+      switchHandlePaint,
+    );
+
+    // Draw the "ON" label
+    TextSpan textSpan = const TextSpan(
+      text: 'ON',
+      style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+    );
+    TextPainter textPainter = TextPainter(
+      text: textSpan,
+      textAlign: TextAlign.center,
+      // textDirection: TextDirection.LTR,
+    );
+    textPainter.layout(minWidth: 0, maxWidth: size.width);
+    textPainter.paint(canvas,
+        Offset((size.width - textPainter.width) / 2, size.height * 0.7));
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return false;
   }
 }
