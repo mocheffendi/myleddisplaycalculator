@@ -6,6 +6,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_sequence_animation/flutter_sequence_animation.dart';
 import 'package:intl/intl.dart';
 import 'package:myleddisplaycalculator/component/box.dart';
+import 'package:myleddisplaycalculator/component/switch.dart';
+// import 'package:myleddisplaycalculator/component/switch.dart';
 import 'package:myleddisplaycalculator/theme/theme_provider.dart';
 import 'package:myleddisplaycalculator/model/modul_model.dart';
 import 'package:provider/provider.dart';
@@ -145,23 +147,90 @@ class _DesktopScaffoldState extends State<DesktopScaffold>
     super.dispose();
   }
 
-  Color _getRandomColor() {
+  Color _getRandomColor(BuildContext context) {
+    final thememode = Provider.of<ThemeProvider>(context);
+
+    // Random random = Random();
+    // int r = 200 + random.nextInt(56); // 200-255
+    // int g = 200 + random.nextInt(56); // 200-255
+    // int b = 200 + random.nextInt(56); // 200-255
+    // return Color.fromARGB(255, r, g, b);
+
+    if (thememode.isDark) {
+      return Colors.primaries[Random().nextInt(Colors.primaries.length)];
+    } else {
+      return _getRandomPastelColor();
+    }
+  }
+
+  Color _getRandomPastelColor() {
     Random random = Random();
-    int r = 200 + random.nextInt(56); // 200-255
-    int g = 200 + random.nextInt(56); // 200-255
-    int b = 200 + random.nextInt(56); // 200-255
+    int r = 200 + random.nextInt(56);
+    int g = 200 + random.nextInt(56);
+    int b = 200 + random.nextInt(56);
     return Color.fromARGB(255, r, g, b);
   }
 
   @override
   Widget build(BuildContext context) {
     final thememode = Provider.of<ThemeProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Flutter Firestore StreamBuilder'),
       ),
       body: Row(
         children: [
+          Stack(
+            children: [
+              Container(
+                width: 50,
+              ),
+              const Positioned(
+                bottom: 16.0,
+                left: 16,
+                child: Icon(Icons.settings),
+              ),
+              Positioned(
+                bottom: 50,
+                left: 8,
+                child: FloatingActionButton(
+                  mini: true,
+                  onPressed: () {
+                    // Handle the onPressed event for the FloatingActionButton
+                    // For example, you can add a new item or perform any action
+                    // print('FloatingActionButton pressed');
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Kamu team apa'),
+                          content: const Row(
+                            children: [
+                              Text('Light Mode or Dark Mode ?.'),
+                              SizedBox(
+                                width: 8,
+                              ),
+                              MySwitch(),
+                            ],
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('Close'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: const Icon(Icons.nights_stay),
+                ),
+              ),
+            ],
+          ),
           Stack(
             children: [
               SizedBox(
@@ -191,7 +260,7 @@ class _DesktopScaffoldState extends State<DesktopScaffold>
                       ),
                       itemCount: items.length,
                       itemBuilder: (context, index) {
-                        Color randomColor = _getRandomColor();
+                        Color randomColor = _getRandomColor(context);
                         return GestureDetector(
                           onTap: () {
                             _selectedItemController.add(items[index]);
@@ -274,7 +343,7 @@ class _DesktopScaffoldState extends State<DesktopScaffold>
           Container(
             width: 450,
             padding: const EdgeInsets.all(8.0),
-            color: Colors.grey[200],
+            // color: Colors.grey[200],
             child: SingleChildScrollView(
               child: StreamBuilder<ItemModul>(
                 stream: _selectedItemController.stream,
@@ -560,11 +629,22 @@ class _DesktopScaffoldState extends State<DesktopScaffold>
           ),
           Stack(
             children: [
-              SizedBox(
-                width: 300.0,
-                height: 450.0,
-                child: Image.network(
-                    'https://images.tokopedia.net/img/cache/700/VqbcmM/2023/7/10/f4fd47cc-973b-4cb4-a78f-83e423cdca73.jpg'),
+              // SizedBox(
+              //   width: 300.0,
+              //   height: 450.0,
+              //   child: Image.network(
+              //       'https://images.tokopedia.net/img/cache/700/VqbcmM/2023/7/10/f4fd47cc-973b-4cb4-a78f-83e423cdca73.jpg'),
+              // ),
+              Container(
+                width: 700.0,
+                height: 850.0,
+                decoration: BoxDecoration(
+                  image: const DecorationImage(
+                    image: AssetImage('assets/images/mcb_12tarikan.png'),
+                    fit: BoxFit.fitWidth,
+                  ),
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
               ),
               const Positioned(
                 top: 270,
